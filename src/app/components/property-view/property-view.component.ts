@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { PropertySearchService } from 'src/app/services/property-search/property-search.service';
-import { MatExpansionModule } from '@angular/material/expansion';
 
 @Component({
-  selector: 'app-property-view',
-  templateUrl: './property-view.component.html',
-  styleUrls: ['./property-view.component.css']
+    selector: 'app-property-view',
+    templateUrl: './property-view.component.html',
+    styleUrls: ['./property-view.component.css'],
+    standalone: false
 })
 
 
