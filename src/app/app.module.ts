@@ -8,6 +8,9 @@ import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 import { PropertyPanelComponent } from './components/property-panel/property-panel.component';
 import { PanelModule } from 'primeng/panel';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { providePrimeNG } from 'primeng/config';
+import Aura from '@primeng/themes/aura';
 
 @NgModule({ 
     declarations: [
@@ -22,5 +25,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
         PanelModule, 
         BrowserAnimationsModule
     ], 
-    providers: [provideHttpClient(withInterceptorsFromDi())] })
+    providers: [
+        provideHttpClient(withInterceptorsFromDi()), 
+        provideAnimationsAsync(),
+        providePrimeNG({
+            theme: {
+                preset: Aura
+            }
+        })
+    ] })
 export class AppModule { }
