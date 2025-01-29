@@ -6,12 +6,21 @@ import { AppComponent } from './app.component';
 import { PropertyViewComponent } from './components/property-view/property-view.component';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { PropertyPanelComponent } from './components/property-panel/property-panel.component';
+import { PanelModule } from 'primeng/panel';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-@NgModule({ declarations: [
+@NgModule({ 
+    declarations: [
         AppComponent,
         PropertyViewComponent,
-        PropertyPanelComponent
+        PropertyPanelComponent,
     ],
-    bootstrap: [AppComponent], imports: [BrowserModule,
-        AppRoutingModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
+    bootstrap: [AppComponent], 
+    imports: [
+        BrowserModule, 
+        AppRoutingModule, 
+        PanelModule, 
+        BrowserAnimationsModule
+    ], 
+    providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class AppModule { }

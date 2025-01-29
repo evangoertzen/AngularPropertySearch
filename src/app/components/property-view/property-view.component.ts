@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PropertySearchService } from 'src/app/services/property-search/property-search.service';
 
+
 @Component({
     selector: 'app-property-view',
     templateUrl: './property-view.component.html',
