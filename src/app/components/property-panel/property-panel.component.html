@@ -1,7 +1,7 @@
 <p-panel>
     <p-header class="ms-5">
         <div>
-            <h3>{{property.street}}</h3>
+            <h3>{{property.street}}  {{property.city}}, {{property.state}}</h3>
         </div>
     </p-header>
     <div class="container">
@@ -9,8 +9,11 @@
             <div class="col-4 p-1">
                 <img src={{property.primary_photo}} class="img-fluid">
             </div>
-            <div class="col-8 p-3">
-                <p>{{property.street}}</p>
+            <div class="col-4 p-3">
+                <p>Rent: ${{property.rent.toFixed(2)}}</p>
+            </div>
+            <div class="col-4 p-3">
+                <p>Cash flow: ${{property.cash_flow.toFixed(2)}}</p>
             </div>
         </div>
     </div>

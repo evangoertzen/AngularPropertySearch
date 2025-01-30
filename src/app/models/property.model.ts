@@ -42,4 +42,7 @@ export interface PropertyModel {
     nearby_schools: string;
 
     primary_photo: string;
+
+    rent: number;
+    cash_flow: number;
 }
