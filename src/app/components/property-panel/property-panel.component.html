@@ -10,10 +10,27 @@
                 <img src={{property.primary_photo}} class="img-fluid">
             </div>
             <div class="col-4 p-3">
-                <p>Rent: ${{property.rent.toFixed(2)}}</p>
+                <div class="row">
+                    <p>List price: ${{property.list_price.toFixed(2)}}</p>
+                </div>
+                <div class="row">
+                    <p>Mortgage payment (monthly): ${{calcService.calcMonthlyMortgagePayment(property).toFixed(2)}}</p>
+                </div>
             </div>
             <div class="col-4 p-3">
-                <p>Cash flow: ${{calcService.calcCashFlow(property).toFixed(2)}}</p>
+                <div class="row">
+                    <p>Rent: ${{property.rent.toFixed(2)}}</p>
+                </div>
+                <div class="row">
+                    <p>Cash flow: ${{calcService.calcCashFlow(property).toFixed(2)}}</p>
+                </div>
+                <div class="row">
+                    <div class="icon-text">
+                        <span>Meets 1% rule: {{(property.rent/property.list_price * 100).toFixed(0)}}% </span>
+                        <i *ngIf="(property.rent/property.list_price * 100) < 1" class="pi pi-times" style="color: red"></i>
+                        <i *ngIf="(property.rent/property.list_price * 100) >= 1" class="pi pi-check" style="color: green"></i>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
