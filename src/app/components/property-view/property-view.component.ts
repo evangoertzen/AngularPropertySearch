@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PropertyModel } from 'src/app/models/property.model';
 import { PropertySearchService } from 'src/app/services/property-search/property-search.service';
 
 
@@ -14,15 +15,15 @@ export class PropertyViewComponent implements OnInit {
 
   constructor(private propertySearch: PropertySearchService){}
 
-  properties: any = [];
+  properties: PropertyModel[] = [];
 
   ngOnInit(): void {
     this.propertySearch.getPropertyJson().subscribe( propList => {
-      this.properties = propList['properties'];
+      this.properties = propList;
       console.log(this.properties);
 
       console.log("Individual: ")
-      this.properties.array.forEach((prop: any) => {
+      this.properties.forEach((prop: any) => {
         console.log(prop)
       });
     })
