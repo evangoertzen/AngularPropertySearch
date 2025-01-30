@@ -26,7 +26,7 @@
                 </div>
                 <div class="row">
                     <div class="icon-text">
-                        <span>Meets 1% rule: {{(property.rent/property.list_price * 100).toFixed(0)}}% </span>
+                        <span>Meets 1% rule: {{(property.rent/property.list_price * 100).toFixed(2)}}% </span>
                         <i *ngIf="(property.rent/property.list_price * 100) < 1" class="pi pi-times" style="color: red"></i>
                         <i *ngIf="(property.rent/property.list_price * 100) >= 1" class="pi pi-check" style="color: green"></i>
                     </div>
