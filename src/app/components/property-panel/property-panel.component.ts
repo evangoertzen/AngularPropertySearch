@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { PropertyModel } from 'src/app/models/property.model';
+import { CalculatorServiceService } from 'src/app/services/calculator-service/calculator-service.service';
 
 @Component({
     selector: 'app-property-panel [property]',
@@ -10,5 +11,9 @@ import { PropertyModel } from 'src/app/models/property.model';
 export class PropertyPanelComponent {
 
     @Input() property!: PropertyModel;
+
+    constructor(
+        public calcService: CalculatorServiceService
+    ){}
 
 }

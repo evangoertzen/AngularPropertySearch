@@ -13,7 +13,7 @@
                 <p>Rent: ${{property.rent.toFixed(2)}}</p>
             </div>
             <div class="col-4 p-3">
-                <p>Cash flow: ${{property.cash_flow.toFixed(2)}}</p>
+                <p>Cash flow: ${{calcService.calcCashFlow(property).toFixed(2)}}</p>
             </div>
         </div>
     </div>
