@@ -11,6 +11,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeng/themes/aura';
+import { ProgressBarModule } from 'primeng/progressbar';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { ToastModule } from 'primeng/toast';
+import { DialogModule } from 'primeng/dialog';
 
 @NgModule({ 
     declarations: [
@@ -23,15 +27,16 @@ import Aura from '@primeng/themes/aura';
         BrowserModule, 
         AppRoutingModule, 
         PanelModule, 
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        ProgressBarModule,
+        ProgressSpinnerModule,
+        ToastModule,
+        DialogModule
     ], 
     providers: [
         provideHttpClient(withInterceptorsFromDi()), 
         provideAnimationsAsync(),
-        providePrimeNG({
-            theme: {
-                preset: Aura
-            }
-        })
-    ] })
+        providePrimeNG({ theme: { preset: Aura } })
+    ]
+ })
 export class AppModule { }

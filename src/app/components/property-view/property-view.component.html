@@ -1,5 +1,17 @@
+<div *ngIf="loadingProperties" class="d-flex justify-content-center align-items-center vh-100">
+    <!-- <p-progressbar mode="indeterminate" [style]="{ height: '6px' }" /> -->
+    <div>
+        <i class="pi pi-spin pi-cog" style="font-size: 2rem"></i>
+    </div>
+</div>
 <div *ngFor="let property of properties">
     <div class="m-3">
         <app-property-panel [property]="property"></app-property-panel>
+    </div>
+</div>
+<div *ngIf="showErr" class="d-flex text-danger justify-content-center align-items-center vh-100">
+    <div>
+        <i class="pi pi-exclamation-triangle pi-3x me-2" style="font-size: 2rem; vertical-align: middle;"></i>
+        <span class="align-middle" style="font-size: 1rem;">Error finding properties</span>
     </div>
 </div>
