@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { count, Observable } from 'rxjs';
 import { map } from 'rxjs';
 import { PropertyModel } from '../../models/property.model'
 
@@ -18,18 +18,25 @@ export class PropertySearchService {
 
   constructor(private http: HttpClient) { }
 
-  getPropertyJson(): Observable<PropertyModel[]>{
-    return this.http.get<{ properties: PropertyModel[] }>(apiUrl).pipe( 
+  getPropertyJson(location: string, minPrice: number, maxPrice: number): Observable<PropertyModel[]>{
+    return this.http.get<{ properties: PropertyModel[] }>(apiUrl, {
+      params : {
+        location: location,
+        limit: 10,
+        minPrice: minPrice,
+        maxPrice: maxPrice
+      }
+    }).pipe( 
       map(response => response.properties)
     );
   }
 
-  refreshProperties(){
+  refreshProperties(location: string, minPrice: number, maxPrice: number){
     this.properties = [];
     this.loadingProperties = true;
     this.showErr = false;
 
-    this.getPropertyJson().subscribe( propList => {
+    this.getPropertyJson(location, minPrice, maxPrice).subscribe( propList => {
 
       this.properties = propList;
       console.log(this.properties);

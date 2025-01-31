@@ -10,11 +10,6 @@ import { PropertySearchService } from 'src/app/services/property-search/property
 })
 
 
-export class PropertyViewComponent implements OnInit {
-
+export class PropertyViewComponent {
   constructor(public propertySearch: PropertySearchService){}
-
-  ngOnInit(): void {
-    this.propertySearch.refreshProperties();
-  }
 }

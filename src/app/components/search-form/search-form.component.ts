@@ -75,6 +75,13 @@ export class SearchFormComponent {
       }
     }
 
-    this.propSearch.refreshProperties();
+    // save down payment to calc?
+
+    const location = this.searchForm.get('location')?.value;
+    const minPrice = this.searchForm.get('minPrice')?.value;
+
+    if(location != null && minPrice != null && maxPrice != null){
+      this.propSearch.refreshProperties(location, minPrice, maxPrice);
+    }
   }
 }
