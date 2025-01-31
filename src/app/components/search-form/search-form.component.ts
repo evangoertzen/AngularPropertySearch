@@ -46,7 +46,9 @@ export class SearchFormComponent {
     
     downPaymentType: new FormControl('percentage', Validators.required),
     downPaymentPercentage: new FormControl(null, [Validators.min(0), Validators.max(100)]),
-    downPaymentNumber: new FormControl(null, [Validators.min(0)])
+    downPaymentNumber: new FormControl(null, [Validators.min(0)]),
+
+    listingType: new FormControl(null, Validators.required)
     
   }, { validators: [downPaymentTypeRequired, greaterThanValidator] });
   
@@ -57,12 +59,21 @@ export class SearchFormComponent {
   // house price range
   public maxCost = 1000000
   public minCost = 0
+
+  public listingTypes = {
+    'For Sale': 'for_sale',
+    'Sold': 'sold',
+    'Pending': 'pending'
+  }
+  
   
   constructor(
     private propSearch: PropertySearchService
   ){}
   
   onSubmit(){
+
+    console.log("On submit called");
 
     let downPaymentDollarAmount
 
@@ -79,9 +90,12 @@ export class SearchFormComponent {
 
     const location = this.searchForm.get('location')?.value;
     const minPrice = this.searchForm.get('minPrice')?.value;
+    const listingType = this.searchForm.get('listingType')?.value;
 
-    if(location != null && minPrice != null && maxPrice != null){
-      this.propSearch.refreshProperties(location, minPrice, maxPrice);
+    if(location != null && minPrice != null && maxPrice != null && listingType != null){
+      this.propSearch.refreshProperties(location, minPrice, maxPrice, listingType);
+    }else{
+      console.log("something not set");
     }
   }
 }

@@ -18,25 +18,26 @@ export class PropertySearchService {
 
   constructor(private http: HttpClient) { }
 
-  getPropertyJson(location: string, minPrice: number, maxPrice: number): Observable<PropertyModel[]>{
+  getPropertyJson(location: string, minPrice: number, maxPrice: number, listingType: string): Observable<PropertyModel[]>{
     return this.http.get<{ properties: PropertyModel[] }>(apiUrl, {
       params : {
         location: location,
         limit: 10,
         minPrice: minPrice,
-        maxPrice: maxPrice
+        maxPrice: maxPrice,
+        propertyType: listingType
       }
     }).pipe( 
       map(response => response.properties)
     );
   }
 
-  refreshProperties(location: string, minPrice: number, maxPrice: number){
+  refreshProperties(location: string, minPrice: number, maxPrice: number, listingType: string){
     this.properties = [];
     this.loadingProperties = true;
     this.showErr = false;
 
-    this.getPropertyJson(location, minPrice, maxPrice).subscribe( propList => {
+    this.getPropertyJson(location, minPrice, maxPrice, listingType).subscribe( propList => {
 
       this.properties = propList;
       console.log(this.properties);
