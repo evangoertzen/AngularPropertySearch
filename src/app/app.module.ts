@@ -15,23 +15,29 @@ import { ProgressBarModule } from 'primeng/progressbar';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ToastModule } from 'primeng/toast';
 import { DialogModule } from 'primeng/dialog';
+import { SearchFormComponent } from "./components/search-form/search-form.component";
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatSliderModule } from '@angular/material/slider';
 
 @NgModule({ 
     declarations: [
         AppComponent,
         PropertyViewComponent,
         PropertyPanelComponent,
+        SearchFormComponent
     ],
     bootstrap: [AppComponent], 
     imports: [
-        BrowserModule, 
-        AppRoutingModule, 
-        PanelModule, 
+        BrowserModule,
+        AppRoutingModule,
+        PanelModule,
         BrowserAnimationsModule,
         ProgressBarModule,
         ProgressSpinnerModule,
         ToastModule,
-        DialogModule
+        DialogModule,
+        ReactiveFormsModule,
+        MatSliderModule
     ], 
     providers: [
         provideHttpClient(withInterceptorsFromDi()), 

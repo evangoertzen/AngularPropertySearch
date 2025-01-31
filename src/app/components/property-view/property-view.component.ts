@@ -12,32 +12,9 @@ import { PropertySearchService } from 'src/app/services/property-search/property
 
 export class PropertyViewComponent implements OnInit {
 
-  constructor(private propertySearch: PropertySearchService){}
-
-  loadingProperties: boolean = false;
-  properties: PropertyModel[] = [];
-
-  showErr: boolean = false;
+  constructor(public propertySearch: PropertySearchService){}
 
   ngOnInit(): void {
-    this.getProperties();
-  }
-
-  getProperties(){
-    this.properties = [];
-    this.loadingProperties = true;
-    this.showErr = false;
-
-    this.propertySearch.getPropertyJson().subscribe( propList => {
-
-      this.properties = propList;
-      console.log(this.properties);
-
-      this.loadingProperties = false;
-
-    }, err => {
-      this.showErr = true;
-      this.loadingProperties = false;
-    })
+    this.propertySearch.refreshProperties();
   }
 }
