@@ -25,7 +25,7 @@ export class PropertySearchService {
         limit: 10,
         minPrice: minPrice,
         maxPrice: maxPrice,
-        propertyType: listingType
+        listingType: listingType
       }
     }).pipe( 
       map(response => response.properties)
