@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
+import { SearchFormModel } from 'src/app/models/searchForm.model';
 import { PropertySearchService } from 'src/app/services/property-search/property-search.service';
 
 
@@ -38,7 +39,6 @@ function greaterThanValidator(control: AbstractControl): ValidationErrors | null
 })
 export class SearchFormComponent {
   
-  
   searchForm = new FormGroup({
     location: new FormControl('Denver', [Validators.required]),
     minPrice: new FormControl(60000, [Validators.min(0), Validators.required]),
@@ -75,22 +75,15 @@ export class SearchFormComponent {
 
     console.log("On submit called");
 
-    let downPaymentDollarAmount
+    // set searchFormObj in propSearchService to the input values
+    const formData: SearchFormModel = this.searchForm.value as SearchFormModel;
+    this.propSearch.setSearchFormObj(formData);
 
-    const percentage = this.searchForm.get('downPaymentPercentage')?.value;
-    const maxPrice = this.searchForm.get('maxPrice')?.value;
-
-    if(this.searchForm.get('downPaymentType')?.value === 'percentage'){
-      if(percentage != null && maxPrice != null){
-        downPaymentDollarAmount = maxPrice * percentage / 100;
-      }
-    }
-
-    // save down payment to calc?
-
-    const location = this.searchForm.get('location')?.value;
-    const minPrice = this.searchForm.get('minPrice')?.value;
-    const listingType = this.searchForm.get('listingType')?.value;
+    // search for properties with criteria
+    const location = this.propSearch.searchFormObj?.location;
+    const minPrice = this.propSearch.searchFormObj?.minPrice;
+    const maxPrice = this.propSearch.searchFormObj?.maxPrice;
+    const listingType = this.propSearch.searchFormObj?.listingType;
 
     if(location != null && minPrice != null && maxPrice != null && listingType != null){
       this.propSearch.refreshProperties(location, minPrice, maxPrice, listingType);

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { count, Observable } from 'rxjs';
 import { map } from 'rxjs';
 import { PropertyModel } from '../../models/property.model'
+import { SearchFormModel } from 'src/app/models/searchForm.model';
 
 const apiUrl = 'http://localhost:8000/getProperties?location=chico&limit=100'
 
@@ -15,6 +16,8 @@ export class PropertySearchService {
   properties: PropertyModel[] = [];
 
   showErr: boolean = false;
+
+  public searchFormObj: SearchFormModel | null = null;
 
   constructor(private http: HttpClient) { }
 
@@ -30,6 +33,10 @@ export class PropertySearchService {
     }).pipe( 
       map(response => response.properties)
     );
+  }
+
+  setSearchFormObj(formData: SearchFormModel){
+    this.searchFormObj = formData;
   }
 
   refreshProperties(location: string, minPrice: number, maxPrice: number, listingType: string){
