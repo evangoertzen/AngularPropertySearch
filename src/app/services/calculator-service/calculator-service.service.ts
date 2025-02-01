@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { PropertyModel } from 'src/app/models/property.model';
+import { PropertySearchService } from '../property-search/property-search.service';
 
 const VACANCY_RATE = 0.05 // vacancy rate expressed as a ratio, ex. 0.05 = 5%
 const MANAGEMENT_FEE = 0.1 // management fee as ratio of rent'
@@ -16,7 +17,9 @@ const CAP_EX = 2000 // yearly capital expeses
 })
 export class CalculatorServiceService {
 
-  constructor() { }
+  constructor(
+    private propertySearchService: PropertySearchService
+  ) { }
 
   // market rent with no vacancy
   calcGrossPotentialRent(property: PropertyModel): number{
@@ -59,9 +62,17 @@ export class CalculatorServiceService {
   // get monthly mortgage payment
   // https://i.insider.com/617ad0d246a50c0018d40b41
   calcMonthlyMortgagePayment(property: PropertyModel){
-    let r = INTEREST_RATE / 12
-    let n = 12 * LOAN_TERM
-    return property['list_price'] * (r * ((1 + r) ** n)) / (((1 + r) ** n) - 1)
+    let r = INTEREST_RATE / 12;
+    let n = 12 * LOAN_TERM;
+
+    let debtTotal = 0;
+    if(this.propertySearchService.searchFormObj?.downPaymentType === 'number' && this.propertySearchService.searchFormObj?.downPaymentNumber != null){
+      debtTotal = property.list_price - this.propertySearchService.searchFormObj?.downPaymentNumber;
+    } else if (this.propertySearchService.searchFormObj?.downPaymentPercentage != null) { //percentage
+      debtTotal = property.list_price * ((100 - this.propertySearchService.searchFormObj?.downPaymentPercentage) / 100);
+    }
+
+    return debtTotal * (r * ((1 + r) ** n)) / (((1 + r) ** n) - 1)
   }
 
 

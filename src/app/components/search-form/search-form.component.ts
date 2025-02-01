@@ -54,7 +54,8 @@ export class SearchFormComponent {
   
   submitted = false;
   
-  selectedDownPaymentMethod = 'percentage';
+  // either 'percentage' or 'number'
+  selectedDownPaymentMethod = 'percentage'; 
   
   // house price range
   public maxCost = 1000000
