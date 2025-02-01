@@ -40,7 +40,7 @@ export class SearchFormComponent {
   
   
   searchForm = new FormGroup({
-    location: new FormControl('Chico, CA', [Validators.required]),
+    location: new FormControl('Denver', [Validators.required]),
     minPrice: new FormControl(60000, [Validators.min(0), Validators.required]),
     maxPrice: new FormControl(800000, [Validators.min(0)]),
     

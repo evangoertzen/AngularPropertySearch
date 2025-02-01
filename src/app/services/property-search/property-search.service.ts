@@ -22,7 +22,7 @@ export class PropertySearchService {
     return this.http.get<{ properties: PropertyModel[] }>(apiUrl, {
       params : {
         location: location,
-        limit: 10,
+        limit: 10000,
         minPrice: minPrice,
         maxPrice: maxPrice,
         listingType: listingType
