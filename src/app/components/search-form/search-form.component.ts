@@ -61,9 +61,9 @@ export class SearchFormComponent {
   public minCost = 0
 
   public listingTypes = {
-    'For Sale': 'for_sale',
-    'Sold': 'sold',
-    'Pending': 'pending'
+    'For Sale': 'FOR_SALE',
+    'Sold': 'SOLD',
+    'Pending': 'PENDING'
   }
   
   
