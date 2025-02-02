@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { SearchFormModel } from 'src/app/models/searchForm.model';
 import { PropertySearchService } from 'src/app/services/property-search/property-search.service';
@@ -37,20 +37,9 @@ function greaterThanValidator(control: AbstractControl): ValidationErrors | null
   styleUrl: './search-form.component.css',
   standalone: false
 })
-export class SearchFormComponent {
+export class SearchFormComponent implements OnInit{
   
-  searchForm = new FormGroup({
-    location: new FormControl('Denver', [Validators.required]),
-    minPrice: new FormControl(60000, [Validators.min(0), Validators.required]),
-    maxPrice: new FormControl(800000, [Validators.min(0)]),
-    
-    downPaymentType: new FormControl('percentage', Validators.required),
-    downPaymentPercentage: new FormControl(null, [Validators.min(0), Validators.max(100)]),
-    downPaymentNumber: new FormControl(null, [Validators.min(0)]),
-
-    listingType: new FormControl(null, Validators.required)
-    
-  }, { validators: [downPaymentTypeRequired, greaterThanValidator] });
+  searchForm: FormGroup;
   
   submitted = false;
   
@@ -70,8 +59,41 @@ export class SearchFormComponent {
   
   constructor(
     private propSearch: PropertySearchService
-  ){}
+  ){
+    this.searchForm = new FormGroup({
+      location: new FormControl('Denver', [Validators.required]),
+      minPrice: new FormControl(60000, [Validators.min(0), Validators.required]),
+      maxPrice: new FormControl(800000, [Validators.min(0)]),
+      
+      downPaymentType: new FormControl('percentage', Validators.required),
+      downPaymentPercentage: new FormControl(null, [Validators.min(0), Validators.max(100)]),
+      downPaymentNumber: new FormControl(null, [Validators.min(0)]),
   
+      listingType: new FormControl(null, Validators.required)
+      
+    }, { validators: [downPaymentTypeRequired, greaterThanValidator] });
+  }
+
+  ngOnInit(): void {
+
+    // if form has already been submitted, use those values
+    if(this.propSearch.searchFormObj){
+      this.searchForm.setValue({
+        location: this.propSearch.searchFormObj.location,
+        minPrice: this.propSearch.searchFormObj.minPrice,
+        maxPrice: this.propSearch.searchFormObj.maxPrice,
+        downPaymentType: this.propSearch.searchFormObj.downPaymentType,
+        downPaymentPercentage: this.propSearch.searchFormObj.downPaymentPercentage,
+        downPaymentNumber: this.propSearch.searchFormObj.downPaymentNumber,
+        listingType: this.propSearch.searchFormObj.listingType,
+      });
+
+      if(this.propSearch.searchFormObj.downPaymentType){
+        this.selectedDownPaymentMethod = this.propSearch.searchFormObj.downPaymentType;
+      }
+    }
+  }
+
   onSubmit(){
 
     console.log("On submit called");

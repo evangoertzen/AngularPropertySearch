@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PropertyViewComponent } from './components/home-page/property-view/property-view.component';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import { PropertyPanelComponent } from './components/home-page/property-panel/property-panel.component';
+import { PropertyPanelComponent } from './components/home-page/property-view/property-panel/property-panel.component';
 import { PanelModule } from 'primeng/panel';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
@@ -18,9 +18,10 @@ import { DialogModule } from 'primeng/dialog';
 import { SearchFormComponent } from "./components/home-page/search-form/search-form.component";
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSliderModule } from '@angular/material/slider';
-import { RentDisplayComponent } from "./components/home-page/property-panel/rent-display/rent-display/rent-display.component";
+import { RentDisplayComponent } from "./components/home-page/property-view/property-panel/rent-display/rent-display/rent-display.component";
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { NavbarComponent } from "./components/navbar/navbar.component";
+import { AnalysisComponent } from './components/analysis/analysis.component';
 
 @NgModule({ 
     declarations: [
@@ -30,7 +31,8 @@ import { NavbarComponent } from "./components/navbar/navbar.component";
         SearchFormComponent,
         RentDisplayComponent,
         HomePageComponent,
-        NavbarComponent
+        NavbarComponent,
+        AnalysisComponent
     ],
     bootstrap: [AppComponent], 
     imports: [
