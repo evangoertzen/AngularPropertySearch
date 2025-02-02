@@ -1,0 +1,13 @@
+<div *ngIf="!property?.rent && !rentLoading">
+    <button (click)="getRent()">
+        Get rent for property
+    </button>
+</div>
+
+<div *ngIf="rentLoading">
+    Loading...
+</div>
+
+<div *ngIf="property?.rent">
+    <p>Rent: ${{property.rent.toFixed(2)}}</p>
+</div>

@@ -18,27 +18,29 @@ import { DialogModule } from 'primeng/dialog';
 import { SearchFormComponent } from "./components/search-form/search-form.component";
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSliderModule } from '@angular/material/slider';
+import { RentDisplayComponent } from "./components/property-panel/rent-display/rent-display/rent-display.component";
 
 @NgModule({ 
     declarations: [
         AppComponent,
         PropertyViewComponent,
         PropertyPanelComponent,
-        SearchFormComponent
+        SearchFormComponent,
+        RentDisplayComponent
     ],
     bootstrap: [AppComponent], 
     imports: [
-        BrowserModule,
-        AppRoutingModule,
-        PanelModule,
-        BrowserAnimationsModule,
-        ProgressBarModule,
-        ProgressSpinnerModule,
-        ToastModule,
-        DialogModule,
-        ReactiveFormsModule,
-        MatSliderModule
-    ], 
+    BrowserModule,
+    AppRoutingModule,
+    PanelModule,
+    BrowserAnimationsModule,
+    ProgressBarModule,
+    ProgressSpinnerModule,
+    ToastModule,
+    DialogModule,
+    ReactiveFormsModule,
+    MatSliderModule
+], 
     providers: [
         provideHttpClient(withInterceptorsFromDi()), 
         provideAnimationsAsync(),

@@ -4,23 +4,30 @@ import { PropertySearchService } from 'src/app/services/property-search/property
 
 @Component({
   selector: 'app-rent-display [property]',
-  imports: [],
   templateUrl: './rent-display.component.html',
-  styleUrl: './rent-display.component.css'
+  styleUrl: './rent-display.component.css',
+  standalone: false
 })
 export class RentDisplayComponent {
 
   
-  constructor(propertySearchService: PropertySearchService){}
+  constructor(private propertySearchService: PropertySearchService){}
   
   @Input()
   property!: PropertyModel;
   
-  rentLoaded: boolean = (this.property?.rent != null);
+  // rentLoaded: boolean = (this.property.rent != null);
   rentLoading: boolean = false;
 
   getRent(){
     this.rentLoading = true;
+    console.log("Getting rent");
+    this.propertySearchService.getRent(this.property.street + ' ' + ' ' + this.property.unit + ' ' + this.property.city + ' ' + this.property.state).subscribe( rent => {
+      this.rentLoading = false;
+      this.property.rent = rent;
+    }, err => {
+      console.log("Couldn't get rent")
+    })
 
   }
 

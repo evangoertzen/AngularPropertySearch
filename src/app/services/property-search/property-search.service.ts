@@ -5,7 +5,8 @@ import { map } from 'rxjs';
 import { PropertyModel } from '../../models/property.model'
 import { SearchFormModel } from 'src/app/models/searchForm.model';
 
-const apiUrl = 'http://localhost:8000/getProperties?location=chico&limit=100'
+const propSearchURL = 'http://localhost:8000/getProperties'
+const rentCalcURL = 'http://localhost:8000/getRent'
 
 @Injectable({
   providedIn: 'root'
@@ -17,12 +18,13 @@ export class PropertySearchService {
 
   showErr: boolean = false;
 
+  // object used in other services (calculator) for financials
   public searchFormObj: SearchFormModel | null = null;
 
   constructor(private http: HttpClient) { }
 
-  getPropertyJson(location: string, minPrice: number, maxPrice: number, listingType: string): Observable<PropertyModel[]>{
-    return this.http.get<{ properties: PropertyModel[] }>(apiUrl, {
+  private getPropertyJson(location: string, minPrice: number, maxPrice: number, listingType: string): Observable<PropertyModel[]>{
+    return this.http.get<{ properties: PropertyModel[] }>(propSearchURL, {
       params : {
         location: location,
         limit: 10000,
@@ -35,25 +37,36 @@ export class PropertySearchService {
     );
   }
 
-  setSearchFormObj(formData: SearchFormModel){
-    this.searchFormObj = formData;
-  }
+  searchProperties(searchForm: SearchFormModel){
 
-  refreshProperties(location: string, minPrice: number, maxPrice: number, listingType: string){
+    this.searchFormObj = searchForm;
+
     this.properties = [];
     this.loadingProperties = true;
     this.showErr = false;
 
-    this.getPropertyJson(location, minPrice, maxPrice, listingType).subscribe( propList => {
+    if(searchForm.location != null && searchForm.minPrice != null && searchForm.maxPrice != null && searchForm.listingType != null){
+      this.getPropertyJson(searchForm.location, searchForm.minPrice, searchForm.maxPrice, searchForm.listingType).subscribe( propList => {
+  
+        this.properties = propList;
+        console.log(this.properties);
+  
+        this.loadingProperties = false;
+  
+      }, err => {
+        this.showErr = true;
+        this.loadingProperties = false;
+      })
+    } else {
+      console.log("Can't load properties. Something not set.");
+    }
+  }
 
-      this.properties = propList;
-      console.log(this.properties);
-
-      this.loadingProperties = false;
-
-    }, err => {
-      this.showErr = true;
-      this.loadingProperties = false;
+  getRent(address: string){
+    return this.http.get<number>(rentCalcURL, {
+      params : {
+        address: address
+      }
     })
   }
 
