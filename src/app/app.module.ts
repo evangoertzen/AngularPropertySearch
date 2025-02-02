@@ -22,6 +22,7 @@ import { RentDisplayComponent } from "./components/home-page/property-view/prope
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { NavbarComponent } from "./components/navbar/navbar.component";
 import { AnalysisComponent } from './components/analysis/analysis.component';
+import { MapComponent } from './components/map/map.component';
 
 @NgModule({ 
     declarations: [
@@ -32,7 +33,8 @@ import { AnalysisComponent } from './components/analysis/analysis.component';
         RentDisplayComponent,
         HomePageComponent,
         NavbarComponent,
-        AnalysisComponent
+        AnalysisComponent,
+        MapComponent
     ],
     bootstrap: [AppComponent], 
     imports: [
