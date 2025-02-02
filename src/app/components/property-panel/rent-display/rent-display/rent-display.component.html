@@ -1,13 +1,23 @@
-<div *ngIf="!property?.rent && !rentLoading">
+<div *ngIf="!property?.rent && !rentLoading && !rentErr">
     <button (click)="getRent()">
         Get rent for property
     </button>
 </div>
 
-<div *ngIf="rentLoading">
-    Loading...
+<div *ngIf="rentLoading" class="d-flex justify-content-center">
+    <!-- Loading... -->
+    <i class="pi pi-spin pi-cog" style="font-size: 1rem"></i>
 </div>
 
 <div *ngIf="property?.rent">
     <p>Rent: ${{property.rent.toFixed(2)}}</p>
 </div>
+
+<div *ngIf="rentErr" class="text-danger">
+    <i class="pi pi-exclamation-triangle pi-3x me-2" style="font-size: 1.1rem; vertical-align: middle;"></i>
+    <span class="align-middle" style="font-size: 1rem;">Error </span>
+    <button (click)="getRent()">
+        <i class="pi pi-refresh" style="font-size: 1rem"></i>
+    </button>
+</div>
+

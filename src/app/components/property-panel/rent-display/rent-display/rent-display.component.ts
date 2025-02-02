@@ -16,16 +16,19 @@ export class RentDisplayComponent {
   @Input()
   property!: PropertyModel;
   
-  // rentLoaded: boolean = (this.property.rent != null);
   rentLoading: boolean = false;
+  rentErr: boolean = false;
 
   getRent(){
     this.rentLoading = true;
+    this.rentErr = false;
     console.log("Getting rent");
-    this.propertySearchService.getRent(this.property.street + ' ' + ' ' + this.property.unit + ' ' + this.property.city + ' ' + this.property.state).subscribe( rent => {
+    this.propertySearchService.getRent(this.property.street + ' ' + this.property.unit + ' ' + this.property.city + ' ' + this.property.state).subscribe( rent => {
       this.rentLoading = false;
       this.property.rent = rent;
     }, err => {
+      this.rentLoading = false;
+      this.rentErr = true;
       console.log("Couldn't get rent")
     })
 
