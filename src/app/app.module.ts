@@ -3,9 +3,9 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { PropertyViewComponent } from './components/property-view/property-view.component';
+import { PropertyViewComponent } from './components/home-page/property-view/property-view.component';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import { PropertyPanelComponent } from './components/property-panel/property-panel.component';
+import { PropertyPanelComponent } from './components/home-page/property-panel/property-panel.component';
 import { PanelModule } from 'primeng/panel';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
@@ -15,10 +15,11 @@ import { ProgressBarModule } from 'primeng/progressbar';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ToastModule } from 'primeng/toast';
 import { DialogModule } from 'primeng/dialog';
-import { SearchFormComponent } from "./components/search-form/search-form.component";
+import { SearchFormComponent } from "./components/home-page/search-form/search-form.component";
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSliderModule } from '@angular/material/slider';
-import { RentDisplayComponent } from "./components/property-panel/rent-display/rent-display/rent-display.component";
+import { RentDisplayComponent } from "./components/home-page/property-panel/rent-display/rent-display/rent-display.component";
+import { HomePageComponent } from './components/home-page/home-page.component';
 
 @NgModule({ 
     declarations: [
@@ -26,7 +27,8 @@ import { RentDisplayComponent } from "./components/property-panel/rent-display/r
         PropertyViewComponent,
         PropertyPanelComponent,
         SearchFormComponent,
-        RentDisplayComponent
+        RentDisplayComponent,
+        HomePageComponent
     ],
     bootstrap: [AppComponent], 
     imports: [
