@@ -11,19 +11,39 @@ export class MapComponent implements OnInit, OnDestroy {
 
   private map!: L.Map;
 
+  private locations: { name: string; coords: [number, number] }[] = [
+    { name: 'San Francisco', coords: [37.7749, -122.4194] },
+    { name: 'New York City', coords: [40.7128, -74.0060] },
+    { name: 'Los Angeles', coords: [34.0522, -118.2437] },
+    { name: 'Chicago', coords: [41.8781, -87.6298] }
+  ];
+
   ngOnInit(): void {
     // Initialize the map centered at a default location
     this.map = L.map('map').setView([37.7749, -122.4194], 12); // San Francisco
 
     // Add OpenStreetMap tile layer (Free & No API Key Needed)
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; OpenStreetMap contributors'
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+      // attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+      subdomains: 'abcd',
+      maxZoom: 20
     }).addTo(this.map);
 
+    const customIcon = L.icon({
+      iconUrl: 'assets/custom-marker.png', // Make sure this path is correct
+      iconSize: [32, 32], // Size of the icon
+      iconAnchor: [16, 32], // Point of the icon that will be anchored to the marker
+      popupAnchor: [0, -32], // Where the popup will open relative to the icon
+    });
+
     // Add a marker
-    L.marker([37.7749, -122.4194]).addTo(this.map)
-      .bindPopup('San Francisco')
-      .openPopup();
+    this.locations.forEach(location => {
+      L.marker(location.coords)
+        .addTo(this.map)
+    });
+
+    const bounds = L.latLngBounds(this.locations.map(loc => loc.coords));
+    this.map.fitBounds(bounds);
   }
 
   ngOnDestroy(): void {
