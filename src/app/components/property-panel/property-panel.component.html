@@ -1,7 +1,10 @@
 <p-panel>
     <p-header class="ms-5">
-        <div>
-            <h3>{{property.street}}  {{property.city}}, {{property.state}}</h3>
+        <div *ngIf="property.unit != '0'">
+            <h3>{{property.street}} {{property.unit}}  {{property.city}}, {{property.state}}</h3>
+        </div>
+        <div *ngIf="property.unit == '0'">
+            <h3>{{property.street}} {{property.city}}, {{property.state}}</h3>
         </div>
     </p-header>
     <div class="container">
@@ -14,22 +17,41 @@
                     <p>List price: ${{property.list_price.toFixed(2)}}</p>
                 </div>
                 <div class="row">
-                    <p>Mortgage payment (monthly): ${{calcService.calcMonthlyMortgagePayment(property).toFixed(2)}}</p>
+                    <p>Status: {{property.status}}</p>
                 </div>
+                <div class="row">
+                    <p>Beds: {{property.beds}}</p>
+                </div>
+                <div class="row">
+                    <p>Full Baths: {{property.full_baths}}</p>
+                </div>
+                <div class="row">
+                    <p>Half Baths: {{property.half_baths}}</p>
+                </div>
+                <div class="row">
+                    <p>Square Feet: {{property.sqft}}</p>
+                </div>
+                <div class="row">
+                    <p>Year Built: {{property.year_built}}</p>
+                </div>
+
             </div>
             <div class="col-4 p-3">
                 <div class="row">
-                    <p>Rent: ${{property.rent.toFixed(2)}}</p>
+                    <app-rent-display [property]="property"></app-rent-display>
                 </div>
                 <div class="row">
                     <p>Cash flow: ${{calcService.calcCashFlow(property).toFixed(2)}}</p>
                 </div>
-                <div class="row">
-                    <div class="icon-text">
+                <div class="row icon-text">
+                    <p>
                         <span>Meets 1% rule: {{(property.rent/property.list_price * 100).toFixed(2)}}% </span>
                         <i *ngIf="(property.rent/property.list_price * 100) < 1" class="pi pi-times" style="color: red"></i>
                         <i *ngIf="(property.rent/property.list_price * 100) >= 1" class="pi pi-check" style="color: green"></i>
-                    </div>
+                    </p>
+                </div>
+                <div class="row">
+                    <p>Mortgage payment (monthly): ${{calcService.calcMonthlyMortgagePayment(property).toFixed(2)}}</p>
                 </div>
             </div>
         </div>
