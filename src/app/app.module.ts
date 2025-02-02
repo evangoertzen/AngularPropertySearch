@@ -20,6 +20,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatSliderModule } from '@angular/material/slider';
 import { RentDisplayComponent } from "./components/home-page/property-panel/rent-display/rent-display/rent-display.component";
 import { HomePageComponent } from './components/home-page/home-page.component';
+import { NavbarComponent } from "./components/navbar/navbar.component";
 
 @NgModule({ 
     declarations: [
@@ -28,7 +29,8 @@ import { HomePageComponent } from './components/home-page/home-page.component';
         PropertyPanelComponent,
         SearchFormComponent,
         RentDisplayComponent,
-        HomePageComponent
+        HomePageComponent,
+        NavbarComponent
     ],
     bootstrap: [AppComponent], 
     imports: [
@@ -41,7 +43,7 @@ import { HomePageComponent } from './components/home-page/home-page.component';
     ToastModule,
     DialogModule,
     ReactiveFormsModule,
-    MatSliderModule
+    MatSliderModule,
 ], 
     providers: [
         provideHttpClient(withInterceptorsFromDi()), 
