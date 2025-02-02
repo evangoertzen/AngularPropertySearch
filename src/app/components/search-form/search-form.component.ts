@@ -78,18 +78,6 @@ export class SearchFormComponent {
 
     // set searchFormObj in propSearchService to the input values
     const formData: SearchFormModel = this.searchForm.value as SearchFormModel;
-    this.propSearch.setSearchFormObj(formData);
-
-    // search for properties with criteria
-    const location = this.propSearch.searchFormObj?.location;
-    const minPrice = this.propSearch.searchFormObj?.minPrice;
-    const maxPrice = this.propSearch.searchFormObj?.maxPrice;
-    const listingType = this.propSearch.searchFormObj?.listingType;
-
-    if(location != null && minPrice != null && maxPrice != null && listingType != null){
-      this.propSearch.refreshProperties(location, minPrice, maxPrice, listingType);
-    }else{
-      console.log("something not set");
-    }
+    this.propSearch.searchProperties(formData);
   }
 }
