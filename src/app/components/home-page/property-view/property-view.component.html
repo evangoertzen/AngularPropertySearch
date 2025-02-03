@@ -1,15 +1,24 @@
-<div *ngIf="propertySearch.loadingProperties" class="d-flex justify-content-center align-items-center vh-100">
-    <div>
+<div *ngIf="propertySearch.loadingProperties" class="d-flex justify-content-center align-items-center h-100">
         <i class="pi pi-spin pi-cog" style="font-size: 2rem"></i>
+</div>
+
+<div *ngIf="propertySearch.properties.length > 0" class="flex-grow-1">
+    <div *ngFor="let property of propertySearch.properties" class="flex-grow-1">
+        <div class="pb-3">
+            <app-property-panel [property]="property"></app-property-panel>
+        </div>
     </div>
 </div>
-<div *ngFor="let property of propertySearch.properties">
-    <div class="m-3">
-        <app-property-panel [property]="property"></app-property-panel>
+
+<div *ngIf="propertySearch.searchFinished && propertySearch.properties.length === 0" class="d-flex text-danger justify-content-center align-items-center h-100">
+    <div class="d-flex align-items-center">
+        <i class="pi pi-exclamation-triangle pi-3x me-2" style="font-size: 2rem; vertical-align: middle;"></i>
+        <span class="align-middle" style="font-size: 1rem;">No properties found</span>
     </div>
 </div>
-<div *ngIf="propertySearch.showErr" class="d-flex text-danger justify-content-center align-items-center vh-100">
-    <div>
+
+<div *ngIf="propertySearch.searchFinished && propertySearch.showErr" class="d-flex text-danger justify-content-center align-items-center h-100">
+    <div class="d-flex align-items-center">
         <i class="pi pi-exclamation-triangle pi-3x me-2" style="font-size: 2rem; vertical-align: middle;"></i>
         <span class="align-middle" style="font-size: 1rem;">Error finding properties</span>
     </div>

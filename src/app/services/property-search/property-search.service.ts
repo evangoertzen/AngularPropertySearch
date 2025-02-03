@@ -14,6 +14,7 @@ const rentCalcURL = 'http://localhost:8000/getRent'
 export class PropertySearchService {
 
   loadingProperties: boolean = false;
+  searchFinished: boolean = false;
   properties: PropertyModel[] = [];
 
   showErr: boolean = false;
@@ -44,6 +45,7 @@ export class PropertySearchService {
     this.properties = [];
     this.loadingProperties = true;
     this.showErr = false;
+    this.searchFinished = false;
 
     if(searchForm.location != null && searchForm.minPrice != null && searchForm.maxPrice != null && searchForm.listingType != null){
       this.getPropertyJson(searchForm.location, searchForm.minPrice, searchForm.maxPrice, searchForm.listingType).subscribe( propList => {
@@ -52,10 +54,12 @@ export class PropertySearchService {
         console.log(this.properties);
   
         this.loadingProperties = false;
+        this.searchFinished = true;
   
       }, err => {
         this.showErr = true;
         this.loadingProperties = false;
+        this.searchFinished = true;
       })
     } else {
       console.log("Can't load properties. Something not set.");
