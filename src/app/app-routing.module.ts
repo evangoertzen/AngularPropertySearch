@@ -6,7 +6,6 @@ import { AnalysisComponent } from './components/analysis/analysis.component';
 const routes: Routes = [
   { path: '', component: HomePageComponent},
   { path: 'analysis', component: AnalysisComponent },
-  { path: 'analysis/:mls_id', component: AnalysisComponent }
 ];
 
 @NgModule({

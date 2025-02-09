@@ -91,7 +91,7 @@ export class MapComponent implements OnInit, OnDestroy {
 
   markerClicked(mls_id: String){
     console.log("Clicked on property: " + mls_id);
-    this.router.navigate(['analysis', mls_id])
+    this.router.navigate(['analysis'], { queryParams: { mls_id: mls_id } })
     
   }
 
