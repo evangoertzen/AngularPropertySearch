@@ -11,11 +11,21 @@ import { Router } from '@angular/router';
 
 const iconPath = "../../../assets/custom-marker.png"
 
-const customIcon = L.icon({
-  iconUrl: iconPath,
-  iconSize: [32, 44], // Size of the icon
-  iconAnchor: [16, 32], // Point of the icon that will be anchored to the marker
-  popupAnchor: [0, -32], // Where the popup will open relative to the icon
+// const customIcon = L.icon({
+//   iconUrl: iconPath,
+
+//   iconSize: [30, 44], // Size of the icon
+//   iconAnchor: [16, 32], 
+//   popupAnchor: [0, -32],
+//   className: 'custom-marker'
+// });
+
+const customIcon = L.divIcon({
+  className: 'custom-marker',
+  html: '<i class="material-icons">location_on</i>',
+  iconSize: [50, 50],
+  iconAnchor: [16, 32],
+  popupAnchor: [0, -32]
 });
 
 @Component({
@@ -92,7 +102,11 @@ export class MapComponent implements OnInit, OnDestroy {
 
     // add markers to map
     this.locations.forEach(location => {
-      L.marker(location.coords, {icon: customIcon})
+      L.marker(location.coords, 
+        {
+          riseOnHover: true,
+          icon: customIcon,
+        })
         .addTo(this.map)
         .on('click', () => this.markerClicked(location.mls_id));
     });
