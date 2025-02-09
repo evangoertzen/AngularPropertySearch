@@ -73,6 +73,14 @@ export class MapComponent implements OnInit, OnDestroy {
   refreshMap(){
     this.locations = [];
 
+    // remove previous markers if user searches again
+    this.map.eachLayer(layer => {
+      if (layer instanceof L.Marker) {
+        this.map.removeLayer(layer);
+      }
+    });
+
+    // store locations
     this.propertySearch.properties.forEach( property => {
       this.locations.push(
         {
@@ -82,13 +90,14 @@ export class MapComponent implements OnInit, OnDestroy {
       )
     })
 
-    // Add a marker
+    // add markers to map
     this.locations.forEach(location => {
       L.marker(location.coords, {icon: customIcon})
         .addTo(this.map)
         .on('click', () => this.markerClicked(location.mls_id));
     });
 
+    // float to markers
     const bounds = L.latLngBounds(this.locations.map(loc => loc.coords));
     this.map.flyToBounds(bounds);
   }
