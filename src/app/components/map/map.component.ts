@@ -3,6 +3,7 @@ import * as L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { Subscription } from 'rxjs';
 import { PropertySearchService } from 'src/app/services/property-search/property-search.service';
+import { Router } from '@angular/router';
 
 // may need these imports in the future if leaflet won't show icon
 // import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css';
@@ -36,10 +37,11 @@ export class MapComponent implements OnInit, OnDestroy {
   //   { name: 'Chicago', coords: [41.8781, -87.6298] }
   // ];
 
-  private locations: { name: string; coords: [number, number] }[] = []
+  private locations: { mls_id: string; coords: [number, number] }[] = []
 
   constructor(
-    private propertySearch: PropertySearchService
+    private propertySearch: PropertySearchService,
+    private router: Router
   ){}
 
   ngOnInit(): void {
@@ -68,23 +70,29 @@ export class MapComponent implements OnInit, OnDestroy {
     this.propertySearch.properties.forEach( property => {
       this.locations.push(
         {
-          name: property.mls_id,
+          mls_id: property.mls_id,
           coords: [property.latitude, property.longitude]
         }
       )
-      console.log("Added property to locations: " + this.locations.at(0))
     })
 
     // Add a marker
     this.locations.forEach(location => {
       L.marker(location.coords, {icon: customIcon})
         .addTo(this.map)
+        .on('click', () => this.markerClicked(location.mls_id));
     });
 
     // L.marker([37.7749, -122.4194], {icon: customIcon}).addTo(this.map)
 
     const bounds = L.latLngBounds(this.locations.map(loc => loc.coords));
-    this.map.flyToBounds(bounds)
+    this.map.flyToBounds(bounds);
+  }
+
+  markerClicked(mls_id: String){
+    console.log("Clicked on property: " + mls_id);
+    this.router.navigate(['analysis', mls_id])
+    
   }
 
 }
