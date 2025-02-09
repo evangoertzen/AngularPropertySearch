@@ -1,13 +1,17 @@
-<div class="d-flex flex-column flex-grow-1" style="height: 100%;">
-    <app-search-form></app-search-form>
-  
-    <div class="d-flex flex-grow-1">
-        <div class="col-8 p-1">
-            <app-map class="h-100 w-100"></app-map>
-        </div>
-  
-        <div class="col-4 p-1">
-            <app-property-view></app-property-view>
+<div class="d-flex flex-column" style="height: 100vh;">
+    <app-navbar></app-navbar>
+
+    <div class="d-flex flex-column flex-grow-1" style="height: 100%; background-color: lightblue;">
+
+        <app-search-form></app-search-form>
+    
+        <div class="d-flex flex-grow-1">
+            <div class="col-8 p-1 d-flex flex-grow-1"> 
+                <app-map class="h-100 w-100"></app-map>
+            </div>
+            <div class="col-4 p-1 d-flex flex-grow-1 overflow-auto" style="max-height: 100%;">
+                <app-property-view></app-property-view>
+            </div>
         </div>
     </div>
 </div>
