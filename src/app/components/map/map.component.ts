@@ -37,7 +37,7 @@ export class MapComponent implements OnInit, OnDestroy {
   //   { name: 'Chicago', coords: [41.8781, -87.6298] }
   // ];
 
-  private locations: { mls_id: string; coords: [number, number] }[] = []
+  private locations: { mls_id: string; coords: [number, number] }[] = [];
 
   constructor(
     private propertySearch: PropertySearchService,
@@ -53,11 +53,15 @@ export class MapComponent implements OnInit, OnDestroy {
       maxZoom: 20
     }).addTo(this.map);
 
+    // Refresh when search returns
     this.refreshSubscription = this.propertySearch.refresh$.subscribe(() => {
       this.refreshMap();
     });
 
-      // this.refreshMap()
+    // If route to home page, refresh map markers
+    if(this.propertySearch.properties.length !== 0){
+      this.refreshMap()
+    }
   }
 
   ngOnDestroy(): void {
@@ -67,6 +71,8 @@ export class MapComponent implements OnInit, OnDestroy {
   }
 
   refreshMap(){
+    this.locations = [];
+
     this.propertySearch.properties.forEach( property => {
       this.locations.push(
         {
@@ -82,8 +88,6 @@ export class MapComponent implements OnInit, OnDestroy {
         .addTo(this.map)
         .on('click', () => this.markerClicked(location.mls_id));
     });
-
-    // L.marker([37.7749, -122.4194], {icon: customIcon}).addTo(this.map)
 
     const bounds = L.latLngBounds(this.locations.map(loc => loc.coords));
     this.map.flyToBounds(bounds);
