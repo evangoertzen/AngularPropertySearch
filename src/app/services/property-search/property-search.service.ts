@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { count, Observable } from 'rxjs';
-import { map } from 'rxjs';
+import { Observable, Subject, map } from 'rxjs';
 import { PropertyModel } from '../../models/property.model'
 import { SearchFormModel } from 'src/app/models/searchForm.model';
 
@@ -18,6 +17,10 @@ export class PropertySearchService {
   properties: PropertyModel[] = [];
 
   showErr: boolean = false;
+
+  // so map component can refresh when search returns
+  private refreshSubject = new Subject<void>();
+  public refresh$ = this.refreshSubject.asObservable();
 
   // object used in other services (calculator) for financials
   public searchFormObj: SearchFormModel | null = null;
@@ -55,6 +58,8 @@ export class PropertySearchService {
   
         this.loadingProperties = false;
         this.searchFinished = true;
+
+        this.refreshSubject.next();
   
       }, err => {
         this.showErr = true;
