@@ -1,5 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import * as L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
+
+// may need these imports in the future if leaflet won't show icon
+// import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css';
+// import 'leaflet-defaulticon-compatibility';
+
+const iconPath = "../../../assets/custom-marker.png"
 
 @Component({
   selector: 'app-map',
@@ -7,6 +14,7 @@ import * as L from 'leaflet';
   styleUrl: './map.component.css',
   standalone: false
 })
+
 export class MapComponent implements OnInit, OnDestroy {
 
   private map!: L.Map;
@@ -24,26 +32,26 @@ export class MapComponent implements OnInit, OnDestroy {
 
     // Add OpenStreetMap tile layer (Free & No API Key Needed)
     L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-      // attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-      subdomains: 'abcd',
       maxZoom: 20
     }).addTo(this.map);
 
     const customIcon = L.icon({
-      iconUrl: 'assets/custom-marker.png', // Make sure this path is correct
-      iconSize: [32, 32], // Size of the icon
+      iconUrl: iconPath,
+      iconSize: [32, 44], // Size of the icon
       iconAnchor: [16, 32], // Point of the icon that will be anchored to the marker
       popupAnchor: [0, -32], // Where the popup will open relative to the icon
     });
 
     // Add a marker
-    this.locations.forEach(location => {
-      L.marker(location.coords)
-        .addTo(this.map)
-    });
+    // this.locations.forEach(location => {
+    //   L.marker(location.coords)
+    //     .addTo(this.map)
+    // });
 
-    const bounds = L.latLngBounds(this.locations.map(loc => loc.coords));
-    this.map.fitBounds(bounds);
+    L.marker([37.7749, -122.4194], {icon: customIcon}).addTo(this.map)
+
+    // const bounds = L.latLngBounds(this.locations.map(loc => loc.coords));
+    // this.map.fitBounds(bounds);
   }
 
   ngOnDestroy(): void {
