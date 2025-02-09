@@ -1,5 +1,13 @@
 <nav class="navbar">
     <a routerLink="/" class="nav-logo">PropertySearch</a>
+    <div *ngIf="isHomeRoute" class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+            Search
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <app-search-form></app-search-form>
+        </ul>
+    </div>
     <div class="nav-links">
         <a routerLink="/" routerLinkActive="active">Home</a>
         <a routerLink="/analysis" routerLinkActive="active">Analysis</a>

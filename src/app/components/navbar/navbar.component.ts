@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -6,6 +7,18 @@ import { Component } from '@angular/core';
   styleUrl: './navbar.component.css',
   standalone: false
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit{
+  isHomeRoute = false;
+
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) {}
+
+  ngOnInit(): void {
+    this.router.events.subscribe(() => {
+      this.isHomeRoute = this.router.url === '/';
+    });
+  }
 
 }
