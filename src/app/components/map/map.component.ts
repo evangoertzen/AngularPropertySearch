@@ -84,7 +84,7 @@ export class MapComponent implements OnInit, OnDestroy {
     // L.marker([37.7749, -122.4194], {icon: customIcon}).addTo(this.map)
 
     const bounds = L.latLngBounds(this.locations.map(loc => loc.coords));
-    this.map.fitBounds(bounds);
+    this.map.flyToBounds(bounds)
   }
 
 }
