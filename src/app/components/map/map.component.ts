@@ -23,7 +23,7 @@ const iconPath = "../../../assets/custom-marker.png"
 const customIcon = L.divIcon({
   className: 'custom-marker',
   html: '<i class="material-icons">location_on</i>',
-  iconSize: [50, 50],
+  iconSize: [32, 32],
   iconAnchor: [16, 32],
   popupAnchor: [0, -32]
 });
