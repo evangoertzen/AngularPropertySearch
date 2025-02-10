@@ -56,7 +56,7 @@ export class MapComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     // Initialize the map centered at a default location
-    this.map = L.map('map').setView([37.7749, -122.4194], 12); // San Francisco
+    this.map = L.map('map').setView([this.propertySearch.mapBounds.getNorth(), this.propertySearch.mapBounds.getWest()], 12); // San Francisco
 
     // Add OpenStreetMap tile layer (Free & No API Key Needed)
     L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
@@ -113,13 +113,13 @@ export class MapComponent implements OnInit, OnDestroy {
 
     // float to markers
     const bounds = L.latLngBounds(this.locations.map(loc => loc.coords));
+    this.propertySearch.mapBounds = bounds;
     this.map.flyToBounds(bounds);
   }
 
   markerClicked(mls_id: String){
     console.log("Clicked on property: " + mls_id);
     this.router.navigate(['analysis'], { queryParams: { mls_id: mls_id } })
-    
   }
 
 }

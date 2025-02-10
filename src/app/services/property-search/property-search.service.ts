@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, Subject, map } from 'rxjs';
 import { PropertyModel } from '../../models/property.model'
 import { SearchFormModel } from 'src/app/models/searchForm.model';
+import * as L from 'leaflet';
+
 
 const propSearchURL = 'http://localhost:8000/getProperties'
 const rentCalcURL = 'http://localhost:8000/getRent'
@@ -24,6 +26,11 @@ export class PropertySearchService {
 
   // object used in other services (calculator) for financials
   public searchFormObj: SearchFormModel | null = null;
+
+  public mapBounds = L.latLngBounds([{
+      lat:37.7749,
+      lng:-122.4194
+  }]);
 
   constructor(private http: HttpClient) { }
 
