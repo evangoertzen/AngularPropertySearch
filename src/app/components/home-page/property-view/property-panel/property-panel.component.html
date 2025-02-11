@@ -14,30 +14,14 @@
                     <p>List price: ${{property.list_price.toFixed(2)}}</p>
                 </div>
                 <div class="row">
-                    <p>Status: {{property.status}}</p>
-                </div>
-                <div class="row">
                     <p>Beds: {{property.beds}}</p>
                 </div>
                 <div class="row">
-                    <p>Full Baths: {{property.full_baths}}</p>
-                </div>
-                <div class="row">
-                    <p>Half Baths: {{property.half_baths}}</p>
+                    <p>Baths: {{property.full_baths + property.half_baths}}</p>
                 </div>
                 <div class="row">
                     <p>Square Feet: {{property.sqft}}</p>
                 </div>
-                <div class="row">
-                    <p>Year Built: {{property.year_built}}</p>
-                </div>
-                <div class="row">
-                    <p>Latitude: {{property.latitude}}</p>
-                </div>
-                <div class="row">
-                    <p>Longitute: {{property.longitude}}</p>
-                </div>
-
             </div>
             <div class="col-6 p-3">
                 <div class="row">
