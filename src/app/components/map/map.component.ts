@@ -133,7 +133,16 @@ export class MapComponent implements OnInit, OnDestroy {
       if(marker_id != mls_id){
         marker.setIcon(originalIcon)
       }else{
-        marker.setIcon(hoveredIcon)
+        this.map.removeLayer(marker);
+
+        const newMarker = L.marker(marker.getLatLng(), {
+          icon: hoveredIcon,
+          riseOnHover: true,
+          zIndexOffset: 1000,
+        });
+
+        newMarker.addTo(this.map);
+        this.markers.set(marker_id, newMarker);
       }
     })
   }
