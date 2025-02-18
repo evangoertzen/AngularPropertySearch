@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PropertySearchService } from 'src/app/services/property-search/property-search.service';
 
 @Component({
   selector: 'app-navbar',
@@ -12,7 +13,7 @@ export class NavbarComponent implements OnInit{
 
   constructor(
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    public searchService: PropertySearchService
   ) {}
 
   ngOnInit(): void {

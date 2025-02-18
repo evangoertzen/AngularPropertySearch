@@ -1,6 +1,6 @@
 <nav class="navbar">
     <a routerLink="/" class="nav-logo">PropertySearch</a>
-    <div *ngIf="isHomeRoute" class="dropdown">
+    <div *ngIf="isHomeRoute && searchService.properties.length > 0" class="dropdown">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
             Search
         </button>

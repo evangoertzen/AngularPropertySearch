@@ -6,8 +6,11 @@
             <div class="col-8 p-1 d-flex flex-grow-1"> 
                 <app-map class="h-100 w-100"></app-map>
             </div>
-            <div class="col-4 p-1 d-flex flex-grow-1 overflow-auto justify-content-center" style="max-height: 100%;">
+            <div *ngIf="searchService.properties.length" class="col-4 p-1 d-flex flex-grow-1 overflow-auto justify-content-center" style="max-height: 100%;">
                 <app-property-view></app-property-view>
+            </div>
+            <div *ngIf="!searchService.properties.length" class="col-4 p-1 d-flex flex-grow-1 overflow-auto justify-content-center" style="max-height: 100%;">
+                <app-search-form></app-search-form>
             </div>
         </div>
     </div>
