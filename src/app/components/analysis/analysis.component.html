@@ -1,47 +1,35 @@
-<div class="d-flex flex-column" style="height: 100vh;">
+<div class="d-flex flex-column" style="height: 100vh; width: 100vw">
     <app-navbar></app-navbar>
 
-    <div *ngIf="property" class="d-flex flex-grow">
-        <div class="container">
-            <div class="row">
-                <div class="col-4 p-3">
-                    <div class="row">
-                        <img src={{property.primary_photo}} class="img-fluid">
+    <div *ngIf="property" style="width: 100%;">
+        <div class="row w-100">
+            <div class="col-4">
+                <div class="row">
+                    <div class="col-4 p-3">
+                        <div class="row">
+                            <a href={{property.property_url}} target="_blank">
+                                <img src={{property.primary_photo}} class="img-fluid" alt="Home image">
+                            </a>
+                        </div>
+
                     </div>
                 </div>
-                <div class="col-4 p-3">
-                    <div *ngFor="let propAnalysisField of propAnalysisFields">
-                        <p>
-                            {{propAnalysisField.label}}: {{propAnalysisField.value}}
-                        </p>
-                    </div>
-                </div>
-                <div class="col-4 p-3">
-                    <div class="row">
-                        <app-rent-display [property]="property"></app-rent-display>
-                    </div>
-                    <div *ngIf="property.rent">
-                        <div class="row">
-                            <p>Cash flow: ${{calcService.calcCashFlow(property).toFixed(2)}}</p>
-                        </div>
-                        <div class="row icon-text">
-                            <p>
-                                <span>Meets 1% rule: {{(property.rent/property.list_price * 100).toFixed(2)}}% </span>
-                                <i *ngIf="(property.rent/property.list_price * 100) < 1" class="pi pi-times" style="color: red"></i>
-                                <i *ngIf="(property.rent/property.list_price * 100) >= 1" class="pi pi-check" style="color: green"></i>
-                            </p>
-                        </div>
-                        <div class="row">
-                            <p>Mortgage payment (monthly): ${{calcService.calcMonthlyMortgagePayment(property).toFixed(2)}}</p>
-                        </div>
+                <div class="row">
+                    <div class="col-4 p-3">
+                        
                     </div>
                 </div>
             </div>
+            <div class="col-8">
+            </div>
         </div>
     </div>
-
+    
     <div *ngIf="!property">
         <p>Could not find property in property list</p>
     </div>
+    
+    <app-spreadsheet></app-spreadsheet>
+         
 
 </div>

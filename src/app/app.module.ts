@@ -16,13 +16,14 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ToastModule } from 'primeng/toast';
 import { DialogModule } from 'primeng/dialog';
 import { SearchFormComponent } from "./components/home-page/search-form/search-form.component";
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSliderModule } from '@angular/material/slider';
 import { RentDisplayComponent } from "./components/home-page/property-view/property-panel/rent-display/rent-display/rent-display.component";
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { NavbarComponent } from "./components/navbar/navbar.component";
 import { AnalysisComponent } from './components/analysis/analysis.component';
 import { MapComponent } from './components/map/map.component';
+import { SpreadsheetComponent } from './components/analysis/spreadsheet/spreadsheet.component';
 
 @NgModule({ 
     declarations: [
@@ -34,21 +35,23 @@ import { MapComponent } from './components/map/map.component';
         HomePageComponent,
         NavbarComponent,
         AnalysisComponent,
-        MapComponent
+        MapComponent,
+        SpreadsheetComponent
     ],
     bootstrap: [AppComponent], 
     imports: [
-    BrowserModule,
-    AppRoutingModule,
-    PanelModule,
-    BrowserAnimationsModule,
-    ProgressBarModule,
-    ProgressSpinnerModule,
-    ToastModule,
-    DialogModule,
-    ReactiveFormsModule,
-    MatSliderModule,
-], 
+        BrowserModule,
+        AppRoutingModule,
+        PanelModule,
+        BrowserAnimationsModule,
+        ProgressBarModule,
+        ProgressSpinnerModule,
+        ToastModule,
+        DialogModule,
+        ReactiveFormsModule,
+        MatSliderModule,
+        FormsModule
+    ], 
     providers: [
         provideHttpClient(withInterceptorsFromDi()), 
         provideAnimationsAsync(),
