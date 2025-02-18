@@ -1,4 +1,4 @@
-<p-panel>
+<p-panel (mouseover)="mouseOver()" (mouseout)="mouseOut()">
     <p-header class="ms-5">
         <a [routerLink]="'analysis'" [queryParams]="{ mls_id: property.mls_id }">
             <img src={{property.primary_photo}} class="img-fluid">

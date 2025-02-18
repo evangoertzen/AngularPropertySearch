@@ -8,9 +8,17 @@ import { Router } from '@angular/router';
 // import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css';
 // import 'leaflet-defaulticon-compatibility';
 
-const customIcon = L.divIcon({
+const originalIcon = L.divIcon({
   className: 'custom-marker',
   html: '<i class="material-icons">location_on</i>',
+  iconSize: [32, 32],
+  iconAnchor: [16, 32],
+  popupAnchor: [0, -32]
+});
+
+const hoveredIcon = L.divIcon({
+  className: 'custom-marker',
+  html: '<i class="material-icons" style="color: lightgray;">location_on</i>',
   iconSize: [32, 32],
   iconAnchor: [16, 32],
   popupAnchor: [0, -32]
@@ -36,6 +44,9 @@ export class MapComponent implements OnInit, OnDestroy {
 
   private locations: { mls_id: string; coords: [number, number] }[] = [];
 
+  // map to store markers to replace marker icon on hover
+  private markers = new Map<string, L.Marker>
+
   constructor(
     private propertySearch: PropertySearchService,
     private router: Router
@@ -54,6 +65,11 @@ export class MapComponent implements OnInit, OnDestroy {
     this.propertySearch.refresh$.subscribe(() => {
       this.refreshMap();
     });
+
+    // Refresh icons when hovering over side panels
+    this.propertySearch.refreshIcons$.subscribe(mls_id => {
+      this.updateIcons(mls_id);
+    })
 
     // If route to home page, refresh map markers
     if(this.propertySearch.properties.length !== 0){
@@ -87,15 +103,18 @@ export class MapComponent implements OnInit, OnDestroy {
       )
     })
 
+    this.markers.clear();
+
     // add markers to map
     this.locations.forEach(location => {
-      L.marker(location.coords, 
+      const marker = L.marker(location.coords, 
         {
           riseOnHover: true,
-          icon: customIcon,
+          icon: originalIcon,
         })
         .addTo(this.map)
         .on('click', () => this.markerClicked(location.mls_id));
+      this.markers.set(location.mls_id, marker);
     });
 
     // float to markers
@@ -108,4 +127,14 @@ export class MapComponent implements OnInit, OnDestroy {
     this.router.navigate(['analysis'], { queryParams: { mls_id: mls_id } })
   }
 
+  
+  updateIcons(mls_id?: string){
+    this.markers.forEach((marker, marker_id) => {
+      if(marker_id != mls_id){
+        marker.setIcon(originalIcon)
+      }else{
+        marker.setIcon(hoveredIcon)
+      }
+    })
+  }
 }

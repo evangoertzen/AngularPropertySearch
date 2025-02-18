@@ -24,6 +24,9 @@ export class PropertySearchService {
   private refreshSubject = new Subject<void>();
   public refresh$ = this.refreshSubject.asObservable();
 
+  public hoveringPropIdSubject = new Subject<string>();
+  public refreshIcons$ = this.hoveringPropIdSubject.asObservable();
+
   // object used in other services (calculator) for financials
   public searchFormObj: SearchFormModel | null = null;
 
