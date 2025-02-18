@@ -25,11 +25,14 @@ export class SpreadsheetComponent {
     misc_expenses_dol: 0,
   };
 
+  calculateOperatingIncome(){
+    return this.income.rent_dol - this.income.rent_dol * (this.expenses.vacancy_rate / 100);
+  }
+
   // Profit/Loss Calculation
   calculateProfitLoss() {
-    const totalIncome = this.income.rent_dol;
+    const operatingIncome  = this.calculateOperatingIncome();
     const totalExpenses = 
-      this.income.rent_dol * (this.expenses.vacancy_rate/100)
       + this.income.rent_dol * (this.expenses.maintenance_rate/100)
       + this.income.rent_dol * (this.expenses.management_fee_rate/100)
       + this.expenses.taxes_dol
@@ -38,7 +41,7 @@ export class SpreadsheetComponent {
       + this.expenses.utilities_dol
       + this.expenses.misc_expenses_dol;
 
-    return totalIncome - totalExpenses;
+    return operatingIncome - totalExpenses;
   }
 
 }
