@@ -1,24 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import * as L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { Subscription } from 'rxjs';
 import { PropertySearchService } from 'src/app/services/property-search/property-search.service';
 import { Router } from '@angular/router';
 
 // may need these imports in the future if leaflet won't show icon
 // import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css';
 // import 'leaflet-defaulticon-compatibility';
-
-const iconPath = "../../../assets/custom-marker.png"
-
-// const customIcon = L.icon({
-//   iconUrl: iconPath,
-
-//   iconSize: [30, 44], // Size of the icon
-//   iconAnchor: [16, 32], 
-//   popupAnchor: [0, -32],
-//   className: 'custom-marker'
-// });
 
 const customIcon = L.divIcon({
   className: 'custom-marker',
@@ -38,7 +26,6 @@ const customIcon = L.divIcon({
 export class MapComponent implements OnInit, OnDestroy {
 
   private map!: L.Map;
-  private refreshSubscription!: Subscription;
 
   // private locations: { name: string; coords: [number, number] }[] = [
   //   { name: 'San Francisco', coords: [37.7749, -122.4194] },
@@ -64,7 +51,7 @@ export class MapComponent implements OnInit, OnDestroy {
     }).addTo(this.map);
 
     // Refresh when search returns
-    this.refreshSubscription = this.propertySearch.refresh$.subscribe(() => {
+    this.propertySearch.refresh$.subscribe(() => {
       this.refreshMap();
     });
 
@@ -117,8 +104,7 @@ export class MapComponent implements OnInit, OnDestroy {
     this.map.flyToBounds(bounds);
   }
 
-  markerClicked(mls_id: String){
-    console.log("Clicked on property: " + mls_id);
+  markerClicked(mls_id: string){
     this.router.navigate(['analysis'], { queryParams: { mls_id: mls_id } })
   }
 
