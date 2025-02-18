@@ -1,11 +1,15 @@
 <p-panel>
     <p-header class="ms-5">
-        <h3>{{property.street}} {{property.unit}} {{property.city}}, {{property.state}}</h3>
+        <a [routerLink]="'analysis'" [queryParams]="{ mls_id: property.mls_id }" style="text-decoration: none; color: rgb(20, 20, 20);">
+            <h3>{{property.street}} {{property.unit}} {{property.city}}, {{property.state}}</h3>
+        </a>
     </p-header>
     <div class="container">
         <div class="row">
             <div class="col-4 p-1">
-                <img src={{property.primary_photo}} class="img-fluid">
+                <a [routerLink]="'analysis'" [queryParams]="{ mls_id: property.mls_id }">
+                    <img src={{property.primary_photo}} class="img-fluid">
+                </a>
             </div>
         </div>
         <div class="row">
