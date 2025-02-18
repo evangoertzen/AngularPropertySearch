@@ -14,7 +14,7 @@ export class AnalysisComponent implements OnInit {
 
   public mls_id: string | null = "";
 
-  public property: PropertyModel | null | undefined= null;
+  public property: PropertyModel | null = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -29,7 +29,11 @@ export class AnalysisComponent implements OnInit {
     });
     
     if(this.mls_id){
-      this.property = this.propertySearch.properties.find(property => property.mls_id === this.mls_id);
+      const propTemp = this.propertySearch.properties.find(property => property.mls_id === this.mls_id);
+
+      if(propTemp){
+        this.property = propTemp;
+      }
     }
   }
 }

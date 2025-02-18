@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { PropertyModel } from 'src/app/models/property.model';
 
 @Component({
   selector: 'app-spreadsheet',
@@ -6,7 +7,10 @@ import { Component } from '@angular/core';
   styleUrl: './spreadsheet.component.css',
   standalone: false
 })
-export class SpreadsheetComponent {
+export class SpreadsheetComponent implements OnInit{
+
+  @Input()
+  property: PropertyModel | null = null;
 
   // Income
   public income = {
@@ -24,6 +28,12 @@ export class SpreadsheetComponent {
     utilities_dol: 0,
     misc_expenses_dol: 0,
   };
+
+  ngOnInit(): void {
+    if(this.property && this.property.rent){
+      this.income.rent_dol = 12 * this.property.rent;
+    }
+  }
 
   calculateOperatingIncome(){
     return this.income.rent_dol - this.income.rent_dol * (this.expenses.vacancy_rate / 100);
