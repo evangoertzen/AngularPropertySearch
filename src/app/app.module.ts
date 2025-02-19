@@ -23,7 +23,7 @@ import { HomePageComponent } from './components/home-page/home-page.component';
 import { NavbarComponent } from "./components/navbar/navbar.component";
 import { AnalysisComponent } from './components/analysis/analysis.component';
 import { MapComponent } from './components/map/map.component';
-import { SpreadsheetComponent } from './components/analysis/spreadsheet/spreadsheet.component';
+import { ProfitLossComponent } from './components/analysis/profit-loss/profit-loss.component';
 
 @NgModule({ 
     declarations: [
@@ -36,7 +36,7 @@ import { SpreadsheetComponent } from './components/analysis/spreadsheet/spreadsh
         NavbarComponent,
         AnalysisComponent,
         MapComponent,
-        SpreadsheetComponent
+        ProfitLossComponent
     ],
     bootstrap: [AppComponent], 
     imports: [

@@ -2,12 +2,12 @@ import { Component, Input, OnInit } from '@angular/core';
 import { PropertyModel } from 'src/app/models/property.model';
 
 @Component({
-  selector: 'app-spreadsheet',
-  templateUrl: './spreadsheet.component.html',
-  styleUrl: './spreadsheet.component.css',
+  selector: 'app-profit-loss',
+  templateUrl: './profit-loss.component.html',
+  styleUrl: './profit-loss.component.css',
   standalone: false
 })
-export class SpreadsheetComponent implements OnInit{
+export class ProfitLossComponent implements OnInit{
 
   @Input()
   property: PropertyModel | null = null;
