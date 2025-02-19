@@ -1,0 +1,64 @@
+<form>
+    <div class="rental-form">
+      <h2>Mortgage Payment Calculator</h2>
+      
+      <table>
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Purchase Price -->
+          <tr>
+            <td>Purchase Price ($)</td>
+            <td>
+              <input [(ngModel)]="purchasePrice" name="purchasePrice" type="number" placeholder="Enter Purchase Price" />
+            </td>
+          </tr>
+          <!-- Interest Rate -->
+          <tr>
+            <td>Interest Rate (%)</td>
+            <td>
+              <input [(ngModel)]="interestRate" name="interestRate" type="number" placeholder="Enter Interest Rate" />
+            </td>
+          </tr>
+  
+          <!-- Vacancy Rate -->
+          <tr>
+            <td>Loan Term (years)</td>
+            <td>
+              <input [(ngModel)]="loanTerm" name="loanTerm" type="number" placeholder="Loan Term in Years"/>
+            </td>
+          </tr>
+  
+          <!-- Down Payment -->
+          <tr>
+            <td>Down Payment (%)</td>
+            <td>
+              <input [(ngModel)]="downPaymentPercentage"  name="downPaymentPercentage" type="number" placeholder="Down Payment Percentage" />
+            </td>
+          </tr>
+  
+          <!-- Cash Required -->
+          <tr>
+            <td><strong>Cash Required ($)</strong></td>
+            <td>
+              <input [value]="calcCashRequired().toFixed(2)" disabled type="number" />
+            </td>
+          </tr>
+
+          <!-- Monthly Payment -->
+          <tr>
+            <td><strong>Monthly Payment ($)</strong></td>
+            <td>
+              <input [value]="calcMonthlyPayment().toFixed(2)" disabled type="number" />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </form>
+  
+  

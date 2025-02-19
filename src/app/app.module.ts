@@ -24,6 +24,7 @@ import { NavbarComponent } from "./components/navbar/navbar.component";
 import { AnalysisComponent } from './components/analysis/analysis.component';
 import { MapComponent } from './components/map/map.component';
 import { ProfitLossComponent } from './components/analysis/profit-loss/profit-loss.component';
+import { MortgageCalcComponent } from "./components/analysis/mortgage-calc/mortgage-calc.component";
 
 @NgModule({ 
     declarations: [
@@ -36,22 +37,23 @@ import { ProfitLossComponent } from './components/analysis/profit-loss/profit-lo
         NavbarComponent,
         AnalysisComponent,
         MapComponent,
-        ProfitLossComponent
+        ProfitLossComponent,
+        MortgageCalcComponent
     ],
     bootstrap: [AppComponent], 
     imports: [
-        BrowserModule,
-        AppRoutingModule,
-        PanelModule,
-        BrowserAnimationsModule,
-        ProgressBarModule,
-        ProgressSpinnerModule,
-        ToastModule,
-        DialogModule,
-        ReactiveFormsModule,
-        MatSliderModule,
-        FormsModule
-    ], 
+    BrowserModule,
+    AppRoutingModule,
+    PanelModule,
+    BrowserAnimationsModule,
+    ProgressBarModule,
+    ProgressSpinnerModule,
+    ToastModule,
+    DialogModule,
+    ReactiveFormsModule,
+    MatSliderModule,
+    FormsModule,
+], 
     providers: [
         provideHttpClient(withInterceptorsFromDi()), 
         provideAnimationsAsync(),
