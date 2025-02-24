@@ -3,7 +3,8 @@
       <div class="card-header text-center">
         <h3>{{ property!.full_street_line }}, {{ property!.city }}, {{ property!.state }} {{ property!.zip_code }}</h3>
       </div>
-  
+
+      
       <div class="card-body">
         <div class="row">
           <!-- Left Column: Main Info -->
@@ -18,43 +19,43 @@
               <li class="list-group-item"><strong>HOA Fee:</strong> {{ formatCurrency(property!.hoa_fee) }}</li>
             </ul>
           </div>
-  
+          
           <!-- Right Column: Details -->
           <div class="col-md-6">
             <p><strong>Beds:</strong> {{ property!.beds }} | <strong>Baths:</strong> {{ property!.full_baths }} Full, {{ property!.half_baths }} Half</p>
             <p><strong>Size:</strong> {{ property!.sqft.toLocaleString() }} sqft | <strong>Lot:</strong> {{ property!.lot_sqft.toLocaleString() }} sqft</p>
             <p><strong>Built:</strong> {{ property!.year_built }}</p>
             <p><strong>Days on MLS:</strong> {{ property!.days_on_mls }}</p>
-  
+            
             <h5>Location:</h5>
             <div class="map-container">
               <iframe width="100%" height="200" frameborder="0" 
               [src]="mapUrl">
-              </iframe>
-            </div>
+            </iframe>
           </div>
         </div>
-  
-        <!-- Additional Information Tabs -->
-        <p-tabView>
-          <p-tabPanel header="Financials">
-            <ul>
-              <li><strong>Assessed Value:</strong> {{ formatCurrency(property!.assessed_value) }}</li>
-              <li><strong>Estimated Value:</strong> {{ formatCurrency(property!.estimated_value) }}</li>
-              <li><strong>Tax:</strong> {{ formatCurrency(property!.tax) }}</li>
-              <li><strong>Price/Sqft:</strong> {{ formatCurrency(property!.price_per_sqft) }}</li>
-            </ul>
-          </p-tabPanel>
-  
-          <p-tabPanel header="School Info">
-            <p>{{ property!.nearby_schools }}</p>
-          </p-tabPanel>
-  
-          <p-tabPanel header="Tax History">
-            <p-chart type="line" [data]="lineChartData" class="h-[30rem]" [options]="chartOptions"/>
-          </p-tabPanel>
-        </p-tabView>
-  
+      </div>
+      
+      <!-- Additional Information Tabs -->
+      <mat-tab-group>
+        <mat-tab label="Financials">
+          <ul>
+            <li><strong>Assessed Value:</strong> {{ formatCurrency(property!.assessed_value) }}</li>
+            <li><strong>Estimated Value:</strong> {{ formatCurrency(property!.estimated_value) }}</li>
+            <li><strong>Tax:</strong> {{ formatCurrency(property!.tax) }}</li>
+            <li><strong>Price/Sqft:</strong> {{ formatCurrency(property!.price_per_sqft) }}</li>
+          </ul>
+        </mat-tab>
+
+        <mat-tab label="School Info">
+          <p>{{ property!.nearby_schools }}</p>
+        </mat-tab>
+
+        <mat-tab label="Tax History">
+          <p-chart type="line" [data]="lineChartData" class="h-[30rem]" [options]="chartOptions"/>
+        </mat-tab>
+      </mat-tab-group>
+
         <!-- Listing Link -->
         <div class="text-center mt-3">
           <a [href]="property!.property_url" target="_blank" class="btn btn-primary">View Full Listing</a>
