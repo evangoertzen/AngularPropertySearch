@@ -8,16 +8,36 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
   styleUrl: './full-home-info.component.css',
   standalone: false
 })
-export class FullHomeInfoComponent {
+export class FullHomeInfoComponent implements OnInit{
 
-  @Input()
-  property!: PropertyModel;
+  @Input() property!: PropertyModel;
+
   mapUrl: SafeResourceUrl = this.sanitizer.bypassSecurityTrustResourceUrl('');
+  
+  lineChartData: any;
 
   constructor(
     private sanitizer: DomSanitizer
   ){}
 
+  ngOnInit(): void {
+    const reversedData = [...this.property.tax_history].reverse();
+    const labels = reversedData.map(point => point.year.toString());
+    const values = reversedData.map(point => point.tax);
+
+    this.lineChartData = {
+      labels: labels,
+      datasets: [
+        {
+          label: 'Property Tax',
+          data: values,
+          borderColor: '#42A5F5',
+          fill: true,
+          tension: 0.4
+        }
+      ]
+    };
+  }
 
   ngOnChanges(): void {
     if (this.property?.latitude && this.property?.longitude) {

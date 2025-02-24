@@ -51,9 +51,7 @@
           </p-tabPanel>
   
           <p-tabPanel header="Tax History">
-            <ul>
-              <li *ngFor="let tax of property!.tax_history">{{ tax.year }}: {{formatCurrency(tax.tax)}} </li>
-            </ul>
+            <p-chart type="line" [data]="lineChartData" class="h-[30rem]" />
           </p-tabPanel>
         </p-tabView>
   
