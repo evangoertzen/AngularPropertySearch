@@ -1,4 +1,4 @@
-<div class="card shadow-sm p-3" (mouseover)="mouseOver()" (mouseout)="mouseOut()">
+<div class="card shadow-sm p-3 h-100 d-flex flex-column" (mouseover)="mouseOver()" (mouseout)="mouseOut()">
     <!-- Property Image -->
     <a [routerLink]="'analysis'" [queryParams]="{ mls_id: property.mls_id }">
         <img [src]="property.primary_photo" class="card-img-top img-fluid rounded" alt="Property Image">

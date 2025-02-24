@@ -2,10 +2,12 @@
         <i class="pi pi-spin pi-cog" style="font-size: 2rem"></i>
 </div>
 
-<div *ngIf="propertySearch.properties.length > 0" class="flex-grow-1">
-    <div *ngFor="let property of propertySearch.properties" class="flex-grow-1">
-        <div class="pb-3">
-            <app-property-panel [property]="property"></app-property-panel>
+<div *ngIf="propertySearch.properties.length > 0" class="container">
+    <div class="row">
+        <div *ngFor="let property of propertySearch.properties" class="col-md-6 mb-2 d-flex g-1">
+            <div class="w-100 h-100 d-flex">
+                <app-property-panel [property]="property" class="flex-grow-1"></app-property-panel>
+            </div>
         </div>
     </div>
 </div>
