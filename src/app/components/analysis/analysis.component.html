@@ -13,9 +13,19 @@
             </div>
 
             <div class="col-8">
-                <mat-tab-group>
-                    <mat-tab label="Mortgage Calculator"> <app-mortgage-calc [property]="property"></app-mortgage-calc> </mat-tab>
-                    <mat-tab label="Profit/Loss Statement"> <app-profit-loss [property]="property"></app-profit-loss> </mat-tab>
+                <mat-tab-group [preserveContent]="true">
+                    
+                    <mat-tab label="Mortgage Calculator">
+                        <ng-template matTabContent>
+                            <app-mortgage-calc [property]="property"></app-mortgage-calc> 
+                        </ng-template>
+                    </mat-tab>
+                    
+                    <mat-tab label="Profit/Loss Statement"> 
+                        <ng-template matTabContent>
+                            <app-profit-loss [property]="property"></app-profit-loss> 
+                        </ng-template>
+                    </mat-tab>
                 </mat-tab-group>
             </div>
         </div>

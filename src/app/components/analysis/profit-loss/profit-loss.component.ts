@@ -13,16 +13,12 @@ export class ProfitLossComponent implements OnInit{
   property: PropertyModel | null = null;
 
   pieChartData: any;
-
-  constructor(){
-    this.updatePieChart();
-  }
-
+  
   // Income
   public income = {
     rent_dol: 0
   };
-
+  
   // Expenses
   public expenses = {
     vacancy_rate: 5,
