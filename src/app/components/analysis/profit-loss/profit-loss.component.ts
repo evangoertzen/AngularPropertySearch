@@ -7,7 +7,7 @@ import { PropertyModel } from 'src/app/models/property.model';
   styleUrl: './profit-loss.component.css',
   standalone: false
 })
-export class ProfitLossComponent implements OnInit{
+export class ProfitLossComponent implements OnInit {
 
   @Input()
   property: PropertyModel | null = null;
@@ -31,12 +31,17 @@ export class ProfitLossComponent implements OnInit{
     misc_expenses_dol: 0,
   };
 
-  ngOnInit(): void {
-    if(this.property){
+  setRent(){
+    if(this.property && this.property.rent){
+      this.income.rent_dol = 12 * this.property.rent;
+    }
+  }
 
-      if(this.property.rent){
-        this.income.rent_dol = 12 * this.property.rent;
-      }
+  ngOnInit(): void {
+
+    this.setRent();
+
+    if(this.property){
 
       if(this.property.tax){
         this.expenses.taxes_dol = this.property.tax;
@@ -48,8 +53,12 @@ export class ProfitLossComponent implements OnInit{
 
     }
 
-
-
+    this.updatePieChart();
+  }
+  
+  rentChange(updatedProperty: PropertyModel): void{
+    this.property = updatedProperty;
+    this.setRent();
     this.updatePieChart();
   }
 

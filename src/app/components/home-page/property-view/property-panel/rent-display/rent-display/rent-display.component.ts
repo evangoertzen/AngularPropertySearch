@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { PropertyModel } from 'src/app/models/property.model';
 import { PropertySearchService } from 'src/app/services/property-search/property-search.service';
 
@@ -13,25 +13,31 @@ export class RentDisplayComponent {
   
   constructor(private propertySearchService: PropertySearchService){}
   
-  @Input()
-  property!: PropertyModel;
+  @Input() property!: PropertyModel;
+
+  @Output() rentChange = new EventEmitter<PropertyModel>();
   
   rentLoading: boolean = false;
   rentErr: boolean = false;
 
   getRent(){
+
     this.rentLoading = true;
     this.rentErr = false;
-    console.log("Getting rent");
+
     this.propertySearchService.getRent(this.property.street + ' ' + this.property.unit + ' ' + this.property.city + ' ' + this.property.state).subscribe( rent => {
+
       this.rentLoading = false;
       this.property.rent = rent;
+
+      this.rentChange.emit(this.property);
+
     }, err => {
+
       this.rentLoading = false;
       this.rentErr = true;
-      console.log("Couldn't get rent")
+    
     })
-
   }
 
 

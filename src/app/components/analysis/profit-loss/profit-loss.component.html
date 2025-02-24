@@ -18,7 +18,8 @@
               <tr>
                 <td>Annual Rent Income ($)</td>
                 <td>
-                  <input [(ngModel)]="income.rent_dol" name="rentIncome" type="number" placeholder="Enter Rent Income" (input)="updatePieChart()"/>
+                  <input *ngIf="!property || (property && property.rent)" [(ngModel)]="income.rent_dol" name="rentIncome" type="number" placeholder="Enter Rent Income" (input)="updatePieChart()"/>
+                  <app-rent-display *ngIf="property && !property.rent" [property]="property" (rentChange)="rentChange($event)"></app-rent-display>
                 </td>
               </tr>
       
