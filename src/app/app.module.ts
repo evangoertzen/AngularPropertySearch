@@ -27,6 +27,7 @@ import { ProfitLossComponent } from './components/analysis/profit-loss/profit-lo
 import { MortgageCalcComponent } from "./components/analysis/mortgage-calc/mortgage-calc.component";
 import { MatTabsModule } from '@angular/material/tabs';
 import { ChartModule } from 'primeng/chart';
+import { FullHomeInfoComponent } from "./components/full-home-info/full-home-info.component";
 
 @NgModule({ 
     declarations: [
@@ -40,7 +41,8 @@ import { ChartModule } from 'primeng/chart';
         AnalysisComponent,
         MapComponent,
         ProfitLossComponent,
-        MortgageCalcComponent
+        MortgageCalcComponent,
+        FullHomeInfoComponent
     ],
     bootstrap: [AppComponent], 
     imports: [
@@ -56,7 +58,7 @@ import { ChartModule } from 'primeng/chart';
     MatSliderModule,
     FormsModule,
     MatTabsModule,
-    ChartModule
+    ChartModule,
 ], 
     providers: [
         provideHttpClient(withInterceptorsFromDi()), 

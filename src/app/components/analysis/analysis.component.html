@@ -5,11 +5,7 @@
         <div class="row w-100">
 
             <div class="col-4" *ngIf="property">
-                <div class="row">
-                    <a href={{property.property_url}} target="_blank">
-                        <img src={{property.primary_photo}} class="img-fluid" alt="Home image">
-                    </a>
-                </div>
+                <app-full-home-info [property]="property"></app-full-home-info>
             </div>
 
             <div class="col-8">
