@@ -2,7 +2,7 @@
     <app-navbar></app-navbar>
 
     <div style="width: 100%;">
-        <div class="row w-100">
+        <div class="row w-100" *ngIf="property">
 
             <div class="col-4" *ngIf="property">
                 <app-full-home-info [property]="property"></app-full-home-info>
@@ -10,6 +10,11 @@
 
             <div class="col-8">
                 <mat-tab-group [preserveContent]="true">
+                    <mat-tab label="Profit/Loss Statement"> 
+                        <ng-template matTabContent>
+                            <app-profit-loss [property]="property"></app-profit-loss> 
+                        </ng-template>
+                    </mat-tab>
                     
                     <mat-tab label="Mortgage Calculator">
                         <ng-template matTabContent>
@@ -17,14 +22,28 @@
                         </ng-template>
                     </mat-tab>
                     
-                    <mat-tab label="Profit/Loss Statement"> 
-                        <ng-template matTabContent>
-                            <app-profit-loss [property]="property"></app-profit-loss> 
-                        </ng-template>
-                    </mat-tab>
                 </mat-tab-group>
             </div>
         </div>
+
+        <div class="row w-100" *ngIf="!property">
+            <mat-tab-group [preserveContent]="true">
+                <mat-tab label="Profit/Loss Statement"> 
+                    <ng-template matTabContent>
+                        <app-profit-loss [property]="property"></app-profit-loss> 
+                    </ng-template>
+                </mat-tab>
+                
+                <mat-tab label="Mortgage Calculator">
+                    <ng-template matTabContent>
+                        <app-mortgage-calc [property]="property"></app-mortgage-calc> 
+                    </ng-template>
+                </mat-tab>
+                
+            </mat-tab-group>
+        </div>
+
+
     </div>
 
     
