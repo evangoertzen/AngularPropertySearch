@@ -28,6 +28,8 @@ import { MortgageCalcComponent } from "./components/analysis/mortgage-calc/mortg
 import { MatTabsModule } from '@angular/material/tabs';
 import { ChartModule } from 'primeng/chart';
 import { FullHomeInfoComponent } from "./components/full-home-info/full-home-info.component";
+import { TabViewModule } from 'primeng/tabview';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({ 
     declarations: [
@@ -59,6 +61,8 @@ import { FullHomeInfoComponent } from "./components/full-home-info/full-home-inf
     FormsModule,
     MatTabsModule,
     ChartModule,
+    TabViewModule,
+    MatCardModule
 ], 
     providers: [
         provideHttpClient(withInterceptorsFromDi()), 

@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { PropertyModel } from 'src/app/models/property.model';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-full-home-info [property]',
@@ -10,6 +11,22 @@ import { PropertyModel } from 'src/app/models/property.model';
 export class FullHomeInfoComponent {
 
   @Input()
-  property: PropertyModel | null = null;
+  property!: PropertyModel;
+  mapUrl: SafeResourceUrl = this.sanitizer.bypassSecurityTrustResourceUrl('');
 
+  constructor(
+    private sanitizer: DomSanitizer
+  ){}
+
+
+  ngOnChanges(): void {
+    if (this.property?.latitude && this.property?.longitude) {
+      const unsafeUrl = `https://www.google.com/maps?q=${this.property.latitude},${this.property.longitude}&output=embed`;
+      this.mapUrl = this.sanitizer.bypassSecurityTrustResourceUrl(unsafeUrl);
+    }
+  }
+
+  formatCurrency(value: number): string {
+    return value ? `$${value.toLocaleString()}` : 'N/A';
+  }
 }

@@ -31,7 +31,7 @@ export interface PropertyModel {
     assessed_value: number; 
     estimated_value: number;
     tax: number;
-    tax_history: string[];
+    tax_history: TaxYrInfo[];
     
     price_per_sqft: number;
     
@@ -44,4 +44,9 @@ export interface PropertyModel {
     primary_photo: string;
 
     rent: number;
+}
+
+export interface TaxYrInfo{
+    year: string
+    tax: number
 }

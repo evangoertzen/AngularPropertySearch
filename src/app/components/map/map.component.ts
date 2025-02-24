@@ -18,7 +18,7 @@ const originalIcon = L.divIcon({
 
 const hoveredIcon = L.divIcon({
   className: 'custom-marker',
-  html: '<i class="material-icons" style="color: lightgray;">location_on</i>',
+  html: '<i class="material-icons" style="color: red;">location_on</i>',
   iconSize: [32, 32],
   iconAnchor: [16, 32],
   popupAnchor: [0, -32]
