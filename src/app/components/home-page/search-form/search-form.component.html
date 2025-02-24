@@ -30,37 +30,6 @@
         </div>
     </div>
 
-    <!-- Enter down payment in $ or % -->
-    <div class="row">
-        <label>
-            <input type="radio" formControlName="downPaymentType" value="percentage" [(ngModel)]="selectedDownPaymentMethod"> Percentage
-        </label>
-        <label>
-            <input type="radio" formControlName="downPaymentType" value="number" [(ngModel)]="selectedDownPaymentMethod"> Number
-        </label>
-    </div>
-
-        <!-- Input field for percentage -->
-    <div *ngIf="selectedDownPaymentMethod === 'percentage'">
-        <label for="percentage">Enter Percentage:</label>
-        <input id="downPaymentPercentage" formControlName="downPaymentPercentage" type="number" placeholder="20">
-        <label for="percentage">%</label>
-        <div *ngIf="searchForm.get('downPaymentPercentage')?.touched && searchForm.get('downPaymentPercentage')?.invalid">
-        <div *ngIf="searchForm.get('downPaymentPercentage')?.hasError('required')">Percentage is required.</div>
-        <div *ngIf="searchForm.get('downPaymentPercentage')?.hasError('min')">Minimum value is 0.</div>
-        <div *ngIf="searchForm.get('downPaymentPercentage')?.hasError('max')">Maximum value is 100.</div>
-        </div>
-    </div>
-
-    <!-- Input field for number -->
-    <div *ngIf="selectedDownPaymentMethod === 'number'">
-        <label for="number">Enter Down Payment: $</label>
-        <input id="downPaymentNumber" formControlName="downPaymentNumber" type="number" placeholder="50,000">
-        <div *ngIf="searchForm.get('downPaymentNumber')?.touched && searchForm.get('downPaymentNumber')?.invalid">
-        <div *ngIf="searchForm.get('downPaymentNumber')?.hasError('downPaymentNumber')">Number is required.</div>
-        </div>
-    </div>
-
     <div class="row">
         <div>
             <label>Listing Type:</label>

@@ -3,22 +3,6 @@ import { FormGroup, FormControl, Validators, AbstractControl, ValidationErrors }
 import { SearchFormModel } from 'src/app/models/searchForm.model';
 import { PropertySearchService } from 'src/app/services/property-search/property-search.service';
 
-
-// Validator so that user enters either a percentage or a dollar amount for mortgage
-function downPaymentTypeRequired(control: AbstractControl): ValidationErrors | null {
-  const form = control as FormGroup;
-  const type = form.get('downPaymentType')?.value;
-  const percentageValue = form.get('downPaymentPercentage')?.value;
-  const numberValue = form.get('downPaymentNumber')?.value;
-
-  if (type === 'percentage' && !percentageValue) {
-    return { downPaymentTypeRequired: 'Percentage is required' };
-  } else if (type === 'number' && !numberValue) {
-    return { downPaymentTypeRequired: 'Number is required' };
-  }
-  return null;
-}
-
 function greaterThanValidator(control: AbstractControl): ValidationErrors | null {
   const minValue = control.get('minPrice')?.value;
   const maxValue = control.get('maxPrice')?.value;
@@ -64,14 +48,9 @@ export class SearchFormComponent implements OnInit{
       location: new FormControl('Denver', [Validators.required]),
       minPrice: new FormControl(60000, [Validators.min(0), Validators.required]),
       maxPrice: new FormControl(800000, [Validators.min(0)]),
-      
-      downPaymentType: new FormControl('percentage', Validators.required),
-      downPaymentPercentage: new FormControl(null, [Validators.min(0), Validators.max(100)]),
-      downPaymentNumber: new FormControl(null, [Validators.min(0)]),
-  
       listingType: new FormControl(null, Validators.required)
       
-    }, { validators: [downPaymentTypeRequired, greaterThanValidator] });
+    }, { validators: [greaterThanValidator] });
   }
 
   ngOnInit(): void {
@@ -82,9 +61,6 @@ export class SearchFormComponent implements OnInit{
         location: this.propSearch.searchFormObj.location,
         minPrice: this.propSearch.searchFormObj.minPrice,
         maxPrice: this.propSearch.searchFormObj.maxPrice,
-        downPaymentType: this.propSearch.searchFormObj.downPaymentType,
-        downPaymentPercentage: this.propSearch.searchFormObj.downPaymentPercentage,
-        downPaymentNumber: this.propSearch.searchFormObj.downPaymentNumber,
         listingType: this.propSearch.searchFormObj.listingType,
       });
 
