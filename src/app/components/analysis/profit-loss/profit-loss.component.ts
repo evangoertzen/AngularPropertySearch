@@ -32,9 +32,23 @@ export class ProfitLossComponent implements OnInit{
   };
 
   ngOnInit(): void {
-    if(this.property && this.property.rent){
-      this.income.rent_dol = 12 * this.property.rent;
+    if(this.property){
+
+      if(this.property.rent){
+        this.income.rent_dol = 12 * this.property.rent;
+      }
+
+      if(this.property.tax){
+        this.expenses.taxes_dol = this.property.tax;
+      }
+
+      if(this.property.hoa_fee){
+        this.expenses.hoa_dol = this.property.hoa_fee;
+      }
+
     }
+
+
 
     this.updatePieChart();
   }
