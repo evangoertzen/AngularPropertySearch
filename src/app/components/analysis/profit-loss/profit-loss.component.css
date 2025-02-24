@@ -1,5 +1,4 @@
 .rental-form {
-    width: 50%;
     margin: auto;
     padding: 20px;
     border: 1px solid #ccc;
@@ -9,6 +8,7 @@
   
   table {
     width: 100%;
+    margin-bottom: 20px;
     border-collapse: collapse;
   }
   
@@ -19,7 +19,6 @@
   
   input[type="number"] {
     width: 100%;
-    padding: 3px;
     font-size: 14px;
     border: 1px solid #ccc;
     border-radius: 4px;

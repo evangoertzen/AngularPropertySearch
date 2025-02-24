@@ -12,6 +12,12 @@ export class ProfitLossComponent implements OnInit{
   @Input()
   property: PropertyModel | null = null;
 
+  pieChartData: any;
+
+  constructor(){
+    this.updatePieChart();
+  }
+
   // Income
   public income = {
     rent_dol: 0
@@ -33,18 +39,28 @@ export class ProfitLossComponent implements OnInit{
     if(this.property && this.property.rent){
       this.income.rent_dol = 12 * this.property.rent;
     }
+
+    this.updatePieChart();
   }
 
   calculateOperatingIncome(){
     return this.income.rent_dol - this.income.rent_dol * (this.expenses.vacancy_rate / 100);
   }
 
+  calcMaintenanceExpense(){
+    return this.income.rent_dol * (this.expenses.maintenance_rate/100)
+  }
+
+  calcManagementExpense(){
+    return this.income.rent_dol * (this.expenses.management_fee_rate/100)
+  }
+
   // Profit/Loss Calculation
   calculateProfitLoss() {
     const operatingIncome  = this.calculateOperatingIncome();
     const totalExpenses = 
-      + this.income.rent_dol * (this.expenses.maintenance_rate/100)
-      + this.income.rent_dol * (this.expenses.management_fee_rate/100)
+      this.calcMaintenanceExpense()
+      + this.calcManagementExpense()
       + this.expenses.taxes_dol
       + this.expenses.insurance_dol
       + this.expenses.hoa_dol
@@ -52,6 +68,17 @@ export class ProfitLossComponent implements OnInit{
       + this.expenses.misc_expenses_dol;
 
     return operatingIncome - totalExpenses;
+  }
+
+  updatePieChart(){
+    this.pieChartData = {
+      labels: ['Maintenance', 'Management', 'Taxes', 'Insurance', 'HOA Fees', 'Utilities', 'Miscellaneous'],
+      datasets: [
+        {
+          data: [this.calcMaintenanceExpense(), this.calcManagementExpense(), this.expenses.taxes_dol, this.expenses.insurance_dol, this.expenses.hoa_dol, this.expenses.utilities_dol, this.expenses.misc_expenses_dol],
+        }
+      ]
+    };
   }
 
 }

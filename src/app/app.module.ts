@@ -26,6 +26,7 @@ import { MapComponent } from './components/map/map.component';
 import { ProfitLossComponent } from './components/analysis/profit-loss/profit-loss.component';
 import { MortgageCalcComponent } from "./components/analysis/mortgage-calc/mortgage-calc.component";
 import { MatTabsModule } from '@angular/material/tabs';
+import { ChartModule } from 'primeng/chart';
 
 @NgModule({ 
     declarations: [
@@ -54,7 +55,8 @@ import { MatTabsModule } from '@angular/material/tabs';
     ReactiveFormsModule,
     MatSliderModule,
     FormsModule,
-    MatTabsModule
+    MatTabsModule,
+    ChartModule
 ], 
     providers: [
         provideHttpClient(withInterceptorsFromDi()), 

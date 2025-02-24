@@ -1,104 +1,116 @@
-<form>
-  <div class="rental-form">
-    <h2>Yearly Profit/Loss Calculator</h2>
-    
-    <table>
-      <thead>
-        <tr>
-          <th>Category</th>
-          <th>Amount</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Rent Income -->
-        <tr>
-          <td>Rent Income ($)</td>
-          <td>
-            <input [(ngModel)]="income.rent_dol" name="rentIncome" type="number" placeholder="Enter Rent Income" />
-          </td>
-        </tr>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-6 d-flex flex-grow-1"> 
+      <form>
+        <div class="rental-form">
+          <h2>Yearly Profit/Loss Calculator</h2>
+      
+          
+          <table>
+            <thead>
+              <tr>
+                <th>Category</th>
+                <th>Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Rent Income -->
+              <tr>
+                <td>Annual Rent Income ($)</td>
+                <td>
+                  <input [(ngModel)]="income.rent_dol" name="rentIncome" type="number" placeholder="Enter Rent Income" (input)="updatePieChart()"/>
+                </td>
+              </tr>
+      
+              <!-- Vacancy Rate -->
+              <tr>
+                <td>Vacancy Rate (%)</td>
+                <td>
+                  <input [(ngModel)]="expenses.vacancy_rate" name="vacancyRate" type="number" placeholder="Enter Vacancy Rate" (input)="updatePieChart()"/>
+                </td>
+              </tr>
+      
+              <!-- Operating Income -->
+              <tr>
+                <td><strong>Total Operating Income ($)</strong></td>
+                <td>
+                  <input [value]="calculateOperatingIncome()" disabled type="number" />
+                </td>
+              </tr>
+      
+              <!-- Maintenance Costs -->
+              <tr>
+                <td>Maintenance Costs (%)</td>
+                <td>
+                  <input [(ngModel)]="expenses.maintenance_rate" name="maintenanceRate" type="number" placeholder="Enter Maintenance Cost Rate" (input)="updatePieChart()"/>
+                </td>
+              </tr>
+      
+              <!-- Management Fee -->
+              <tr>
+                <td>Management Fee (%)</td>
+                <td>
+                  <input [(ngModel)]="expenses.management_fee_rate" name="managementRate" type="number" placeholder="Enter Management Cost Rate" (input)="updatePieChart()"/>
+                </td>
+              </tr>
+      
+              <!-- Property Taxes -->
+              <tr>
+                <td>Property Taxes ($)</td>
+                <td>
+                  <input [(ngModel)]="expenses.taxes_dol" name="propertyTaxes" type="number" placeholder="Enter Property Taxes" (input)="updatePieChart()"/>
+                </td>
+              </tr>
+      
+              <!-- Insurance -->
+              <tr>
+                <td>Insurance ($)</td>
+                <td>
+                  <input [(ngModel)]="expenses.insurance_dol" name="insurance" type="number" placeholder="Enter Insurance Costs" (input)="updatePieChart()"/>
+                </td>
+              </tr>
+      
+              <!-- HOA Fee -->
+              <tr>
+                <td>HOA Fee ($)</td>
+                <td>
+                  <input [(ngModel)]="expenses.hoa_dol" name="hoaFee" type="number" placeholder="Enter Yearly HOA Fee" (input)="updatePieChart()"/>
+                </td>
+              </tr>
+      
+              <!-- Utilities Cost -->
+              <tr>
+                <td>Utilities Cost ($)</td>
+                <td>
+                  <input [(ngModel)]="expenses.utilities_dol" name="utilitiesCost" type="number" placeholder="Enter Yearly Utilities cost" (input)="updatePieChart()"/>
+                </td>
+              </tr>
+      
+              <!-- Miscellaneous Cost -->
+              <tr>
+                <td>Miscellaneous Expenses ($)</td>
+                <td>
+                  <input [(ngModel)]="expenses.misc_expenses_dol" name="miscCost" type="number" placeholder="Enter Yearly Miscellaneous cost" (input)="updatePieChart()"/>
+                </td>
+              </tr>
+              
+              <!-- Profit/Loss -->
+              <tr>
+                <td><strong>Profit/Loss ($)</strong></td>
+                <td>
+                  <input [value]="calculateProfitLoss()" disabled type="number"/>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </form>
+    </div>  
 
-        <!-- Vacancy Rate -->
-        <tr>
-          <td>Vacancy Rate (%)</td>
-          <td>
-            <input [(ngModel)]="expenses.vacancy_rate" name="vacancyRate" type="number" placeholder="Enter Vacancy Rate" />
-          </td>
-        </tr>
-
-        <!-- Operating Income -->
-        <tr>
-          <td><strong>Total Operating Income ($)</strong></td>
-          <td>
-            <input [value]="calculateOperatingIncome()" disabled type="number" />
-          </td>
-        </tr>
-
-        <!-- Maintenance Costs -->
-        <tr>
-          <td>Maintenance Costs (%)</td>
-          <td>
-            <input [(ngModel)]="expenses.maintenance_rate" name="maintenanceRate" type="number" placeholder="Enter Maintenance Cost Rate" />
-          </td>
-        </tr>
-
-        <!-- Management Fee -->
-        <tr>
-          <td>Management Fee (%)</td>
-          <td>
-            <input [(ngModel)]="expenses.management_fee_rate" name="managementRate" type="number" placeholder="Enter Management Cost Rate" />
-          </td>
-        </tr>
-
-        <!-- Property Taxes -->
-        <tr>
-          <td>Property Taxes ($)</td>
-          <td>
-            <input [(ngModel)]="expenses.taxes_dol" name="propertyTaxes" type="number" placeholder="Enter Property Taxes" />
-          </td>
-        </tr>
-
-        <!-- Insurance -->
-        <tr>
-          <td>Insurance ($)</td>
-          <td>
-            <input [(ngModel)]="expenses.insurance_dol" name="insurance" type="number" placeholder="Enter Insurance Costs" />
-          </td>
-        </tr>
-
-        <!-- HOA Fee -->
-        <tr>
-          <td>HOA Fee ($)</td>
-          <td>
-            <input [(ngModel)]="expenses.hoa_dol" name="hoaFee" type="number" placeholder="Enter Yearly HOA Fee" />
-          </td>
-        </tr>
-
-        <!-- Utilities Cost -->
-        <tr>
-          <td>Utilities Cost ($)</td>
-          <td>
-            <input [(ngModel)]="expenses.utilities_dol" name="utilitiesCost" type="number" placeholder="Enter Yearly Utilities cost" />
-          </td>
-        </tr>
-
-        <!-- Miscellaneous Cost -->
-        <tr>
-          <td>Miscellaneous Expenses ($)</td>
-          <td>
-            <input [(ngModel)]="expenses.misc_expenses_dol" name="miscCost" type="number" placeholder="Enter Yearly Miscellaneous cost" />
-          </td>
-        </tr>
-        
-        <!-- Profit/Loss -->
-        <tr>
-          <td><strong>Profit/Loss ($)</strong></td>
-          <td>
-            <input [value]="calculateProfitLoss()" disabled type="number" />
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="col-6 d-flex flex-grow-1 justify-content-center"> 
+      <p-chart type="doughnut" [data]="pieChartData"></p-chart>
+    </div>
+  
   </div>
-</form>
+</div>  
 
