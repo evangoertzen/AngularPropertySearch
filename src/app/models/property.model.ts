@@ -44,5 +44,4 @@ export interface PropertyModel {
     primary_photo: string;
 
     rent: number;
-    // cash_flow: number;
 }
