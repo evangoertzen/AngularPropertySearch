@@ -41,7 +41,7 @@ export class FullHomeInfoComponent implements OnInit{
 
   ngOnChanges(): void {
     if (this.property?.latitude && this.property?.longitude) {
-      const unsafeUrl = `https://www.google.com/maps?q=${this.property.latitude},${this.property.longitude}&output=embed`;
+      const unsafeUrl = `https://www.google.com/maps?q=${encodeURIComponent(this.property.full_street_line + ', ' + this.property.city + ', ' + this.property.state)}&output=embed`;
       this.mapUrl = this.sanitizer.bypassSecurityTrustResourceUrl(unsafeUrl);
     }
   }
