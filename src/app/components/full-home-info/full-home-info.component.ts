@@ -22,7 +22,7 @@ export class FullHomeInfoComponent implements OnInit{
 
   ngOnInit(): void {
     const reversedData = [...this.property.tax_history].reverse();
-    const labels = reversedData.map(point => point.year.toString());
+    const labels = reversedData.map(point => point.year);
     const values = reversedData.map(point => point.tax);
 
     this.lineChartData = {
@@ -49,4 +49,22 @@ export class FullHomeInfoComponent implements OnInit{
   formatCurrency(value: number): string {
     return value ? `$${value.toLocaleString()}` : 'N/A';
   }
+
+  chartOptions = {
+    responsive: true,
+    plugins: {
+      legend: {
+        display: true
+      }
+    },
+    scales: {
+      y: {
+        ticks: {
+          callback: function(value: number) {
+            return '$' + value.toLocaleString(); // Adds $ and formats with commas
+          }
+        }
+      }
+    }
+  };
 }
