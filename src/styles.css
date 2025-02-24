@@ -5,12 +5,12 @@ body { margin: 0; padding: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
 
 /* For map marker */
 .custom-marker .material-icons{
-    color: green;
+    color: rgb(2, 151, 237);
     font-size: 2rem;
 }
 
 .custom-marker :hover {
-    color: lightgray;
+    color: rgb(237, 151, 2);
 }
 
 html, body { height: 100%; }

@@ -18,7 +18,7 @@ const originalIcon = L.divIcon({
 
 const hoveredIcon = L.divIcon({
   className: 'custom-marker',
-  html: '<i class="material-icons" style="color: red;">location_on</i>',
+  html: '<i class="material-icons" style="color: rgb(237, 151, 2);">location_on</i>',
   iconSize: [32, 32],
   iconAnchor: [16, 32],
   popupAnchor: [0, -32]
@@ -53,7 +53,6 @@ export class MapComponent implements OnInit {
   ){}
 
   ngOnInit(): void {
-    console.log("Initializing map");
     // Initialize the map centered at a default location
     this.map = L.map('map').setView([this.propertySearch.mapBounds.getNorth(), this.propertySearch.mapBounds.getWest()], 12);
 
