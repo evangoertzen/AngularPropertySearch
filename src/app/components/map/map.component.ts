@@ -31,7 +31,7 @@ const hoveredIcon = L.divIcon({
   standalone: false
 })
 
-export class MapComponent implements OnInit, OnDestroy {
+export class MapComponent implements OnInit {
 
   private map!: L.Map;
 
@@ -53,8 +53,9 @@ export class MapComponent implements OnInit, OnDestroy {
   ){}
 
   ngOnInit(): void {
+    console.log("Initializing map");
     // Initialize the map centered at a default location
-    this.map = L.map('map').setView([this.propertySearch.mapBounds.getNorth(), this.propertySearch.mapBounds.getWest()], 12); // San Francisco
+    this.map = L.map('map').setView([this.propertySearch.mapBounds.getNorth(), this.propertySearch.mapBounds.getWest()], 12);
 
     // Add OpenStreetMap tile layer (Free & No API Key Needed)
     L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
@@ -74,12 +75,6 @@ export class MapComponent implements OnInit, OnDestroy {
     // If route to home page, refresh map markers
     if(this.propertySearch.properties.length !== 0){
       this.refreshMap()
-    }
-  }
-
-  ngOnDestroy(): void {
-    if (this.map) {
-      this.map.remove();
     }
   }
 
