@@ -1,21 +1,21 @@
 <div class="card shadow-sm p-3 h-100 d-flex flex-column" (mouseover)="mouseOver()" (mouseout)="mouseOut()">
     <!-- Property Image -->
-    <a [routerLink]="'analysis'" [queryParams]="{ mls_id: property.mls_id }">
-        <img [src]="property.primary_photo" class="card-img-top img-fluid rounded" alt="Property Image">
-    </a>
-
+    <img [src]="property.primary_photo" class="card-img-top img-fluid rounded" alt="Property Image">
+    
     <div class="card-body text-center">
         <!-- Price -->
         <h4 class="fw-bold">${{ property.list_price.toFixed(2) }}</h4>
-
+        
         <!-- Beds, Baths, Sqft -->
         <p class="mb-2">
             <span class="fw-bold">{{ property.beds }}</span> bds | 
             <span class="fw-bold">{{ property.full_baths + property.half_baths }}</span> ba | 
             <span class="fw-bold">{{ property.sqft }}</span> sqft
         </p>
-
+        
         <!-- Address -->
         <p class="text-muted">{{ property.street }} {{ property.unit }}, {{ property.city }}, {{ property.state }}</p>
     </div>
+    
+    <a [routerLink]="'analysis'" [queryParams]="{ mls_id: property.mls_id }" class="stretched-link"></a>
 </div>
