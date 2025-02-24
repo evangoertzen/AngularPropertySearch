@@ -24,9 +24,10 @@
             </div>
         </div>
     </div>
-    
-    <app-mortgage-calc [property]="property"></app-mortgage-calc>
-    <app-profit-loss [property]="property"></app-profit-loss>
-         
+
+    <mat-tab-group>
+        <mat-tab label="Mortgage Calculator"> <app-mortgage-calc [property]="property"></app-mortgage-calc> </mat-tab>
+        <mat-tab label="Profit/Loss Statement"> <app-profit-loss [property]="property"></app-profit-loss> </mat-tab>
+    </mat-tab-group>
 
 </div>

@@ -25,6 +25,7 @@ import { AnalysisComponent } from './components/analysis/analysis.component';
 import { MapComponent } from './components/map/map.component';
 import { ProfitLossComponent } from './components/analysis/profit-loss/profit-loss.component';
 import { MortgageCalcComponent } from "./components/analysis/mortgage-calc/mortgage-calc.component";
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({ 
     declarations: [
@@ -53,6 +54,7 @@ import { MortgageCalcComponent } from "./components/analysis/mortgage-calc/mortg
     ReactiveFormsModule,
     MatSliderModule,
     FormsModule,
+    MatTabsModule
 ], 
     providers: [
         provideHttpClient(withInterceptorsFromDi()), 
