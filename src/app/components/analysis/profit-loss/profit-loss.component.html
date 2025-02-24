@@ -35,7 +35,7 @@
               <tr>
                 <td><strong>Total Operating Income ($)</strong></td>
                 <td>
-                  <input [value]="calculateOperatingIncome()" disabled type="number" />
+                  <input [value]="calculateOperatingIncome().toFixed(2)" disabled type="number" />
                 </td>
               </tr>
       
@@ -99,7 +99,7 @@
               <tr>
                 <td><strong>Profit/Loss ($)</strong></td>
                 <td>
-                  <input [value]="calculateProfitLoss()" disabled type="number"/>
+                  <input [value]="calculateProfitLoss().toFixed(2)" disabled type="number"/>
                 </td>
               </tr>
             </tbody>
