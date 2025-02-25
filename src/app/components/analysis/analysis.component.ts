@@ -34,5 +34,9 @@ export class AnalysisComponent implements OnInit {
         this.property = propTemp;
       }
     }
+    
+    if (this.property && this.property.list_price){
+      this.calcService.purchasePrice = this.property.list_price;
+    }
   }
 }

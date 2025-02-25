@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { PropertyModel } from 'src/app/models/property.model';
 import { CalculatorServiceService } from 'src/app/services/calculator-service/calculator-service.service';
 
@@ -8,7 +8,7 @@ import { CalculatorServiceService } from 'src/app/services/calculator-service/ca
   styleUrl: './mortgage-calc.component.css',
   standalone: false
 })
-export class MortgageCalcComponent implements OnInit{
+export class MortgageCalcComponent {
 
   @Input()
   property: PropertyModel | null = null;
@@ -17,11 +17,4 @@ export class MortgageCalcComponent implements OnInit{
   constructor(
     public calcService: CalculatorServiceService
   ){}
-
-
-  ngOnInit() {
-    if (this.property && this.property.list_price){
-      this.calcService.purchasePrice = this.property.list_price;
-    }
-  }
 }
