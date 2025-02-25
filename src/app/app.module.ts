@@ -31,6 +31,7 @@ import { FullHomeInfoComponent } from "./components/full-home-info/full-home-inf
 import { TabViewModule } from 'primeng/tabview';
 import { MatCardModule } from '@angular/material/card';
 import { TaxGraphComponent } from './components/analysis/tax-graph/tax-graph.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @NgModule({ 
     declarations: [
@@ -64,7 +65,8 @@ import { TaxGraphComponent } from './components/analysis/tax-graph/tax-graph.com
     MatTabsModule,
     ChartModule,
     TabViewModule,
-    MatCardModule
+    MatCardModule,
+    MatTooltipModule
 ], 
     providers: [
         provideHttpClient(withInterceptorsFromDi()), 

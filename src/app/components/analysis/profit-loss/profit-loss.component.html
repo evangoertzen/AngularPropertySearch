@@ -111,7 +111,10 @@
 
               <!-- Debt Service -->
               <tr>
-                <td>Debt Service ($)</td>
+                <td>
+                  Debt Service ($)
+                  <i class="material-icons" style="color: rgb(2, 151, 237); font-size: 1.3rem; vertical-align: middle;" matTooltip="Use the mortgage calculator to change this value." >info</i>
+                </td>
                 <td>
                   <input [value]="(calcService.calcMonthlyPayment()*12).toFixed(2)" disabled type="number" placeholder="Enter mortgage calculation" (input)="updatePieChart()"/>
                 </td>
