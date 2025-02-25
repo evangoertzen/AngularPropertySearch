@@ -14,8 +14,9 @@
         </p>
         
         <!-- Address -->
-        <p class="text-muted">{{ property.street }} {{ property.unit }}, {{ property.city }}, {{ property.state }}</p>
+        <p class="text-muted" *ngIf="property.unit">{{ property.street }} {{ property.unit }}, {{ property.city }}, {{ property.state }}</p>
+        <p class="text-muted" *ngIf="!property.unit">{{ property.street }}, {{ property.city }}, {{ property.state }}</p>
+        
     </div>
-    
     <a [routerLink]="'analysis'" [queryParams]="{ mls_id: property.mls_id }" class="stretched-link"></a>
 </div>
