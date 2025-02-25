@@ -30,7 +30,7 @@ export class ProfitLossComponent implements OnInit {
     hoa_dol: 0,
     utilities_dol: 0,
     misc_expenses_dol: 0,
-    capital_expenses: 0
+    capex_rate: 2
   };
 
   setRent(){
@@ -84,6 +84,14 @@ export class ProfitLossComponent implements OnInit {
     return this.income.rent_dol * (this.expenses.vacancy_rate / 100);
   }
 
+  calcCapexExpense(){
+    if(this.property && this.property.list_price){
+      return this.property.list_price * (this.expenses.capex_rate / 100)
+    }else{
+      return 1000;
+    }
+  }
+
   // Profit/Loss Calculation
   calculateNOI() {
     const operatingIncome  = this.calculateOperatingIncome();
@@ -100,7 +108,7 @@ export class ProfitLossComponent implements OnInit {
   }
 
   calcCashFlow(){
-    return this.calculateNOI() - this.expenses.capital_expenses - this.calcService.calcMonthlyPayment()*12;
+    return this.calculateNOI() - this.calcCapexExpense() - this.calcService.calcMonthlyPayment()*12;
   }
 
   updatePieChart(){
@@ -110,7 +118,7 @@ export class ProfitLossComponent implements OnInit {
         {
           data: [this.calcVacancyExpense(), this.calcMaintenanceExpense(), this.calcManagementExpense(), 
             this.expenses.taxes_dol, this.expenses.insurance_dol, this.expenses.hoa_dol, 
-            this.expenses.utilities_dol, this.expenses.misc_expenses_dol, this.expenses.capital_expenses,
+            this.expenses.utilities_dol, this.expenses.misc_expenses_dol, this.calcCapexExpense(),
             this.calcService.calcMonthlyPayment()*12],
         }
       ]
