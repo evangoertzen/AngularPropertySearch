@@ -25,7 +25,6 @@ export class AnalysisComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParamMap.subscribe(params => {
       this.mls_id = params.get('mls_id');
-      console.log('mls_id: ', this.mls_id); // `id` will be `null` if not passed
     });
     
     if(this.mls_id){
