@@ -27,9 +27,6 @@ export class SearchFormComponent implements OnInit{
   
   submitted = false;
   
-  // either 'percentage' or 'number'
-  selectedDownPaymentMethod = 'percentage'; 
-  
   // house price range
   public maxCost = 1000000
   public minCost = 0
@@ -39,8 +36,7 @@ export class SearchFormComponent implements OnInit{
     'Sold': 'SOLD',
     'Pending': 'PENDING'
   }
-  
-  
+
   constructor(
     private propSearch: PropertySearchService
   ){
@@ -63,10 +59,6 @@ export class SearchFormComponent implements OnInit{
         maxPrice: this.propSearch.searchFormObj.maxPrice,
         listingType: this.propSearch.searchFormObj.listingType,
       });
-
-      if(this.propSearch.searchFormObj.downPaymentType){
-        this.selectedDownPaymentMethod = this.propSearch.searchFormObj.downPaymentType;
-      }
     }
   }
 
