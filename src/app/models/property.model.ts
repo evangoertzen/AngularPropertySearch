@@ -1,3 +1,5 @@
+import { TaxYrInfo } from "./taxYear.model";
+
 export interface PropertyModel {
     property_url: string;
     property_id: string;
@@ -44,9 +46,4 @@ export interface PropertyModel {
     primary_photo: string;
 
     rent: number;
-}
-
-export interface TaxYrInfo{
-    year: string
-    tax: number
 }

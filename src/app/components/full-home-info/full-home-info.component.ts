@@ -8,7 +8,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
   styleUrl: './full-home-info.component.css',
   standalone: false
 })
-export class FullHomeInfoComponent implements OnInit{
+export class FullHomeInfoComponent {
 
   @Input() property!: PropertyModel;
 
@@ -20,25 +20,6 @@ export class FullHomeInfoComponent implements OnInit{
     private sanitizer: DomSanitizer
   ){}
 
-  ngOnInit(): void {
-    const reversedData = [...this.property.tax_history].reverse();
-    const labels = reversedData.map(point => point.year);
-    const values = reversedData.map(point => point.tax);
-
-    this.lineChartData = {
-      labels: labels,
-      datasets: [
-        {
-          label: 'Property Tax',
-          data: values,
-          borderColor: '#42A5F5',
-          fill: true,
-          tension: 0.4
-        }
-      ]
-    };
-  }
-
   ngOnChanges(): void {
     if (this.property?.latitude && this.property?.longitude) {
       const unsafeUrl = `https://www.google.com/maps?q=${encodeURIComponent(this.property.street + ', ' + this.property.city + ', ' + this.property.state)}&output=embed`;
@@ -49,22 +30,4 @@ export class FullHomeInfoComponent implements OnInit{
   formatCurrency(value: number): string {
     return value ? `$${value.toLocaleString()}` : 'N/A';
   }
-
-  chartOptions = {
-    responsive: true,
-    plugins: {
-      legend: {
-        display: true
-      }
-    },
-    scales: {
-      y: {
-        ticks: {
-          callback: function(value: number) {
-            return '$' + value.toLocaleString(); // Adds $ and formats with commas
-          }
-        }
-      }
-    }
-  };
 }

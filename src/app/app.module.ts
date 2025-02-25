@@ -30,6 +30,7 @@ import { ChartModule } from 'primeng/chart';
 import { FullHomeInfoComponent } from "./components/full-home-info/full-home-info.component";
 import { TabViewModule } from 'primeng/tabview';
 import { MatCardModule } from '@angular/material/card';
+import { TaxGraphComponent } from './components/analysis/tax-graph/tax-graph.component';
 
 @NgModule({ 
     declarations: [
@@ -44,7 +45,8 @@ import { MatCardModule } from '@angular/material/card';
         MapComponent,
         ProfitLossComponent,
         MortgageCalcComponent,
-        FullHomeInfoComponent
+        FullHomeInfoComponent,
+        TaxGraphComponent
     ],
     bootstrap: [AppComponent], 
     imports: [
