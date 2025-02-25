@@ -21,6 +21,11 @@ export class CalculatorServiceService {
   }
 
   calcMonthlyPayment(){
+
+    if(this.loanTerm === 0){
+      return 0;
+    }
+
     let r = (this.interestRate / 100) / 12;
     let n = 12 * this.loanTerm;
 
