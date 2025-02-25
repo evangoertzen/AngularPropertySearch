@@ -138,9 +138,14 @@
       </form>
     </div>  
 
-    <div class="col-6 d-flex flex-grow-1 justify-content-center"> 
-      <p-chart type="doughnut" [data]="pieChartData"></p-chart>
-    </div>
+    <div class="col-6 d-flex flex-column align-items-center">
+      <div class="col-12 text-center">
+        <h2>Yearly Expenses</h2>
+      </div>
+      <div class="col-12">
+        <p-chart type="doughnut" [data]="pieChartData"></p-chart>
+      </div>
+    </div>    
   
   </div>
 </div>  
