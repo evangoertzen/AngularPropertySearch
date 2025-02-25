@@ -102,6 +102,14 @@
                   <input [value]="calculateProfitLoss().toFixed(2)" disabled type="number"/>
                 </td>
               </tr>
+
+              <!-- Debt Service -->
+              <tr>
+                <td>Debt Service ($)</td>
+                <td>
+                  <input [(ngModel)]="expenses.misc_expenses_dol" disabled type="number" placeholder="Enter mortgage calculation" (input)="updatePieChart()"/>
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>

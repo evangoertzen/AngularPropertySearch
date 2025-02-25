@@ -13,34 +13,15 @@ export class MortgageCalcComponent implements OnInit{
   @Input()
   property: PropertyModel | null = null;
 
-  public purchasePrice =  0;
-  public interestRate = 6.7;
-  public loanTerm = 30;
-  public downPaymentPercentage = 20;
   
   constructor(
-    private calcService: CalculatorServiceService
+    public calcService: CalculatorServiceService
   ){}
 
 
   ngOnInit() {
     if (this.property && this.property.list_price){
-      this.purchasePrice = this.property.list_price;
+      this.calcService.purchasePrice = this.property.list_price;
     }
-  }
-
-  calcCashRequired(){
-    return this.purchasePrice*(this.downPaymentPercentage/100);
-  }
-
-  calcMonthlyPayment(){
-    let r = (this.interestRate / 100) / 12;
-    let n = 12 * this.loanTerm;
-
-    let debtTotal = 0;
-
-    debtTotal = this.purchasePrice - this.calcCashRequired();
-
-    return debtTotal * (r * ((1 + r) ** n)) / (((1 + r) ** n) - 1);
   }
 }
