@@ -129,7 +129,7 @@
               <tr>
                 <td><strong>Pre-tax Cash Flow ($)</strong></td>
                 <td>
-                  <input [value]="calcCashFlow().toFixed(2)" disabled type="number"/>
+                  <input [value]="calcCashFlow().toFixed(2)" disabled type="number" [style.border]="calcCashFlow() < 0 ? '4px solid red' : '4px solid rgb(41, 207, 8)'"/>
                 </td>
               </tr>
             </tbody>
