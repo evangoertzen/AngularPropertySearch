@@ -105,7 +105,7 @@ export class ProfitLossComponent implements OnInit {
 
   updatePieChart(){
     this.pieChartData = {
-      labels: ['Vacancy', 'Maintenance', 'Management', 'Taxes', 'Insurance', 'HOA Fees', 'Utilities', 'Miscellaneous', 'Debt Service', 'Capital Expenses'],
+      labels: ['Vacancy', 'Maintenance', 'Management', 'Taxes', 'Insurance', 'HOA Fees', 'Utilities', 'Miscellaneous', 'Capital Expenses', 'Debt Service'],
       datasets: [
         {
           data: [this.calcVacancyExpense(), this.calcMaintenanceExpense(), this.calcManagementExpense(), 
