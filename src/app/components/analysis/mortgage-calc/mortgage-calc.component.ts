@@ -17,4 +17,8 @@ export class MortgageCalcComponent {
   constructor(
     public calcService: CalculatorServiceService
   ){}
+
+  updatePieChart(){
+    this.calcService.mortgageSubject.next('');
+  }
 }

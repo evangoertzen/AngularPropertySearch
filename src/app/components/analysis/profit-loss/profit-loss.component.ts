@@ -59,6 +59,10 @@ export class ProfitLossComponent implements OnInit {
 
     }
 
+    this.calcService.refreshMortgage$.subscribe(() => {
+      this.updatePieChart();
+    })
+
     this.updatePieChart();
   }
   

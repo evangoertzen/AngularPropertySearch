@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { PropertyModel } from 'src/app/models/property.model';
 import { PropertySearchService } from '../property-search/property-search.service';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,9 @@ export class CalculatorServiceService {
   public interestRate = 6.7;
   public loanTerm = 30;
   public downPaymentPercentage = 20;
+
+  public mortgageSubject = new Subject<string>();
+  public refreshMortgage$ = this.mortgageSubject.asObservable(); //subscribe to this in P/L and update pie chart on next
 
   constructor(
     private propertySearchService: PropertySearchService

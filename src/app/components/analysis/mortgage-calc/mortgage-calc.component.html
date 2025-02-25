@@ -14,14 +14,14 @@
           <tr>
             <td>Purchase Price ($)</td>
             <td>
-              <input [(ngModel)]="calcService.purchasePrice" name="purchasePrice" type="number" placeholder="Enter Purchase Price" />
+              <input [(ngModel)]="calcService.purchasePrice" name="purchasePrice" type="number" placeholder="Enter Purchase Price" (input)="updatePieChart()"/>
             </td>
           </tr>
           <!-- Interest Rate -->
           <tr>
             <td>Interest Rate (%)</td>
             <td>
-              <input [(ngModel)]="calcService.interestRate" name="interestRate" type="number" placeholder="Enter Interest Rate" />
+              <input [(ngModel)]="calcService.interestRate" name="interestRate" type="number" placeholder="Enter Interest Rate" (input)="updatePieChart()"/>
             </td>
           </tr>
   
@@ -29,7 +29,7 @@
           <tr>
             <td>Loan Term (years)</td>
             <td>
-              <input [(ngModel)]="calcService.loanTerm" name="loanTerm" type="number" placeholder="Loan Term in Years"/>
+              <input [(ngModel)]="calcService.loanTerm" name="loanTerm" type="number" placeholder="Loan Term in Years" (input)="updatePieChart()"/>
             </td>
           </tr>
   
@@ -37,7 +37,7 @@
           <tr>
             <td>Down Payment (%)</td>
             <td>
-              <input [(ngModel)]="calcService.downPaymentPercentage"  name="downPaymentPercentage" type="number" placeholder="Down Payment Percentage" />
+              <input [(ngModel)]="calcService.downPaymentPercentage"  name="downPaymentPercentage" type="number" placeholder="Down Payment Percentage" (input)="updatePieChart()"/>
             </td>
           </tr>
   
