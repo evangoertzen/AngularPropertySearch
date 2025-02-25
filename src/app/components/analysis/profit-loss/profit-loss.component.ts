@@ -23,7 +23,7 @@ export class ProfitLossComponent implements OnInit {
   // Expenses
   public expenses = {
     vacancy_rate: 5,
-    maintenance_rate: 10,
+    maintenance_rate: 3,
     management_fee_rate: 10,
     taxes_dol: 0,
     insurance_dol: 0,
