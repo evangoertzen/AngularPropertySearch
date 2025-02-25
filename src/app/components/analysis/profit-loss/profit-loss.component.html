@@ -91,15 +91,21 @@
               <tr>
                 <td>Miscellaneous Expenses ($)</td>
                 <td>
-                  <input [(ngModel)]="expenses.misc_expenses_dol" name="miscCost" type="number" placeholder="Enter Yearly Miscellaneous cost" (input)="updatePieChart()"/>
+                  <input [(ngModel)]="expenses.misc_expenses_dol" name="capex" type="number" placeholder="Enter Yearly Capital Expenses" (input)="updatePieChart()"/>
+                </td>
+              </tr>
+
+              <tr>
+                <td colspan="2">
+                  <hr class="w-100">
                 </td>
               </tr>
               
-              <!-- Profit/Loss -->
+              <!-- Net Operating Income -->
               <tr>
-                <td><strong>Profit/Loss ($)</strong></td>
+                <td><strong>Net Operating Income (NOI) ($)</strong></td>
                 <td>
-                  <input [value]="calculateProfitLoss().toFixed(2)" disabled type="number"/>
+                  <input [value]="calculateNOI().toFixed(2)" disabled type="number"/>
                 </td>
               </tr>
 
@@ -107,7 +113,23 @@
               <tr>
                 <td>Debt Service ($)</td>
                 <td>
-                  <input [(ngModel)]="expenses.misc_expenses_dol" disabled type="number" placeholder="Enter mortgage calculation" (input)="updatePieChart()"/>
+                  <input [value]="(calcService.calcMonthlyPayment()*12).toFixed(2)" disabled type="number" placeholder="Enter mortgage calculation" (input)="updatePieChart()"/>
+                </td>
+              </tr>
+
+              <!-- Capital Expenses -->
+              <tr>
+                <td>Capital Expenses ($)</td>
+                <td>
+                  <input [(ngModel)]="expenses.capital_expenses" name="miscCost" type="number" placeholder="Enter Yearly Miscellaneous cost" (input)="updatePieChart()"/>
+                </td>
+              </tr>
+
+              <!-- Net Operating Income -->
+              <tr>
+                <td><strong>Pre-tax Cash Flow ($)</strong></td>
+                <td>
+                  <input [value]="calcCashFlow().toFixed(2)" disabled type="number"/>
                 </td>
               </tr>
             </tbody>

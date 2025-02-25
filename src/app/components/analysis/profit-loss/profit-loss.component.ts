@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { PropertyModel } from 'src/app/models/property.model';
+import { CalculatorServiceService } from 'src/app/services/calculator-service/calculator-service.service';
 
 @Component({
   selector: 'app-profit-loss',
@@ -29,6 +30,7 @@ export class ProfitLossComponent implements OnInit {
     hoa_dol: 0,
     utilities_dol: 0,
     misc_expenses_dol: 0,
+    capital_expenses: 0
   };
 
   setRent(){
@@ -36,6 +38,10 @@ export class ProfitLossComponent implements OnInit {
       this.income.rent_dol = 12 * this.property.rent;
     }
   }
+
+  constructor(
+    public calcService: CalculatorServiceService
+  ){}
 
   ngOnInit(): void {
 
@@ -79,7 +85,7 @@ export class ProfitLossComponent implements OnInit {
   }
 
   // Profit/Loss Calculation
-  calculateProfitLoss() {
+  calculateNOI() {
     const operatingIncome  = this.calculateOperatingIncome();
     const totalExpenses = 
       this.calcMaintenanceExpense()
@@ -91,6 +97,10 @@ export class ProfitLossComponent implements OnInit {
       + this.expenses.misc_expenses_dol;
 
     return operatingIncome - totalExpenses;
+  }
+
+  calcCashFlow(){
+    return this.calculateNOI() - this.expenses.capital_expenses - this.calcService.calcMonthlyPayment()*12;
   }
 
   updatePieChart(){
