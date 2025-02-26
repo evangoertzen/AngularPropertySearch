@@ -39,6 +39,12 @@ export class ProfitLossComponent implements OnInit {
     }
   }
 
+  setHoaFee(){
+    if(this.property && this.property.hoa_fee){
+      this.expenses.hoa_dol = 12 * this.property.hoa_fee;
+    }
+  }
+
   constructor(
     public calcService: CalculatorServiceService
   ){}
@@ -46,15 +52,12 @@ export class ProfitLossComponent implements OnInit {
   ngOnInit(): void {
 
     this.setRent();
+    this.setHoaFee();
 
     if(this.property){
 
       if(this.property.tax){
         this.expenses.taxes_dol = this.property.tax;
-      }
-
-      if(this.property.hoa_fee){
-        this.expenses.hoa_dol = this.property.hoa_fee;
       }
 
     }
