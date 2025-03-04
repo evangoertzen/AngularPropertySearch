@@ -106,7 +106,7 @@
                     </td>
                 </tr>
 
-                <!-- Profit -->
+                <!-- Total Equity -->
                 <tr>
                     <td>
                         Total Equity ($)
@@ -115,6 +115,16 @@
                         <input [value]="calcTotalEquity(sellInYear).toFixed(2)" disabled type="number"/>
                     </td>
                 </tr>
+
+                <!-- Equity Created -->
+                <tr>
+                  <td>
+                      Equity Created ($)
+                  </td>
+                  <td>
+                      <input [value]="(calcTotalEquity(sellInYear) - calcInitialCost()).toFixed(2)" disabled type="number"/>
+                  </td>
+              </tr>
   
                 <!-- Return on Investment -->
                 <tr>

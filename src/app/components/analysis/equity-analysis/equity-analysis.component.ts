@@ -111,11 +111,15 @@ export class EquityAnalysisComponent implements OnInit {
     return this.calcPaidDownDebt(yr) + this.calcPropValueGrowth(yr)+this.calcCashEquityInYear(yr);
   }
 
+  calcInitialCost(){
+    return this.calcService.purchasePrice*(this.calcService.downPaymentPercentage/100) + this.calcService.purchasePrice*(this.closingCostRate/100);
+  }
+
 
   calcROI(yr: number){
 
     // initial cost = down payment + closing costs
-    let initialCost = this.calcService.purchasePrice*(this.calcService.downPaymentPercentage/100) + this.calcService.purchasePrice*(this.closingCostRate/100);
+    let initialCost = this.calcInitialCost();
 
     // ROI = (total profit / initial expenses) * 100
     return ((this.calcTotalEquity(yr) - initialCost)/initialCost)*100;
