@@ -55,8 +55,14 @@ export class EquityAnalysisComponent implements OnInit {
   }
 
   calcTotalExpensesInYr(yr: number){
-    let initialExpenses = this.calcService.calcCapexExpense() + this.calcService.calcTotalOperatingExpenses() + (this.calcService.calcMonthlyPayment()*12);
-    return this.calcService.calculateCompoundInterest(initialExpenses, this.expenseIncreaseRate/100, yr);
+    let initialExpenses = this.calcService.calcCapexExpense() + this.calcService.calcTotalOperatingExpenses();
+
+    // don't include mortgage expense if it's already paid off
+    if(yr>this.calcService.loanTerm){
+      return this.calcService.calculateCompoundInterest(initialExpenses, this.expenseIncreaseRate/100, yr)
+    }
+
+    return this.calcService.calculateCompoundInterest(initialExpenses, this.expenseIncreaseRate/100, yr) + 12*this.calcService.calcMonthlyPayment();
   }
 
   // get cash generated in year from rent - vacancy - other expenses - mortgage
