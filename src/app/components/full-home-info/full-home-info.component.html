@@ -22,7 +22,7 @@
           
           <!-- Right Column: Details -->
           <div class="col-md-6">
-            <p><strong>Beds:</strong> {{ property!.beds }} | <strong>Baths:</strong> {{ property!.full_baths }} Full, {{ property!.half_baths }} Half</p>
+            <p><strong>Beds:</strong> {{ property!.beds ? property!.beds : 0 }} | <strong>Baths:</strong> {{ property!.full_baths ? property!.full_baths: 0 }} Full, {{ property!.half_baths ? property!.half_baths : 0 }} Half</p>
             <p><strong>Size:</strong> {{ property!.sqft.toLocaleString() }} sqft | <strong>Lot:</strong> {{ property!.lot_sqft.toLocaleString() }} sqft</p>
             <p><strong>Built:</strong> {{ property!.year_built }}</p>
             <p><strong>Days on MLS:</strong> {{ property!.days_on_mls }}</p>
