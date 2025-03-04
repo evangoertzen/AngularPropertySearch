@@ -32,6 +32,11 @@ export class EquityAnalysisComponent implements OnInit {
   ){}
 
   ngOnInit(){
+
+    this.calcService.refreshMortgage$.subscribe(() => {
+      this.updateBarChart();
+    })
+
     this.updateBarChart();
   }
   
@@ -53,6 +58,15 @@ export class EquityAnalysisComponent implements OnInit {
   // get cash generated in year from rent - vacancy - other expenses - mortgage
   calcCashProfitInYear(yr:number){
     return this.calcOperatingIncomeInYr(yr) - this.calcTotalExpensesInYr(yr);
+  }
+
+  // get total cash generated from property in the past x years
+  calcCashEquityInYear(yr:number){
+    let total=0;
+    for(let i=0; i<=yr; i++){
+      total+=this.calcCashProfitInYear(i);
+    }
+    return total;
   }
 
   calcRemainingLoanBalance(yr: number){
@@ -84,25 +98,14 @@ export class EquityAnalysisComponent implements OnInit {
   }
 
 
-  calcTotalIncomeProduced(yr: number){
-    return 1;
-  }
-
-  calcTotalCost(yr: number){
-    return 1;
-  }
-
-  calcTotalProfit(yr:number){
-    return 1;
-  }
-
   calcROI(yr: number){
 
     // initial cost = down payment + closing costs
     let initialCost = this.calcService.purchasePrice*(this.calcService.downPaymentPercentage/100) + this.calcService.purchasePrice*(this.closingCostRate/100);
 
     // ROI = (total profit / initial expenses) * 100
-    return ((this.calcTotalIncomeProduced(yr) - this.calcTotalCost(yr))/initialCost)*100;
+    // return ((this.calcTotalIncomeProduced(yr) - this.calcTotalCost(yr))/initialCost)*100;
+    return 1;
   }
 
   calcIRR(yr: number){
@@ -111,8 +114,8 @@ export class EquityAnalysisComponent implements OnInit {
   
   updateBarChart(){
     console.log("Updating bar chart");
-    const xValues = Array.from({ length: 51 }, (_, i) => i); // x from 0 to 30
-    const cashProfit = xValues.map(x => this.calcCashProfitInYear(x).toFixed(2));
+    const xValues = Array.from({ length: this.sellInYear+1 }, (_, i) => i); // x from 0 to 30
+    const cashProfit = xValues.map(x => this.calcCashEquityInYear(x).toFixed(2));
     const valueGrowth = xValues.map(x => this.calcPropValueGrowth(x).toFixed(2));
     const debtPaydown = xValues.map(x => this.calcPaidDownDebt(x).toFixed(2));
 

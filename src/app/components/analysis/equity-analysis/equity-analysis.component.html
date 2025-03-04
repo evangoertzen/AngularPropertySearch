@@ -71,28 +71,38 @@
                     <mat-slider min="0" max="50" step="1" showTickMarks discrete 
                         [displayWith]="formatLabel" style="width: 100%; max-width: 500px;"
                         #slider>
-                        <input matSliderThumb [(value)]="sellInYear">
+                        <input matSliderThumb [(value)]="sellInYear" (change)="updateBarChart()">
                       </mat-slider>
                   </td>
                 </tr>
   
-                <!-- Total Income -->
+                <!-- Equity From Appreciation -->
                 <tr>
                   <td>
-                    Total Income ($)
+                    Appreciation Equity ($)
                   </td>
                   <td>
-                    <input [value]="calcTotalIncomeProduced(sellInYear)" disabled type="number"/>
+                    <input [value]="calcPropValueGrowth(sellInYear).toFixed(2)" disabled type="number"/>
                   </td>
                 </tr>
 
-                <!-- Total Expenses -->
+                <!-- Equity From Debt Paydown -->
                 <tr>
                     <td>
-                        Total Expenses ($)
+                      Mortgage Equity ($)
                     </td>
                     <td>
-                        <input [value]="calcTotalCost(sellInYear)" disabled type="number"/>
+                      <input [value]="calcPaidDownDebt(sellInYear).toFixed(2)" disabled type="number"/>
+                    </td>
+                  </tr>
+
+                <!-- Equity From Cash -->
+                <tr>
+                    <td>
+                        Total Cash Profit ($)
+                    </td>
+                    <td>
+                        <input [value]="calcCashEquityInYear(sellInYear).toFixed(2)" disabled type="number"/>
                     </td>
                 </tr>
 
@@ -102,7 +112,7 @@
                         Profit ($)
                     </td>
                     <td>
-                        <input [value]="calcTotalProfit(sellInYear)" disabled type="number"/>
+                        <input [value]="0" disabled type="number"/>
                     </td>
                 </tr>
   
