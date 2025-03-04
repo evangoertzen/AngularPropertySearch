@@ -1,1 +1,142 @@
-<p>equity-analysis works!</p>
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-6 d-flex flex-grow-1 justify-content-center"> 
+        <form>
+          <div class="rental-form">
+            <h2>Equity Returns Calculation</h2>
+            
+            <table>
+              <thead>
+                <tr>
+                  <th>Category</th>
+                  <th>Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Appreciation Rate -->
+                <tr>
+                  <td>Appreciation Rate (%)</td>
+                  <td>
+                    <input [(ngModel)]="appreciationRate" name="appreciationRate" type="number" placeholder="Enter appreciation rate" (input)="updateBarChart()"/>
+                  </td>
+                </tr>
+        
+                <!-- Expense Increase Rate -->
+                <tr>
+                  <td>Expense Increase Rate (%)</td>
+                  <td>
+                    <input [(ngModel)]="expenseIncreaseRate" name="expenseIncreaseRate" type="number" placeholder="Enter expense increase rate" (input)="updateBarChart()"/>
+                  </td>
+                </tr>
+        
+                <!-- Rent Growth -->
+                <tr>
+                  <td>Rent Growth Rate (%)</td>
+                  <td>
+                    <input [(ngModel)]="rentGrowthRate" name="rentGrowthRate" type="number" placeholder="Enter annual rent increase rate" (input)="updateBarChart()"/>
+                  </td>
+                </tr>
+        
+                <!-- Closing Costs -->
+                <tr>
+                  <td>Closing Costs (%)</td>
+                  <td>
+                    <input [(ngModel)]="closingCostRate" name="closingCostRate" type="number" placeholder="Enter closing cost rate" (input)="updateBarChart()"/>
+                  </td>
+                </tr>
+        
+                <!-- Selling Costs -->
+                <tr>
+                  <td>Cost to Sell (%)</td>
+                  <td>
+                    <input [(ngModel)]="costToSellRate" name="costToSellRate" type="number" placeholder="Enter cost to sell" (input)="updateBarChart()"/>
+                  </td>
+                </tr>
+        
+                <tr>
+                  <td colspan="2">
+                    <hr class="w-100">
+                  </td>
+                </tr>
+                
+                <!-- Year slider -->
+                <tr>
+                    <td colspan="2" class="text-center">
+                        <strong>Equity in year {{sellInYear}}</strong>
+                    </td>
+                  </tr>
+                <tr>
+                <tr>
+                  <td colspan="2">
+                    <mat-slider min="0" max="50" step="1" showTickMarks discrete 
+                        [displayWith]="formatLabel" style="width: 100%; max-width: 500px;"
+                        #slider>
+                        <input matSliderThumb [(value)]="sellInYear">
+                      </mat-slider>
+                  </td>
+                </tr>
+  
+                <!-- Total Income -->
+                <tr>
+                  <td>
+                    Total Income ($)
+                  </td>
+                  <td>
+                    <input [value]="calcTotalIncomeProduced(sellInYear)" disabled type="number"/>
+                  </td>
+                </tr>
+
+                <!-- Total Expenses -->
+                <tr>
+                    <td>
+                        Total Expenses ($)
+                    </td>
+                    <td>
+                        <input [value]="calcTotalCost(sellInYear)" disabled type="number"/>
+                    </td>
+                </tr>
+
+                <!-- Profit -->
+                <tr>
+                    <td>
+                        Profit ($)
+                    </td>
+                    <td>
+                        <input [value]="calcTotalProfit(sellInYear)" disabled type="number"/>
+                    </td>
+                </tr>
+  
+                <!-- Return on Investment -->
+                <tr>
+                  <td><strong>ROI (%)</strong></td>
+                  <td>
+                    <input [value]="calcROI(sellInYear)" disabled type="number"/>
+                  </td>
+                </tr>
+  
+                <!-- Internal Rate of Return -->
+                <tr>
+                  <td><strong>IRR (%)</strong></td>
+                  <td>
+                    <input [value]="calcIRR(sellInYear)" disabled type="number"/>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </form>
+      </div>  
+  
+      <div class="col-6 d-flex flex-column align-items-center">
+        <div class="col-12 text-center">
+          <h2>Equity Growth Chart</h2>
+        </div>
+        <div class="col-12">
+          <!-- <p-chart type="doughnut" [data]="pieChartData" height="50vh"></p-chart> -->
+        </div>
+      </div>    
+    
+    </div>
+  </div>  
+  
+  
