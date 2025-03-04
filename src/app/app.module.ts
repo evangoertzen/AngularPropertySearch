@@ -32,6 +32,7 @@ import { TabViewModule } from 'primeng/tabview';
 import { MatCardModule } from '@angular/material/card';
 import { TaxGraphComponent } from './components/analysis/tax-graph/tax-graph.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { EquityAnalysisComponent } from './components/analysis/equity-analysis/equity-analysis.component';
 
 @NgModule({ 
     declarations: [
@@ -47,7 +48,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
         ProfitLossComponent,
         MortgageCalcComponent,
         FullHomeInfoComponent,
-        TaxGraphComponent
+        TaxGraphComponent,
+        EquityAnalysisComponent
     ],
     bootstrap: [AppComponent], 
     imports: [

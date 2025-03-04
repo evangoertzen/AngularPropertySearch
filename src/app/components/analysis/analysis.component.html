@@ -25,6 +25,12 @@
                     <mat-tab label="Tax History">
                         <app-tax-graph [property]="property"></app-tax-graph>
                     </mat-tab>
+
+                    <mat-tab label="Equity Growth">
+                        <ng-template matTabContent>
+                            <app-equity-analysis [property]="property"></app-equity-analysis>
+                        </ng-template>
+                    </mat-tab>
                 </mat-tab-group>
             </div>
         </div>
@@ -33,13 +39,19 @@
             <mat-tab-group [preserveContent]="true">
                 <mat-tab label="Profit/Loss Statement"> 
                     <ng-template matTabContent>
-                        <app-profit-loss [property]="property"></app-profit-loss> 
+                        <app-profit-loss></app-profit-loss> 
                     </ng-template>
                 </mat-tab>
                 
                 <mat-tab label="Mortgage Calculator">
                     <ng-template matTabContent>
-                        <app-mortgage-calc [property]="property"></app-mortgage-calc> 
+                        <app-mortgage-calc></app-mortgage-calc> 
+                    </ng-template>
+                </mat-tab>
+
+                <mat-tab label="Equity Growth">
+                    <ng-template matTabContent>
+                        <app-equity-analysis></app-equity-analysis>
                     </ng-template>
                 </mat-tab>
             </mat-tab-group>
