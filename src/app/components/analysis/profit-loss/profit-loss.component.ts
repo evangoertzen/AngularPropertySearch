@@ -57,47 +57,16 @@ export class ProfitLossComponent implements OnInit {
     this.updatePieChart();
   }
 
-  calculateOperatingIncome(){
-    return this.calcService.income.rent_dol - this.calcVacancyExpense();
-  }
-
-  calcMaintenanceExpense(){
-    return this.calcService.income.rent_dol * (this.calcService.expenses.maintenance_rate/100)
-  }
-
-  calcManagementExpense(){
-    return this.calcService.income.rent_dol * (this.calcService.expenses.management_fee_rate/100)
-  }
-
-  calcVacancyExpense(){
-    return this.calcService.income.rent_dol * (this.calcService.expenses.vacancy_rate / 100);
-  }
-
-  calcCapexExpense(){
-    if(this.property && this.property.list_price){
-      return this.property.list_price * (this.calcService.expenses.capex_rate / 100)
-    }else{
-      return 1000;
-    }
-  }
-
   // Profit/Loss Calculation
   calculateNOI() {
-    const operatingIncome  = this.calculateOperatingIncome();
-    const totalExpenses = 
-      this.calcMaintenanceExpense()
-      + this.calcManagementExpense()
-      + this.calcService.expenses.taxes_dol
-      + this.calcService.expenses.insurance_dol
-      + this.calcService.expenses.hoa_dol
-      + this.calcService.expenses.utilities_dol
-      + this.calcService.expenses.misc_expenses_dol;
+    const operatingIncome  = this.calcService.calculateOperatingIncome();
+    const totalExpenses = this.calcService.calcTotalOperatingExpenses();
 
     return operatingIncome - totalExpenses;
   }
 
   calcCashFlow(){
-    return this.calculateNOI() - this.calcCapexExpense() - this.calcService.calcMonthlyPayment()*12;
+    return this.calculateNOI() - this.calcService.calcCapexExpense() - this.calcService.calcMonthlyPayment()*12;
   }
 
   updatePieChart(){
@@ -105,9 +74,9 @@ export class ProfitLossComponent implements OnInit {
       labels: ['Vacancy', 'Maintenance', 'Management', 'Taxes', 'Insurance', 'HOA Fees', 'Utilities', 'Miscellaneous', 'Capital Expenses', 'Debt Service'],
       datasets: [
         {
-          data: [this.calcVacancyExpense(), this.calcMaintenanceExpense(), this.calcManagementExpense(), 
+          data: [this.calcService.calcVacancyExpense(), this.calcService.calcMaintenanceExpense(), this.calcService.calcManagementExpense(), 
             this.calcService.expenses.taxes_dol, this.calcService.expenses.insurance_dol, this.calcService.expenses.hoa_dol, 
-            this.calcService.expenses.utilities_dol, this.calcService.expenses.misc_expenses_dol, this.calcCapexExpense(),
+            this.calcService.expenses.utilities_dol, this.calcService.expenses.misc_expenses_dol, this.calcService.calcCapexExpense(),
             this.calcService.calcMonthlyPayment()*12],
         }
       ]

@@ -38,8 +38,17 @@ export class CalculatorServiceService {
     private propertySearchService: PropertySearchService
   ) { }
 
+  calculateCompoundInterest(principal: number, rate: number, years: number, compoundsPerYear: number = 1): number {
+    return principal * (1 + rate / compoundsPerYear) ** (compoundsPerYear * years);
+  }
+
+  // Mortgage calculations
   calcCashRequired(){
     return this.purchasePrice*(this.downPaymentPercentage/100);
+  }
+
+  calcDebtTotal(){
+    return this.purchasePrice - this.calcCashRequired();
   }
 
   calcMonthlyPayment(){
@@ -51,11 +60,43 @@ export class CalculatorServiceService {
     let r = (this.interestRate / 100) / 12;
     let n = 12 * this.loanTerm;
 
-    let debtTotal = 0;
-
-    debtTotal = this.purchasePrice - this.calcCashRequired();
+    let debtTotal = this.calcDebtTotal();
 
     return debtTotal * (r * ((1 + r) ** n)) / (((1 + r) ** n) - 1);
+  }
+
+
+  // P/L calculations
+  // calc vacancy expenses in yr 0
+  calcVacancyExpense(){
+    return this.income.rent_dol * (this.expenses.vacancy_rate / 100);
+  }
+
+  // operating income in yr 0
+  calculateOperatingIncome(){
+    return this.income.rent_dol - this.calcVacancyExpense();
+  }
+
+  calcMaintenanceExpense(){
+    return this.income.rent_dol * (this.expenses.maintenance_rate/100)
+  }
+
+  calcManagementExpense(){
+    return this.income.rent_dol * (this.expenses.management_fee_rate/100)
+  }
+
+  calcCapexExpense(){
+      return this.purchasePrice * (this.expenses.capex_rate / 100)
+  }
+
+  calcTotalOperatingExpenses(){
+    return this.calcMaintenanceExpense()
+    + this.calcManagementExpense()
+    + this.expenses.taxes_dol
+    + this.expenses.insurance_dol
+    + this.expenses.hoa_dol
+    + this.expenses.utilities_dol
+    + this.expenses.misc_expenses_dol;
   }
 
 }

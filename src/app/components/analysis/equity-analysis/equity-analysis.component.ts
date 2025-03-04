@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { PropertyModel } from 'src/app/models/property.model';
 import { CalculatorServiceService } from 'src/app/services/calculator-service/calculator-service.service';
 
@@ -8,7 +8,7 @@ import { CalculatorServiceService } from 'src/app/services/calculator-service/ca
   styleUrl: './equity-analysis.component.css',
   standalone: false
 })
-export class EquityAnalysisComponent {
+export class EquityAnalysisComponent implements OnInit {
   @Input() property: PropertyModel | null = null;
 
   public appreciationRate = 3;
@@ -19,21 +19,68 @@ export class EquityAnalysisComponent {
 
   public sellInYear = 30;
 
+  barChartData: any;
+  barChartOptions: any = {
+    scales: {
+      x: { stacked: true },
+      y: { stacked: true }
+    }
+  }
+
   constructor(
     public calcService: CalculatorServiceService
   ){}
 
-  updateBarChart(){
-    console.log("Updating bar chart");
+  ngOnInit(){
+    this.updateBarChart();
   }
-
+  
   // Label for year slider
   formatLabel(value: number): string {
     return `${value}`;
   }
 
-  calcIncomeInYear(yr:number){
-    // this.calcService.
+  calcOperatingIncomeInYr(yr: number){
+    let initialRent = this.calcService.calculateOperatingIncome();
+    return this.calcService.calculateCompoundInterest(initialRent, this.rentGrowthRate/100, yr);
+  }
+
+  calcTotalExpensesInYr(yr: number){
+    let initialExpenses = this.calcService.calcCapexExpense() + this.calcService.calcTotalOperatingExpenses()
+    return this.calcService.calculateCompoundInterest(initialExpenses, this.expenseIncreaseRate/100, yr)
+  }
+
+  // get cash generated in year from rent - vacancy - other expenses - mortgage
+  calcCashProfitInYear(yr:number){
+    return this.calcOperatingIncomeInYr(yr) - this.calcTotalExpensesInYr(yr);
+  }
+
+  calcRemainingLoanBalance(yr: number){
+    let loanAmount = this.calcService.calcDebtTotal();
+    let monthlyRate = (this.calcService.interestRate / 100) / 12;
+    let totalMonths = this.calcService.loanTerm*12;
+    let monthsPaid = yr*12;
+
+    // don't keep paying down debt after loan is free and clear
+    if(monthsPaid > totalMonths){
+      monthsPaid = totalMonths;
+    }
+
+    if(monthlyRate === 0){
+      return loanAmount * (1-monthsPaid / totalMonths)
+    }
+
+    return loanAmount * ((1 + monthlyRate) ** totalMonths - (1 + monthlyRate) ** monthsPaid) / ((1 + monthlyRate) ** totalMonths - 1);
+  }
+
+  // get paid down debt in year
+  calcPaidDownDebt(yr: number){
+    return this.calcService.purchasePrice - this.calcRemainingLoanBalance(yr);
+  }
+
+  // get growth of property value
+  calcPropValueGrowth(yr: number){
+    return this.calcService.calculateCompoundInterest(this.calcService.purchasePrice, this.appreciationRate/100, yr) - this.calcService.purchasePrice;
   }
 
 
@@ -61,5 +108,21 @@ export class EquityAnalysisComponent {
   calcIRR(yr: number){
     return 1;
   }
+  
+  updateBarChart(){
+    console.log("Updating bar chart");
+    const xValues = Array.from({ length: 51 }, (_, i) => i); // x from 0 to 30
+    const cashProfit = xValues.map(x => this.calcCashProfitInYear(x).toFixed(2));
+    const valueGrowth = xValues.map(x => this.calcPropValueGrowth(x).toFixed(2));
+    const debtPaydown = xValues.map(x => this.calcPaidDownDebt(x).toFixed(2));
 
+    this.barChartData = {
+      labels: xValues.map(x => x.toString()), // Convert to strings for labels
+      datasets: [
+        { label: 'Cash Profit', data: cashProfit, backgroundColor: 'rgba(255, 99, 132)' },
+        { label: 'Property Value Growth', data: valueGrowth, backgroundColor: 'rgba(54, 162, 235)' },
+        { label: 'Debt Paid Down', data: debtPaydown, backgroundColor: 'rgba(255, 206, 86)' },
+      ]
+    };
+  }
 }
