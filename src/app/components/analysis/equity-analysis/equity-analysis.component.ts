@@ -109,7 +109,6 @@ export class EquityAnalysisComponent implements OnInit {
 
     // ROI = (total profit / initial expenses) * 100
     return ((this.calcTotalEquity(yr) - initialCost)/initialCost)*100;
-    return 1;
   }
 
   calcIRR(yr: number){
