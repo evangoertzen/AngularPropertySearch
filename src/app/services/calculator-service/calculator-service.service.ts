@@ -16,6 +16,24 @@ export class CalculatorServiceService {
   public mortgageSubject = new Subject<string>();
   public refreshMortgage$ = this.mortgageSubject.asObservable(); //subscribe to this in P/L and update pie chart on next
 
+  // Income
+  public income = {
+    rent_dol: 0
+  };
+  
+  // Expenses
+  public expenses = {
+    vacancy_rate: 5,
+    maintenance_rate: 3,
+    management_fee_rate: 10,
+    taxes_dol: 0,
+    insurance_dol: 0,
+    hoa_dol: 0,
+    utilities_dol: 0,
+    misc_expenses_dol: 0,
+    capex_rate: 2
+  };
+
   constructor(
     private propertySearchService: PropertySearchService
   ) { }

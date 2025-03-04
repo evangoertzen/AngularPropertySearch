@@ -18,7 +18,7 @@
               <tr>
                 <td>Annual Rent Income ($)</td>
                 <td>
-                  <input *ngIf="!property || (property && property.rent)" [(ngModel)]="income.rent_dol" name="rentIncome" type="number" placeholder="Enter Rent Income" (input)="updatePieChart()"/>
+                  <input *ngIf="!property || (property && property.rent)" [(ngModel)]="calcService.income.rent_dol" name="rentIncome" type="number" placeholder="Enter Rent Income" (input)="updatePieChart()"/>
                   <app-rent-display *ngIf="property && !property.rent" [property]="property" (rentChange)="rentChange($event)"></app-rent-display>
                 </td>
               </tr>
@@ -27,7 +27,7 @@
               <tr>
                 <td>Vacancy Rate (%)</td>
                 <td>
-                  <input [(ngModel)]="expenses.vacancy_rate" name="vacancyRate" type="number" placeholder="Enter Vacancy Rate" (input)="updatePieChart()"/>
+                  <input [(ngModel)]="calcService.expenses.vacancy_rate" name="vacancyRate" type="number" placeholder="Enter Vacancy Rate" (input)="updatePieChart()"/>
                 </td>
               </tr>
       
@@ -43,7 +43,7 @@
               <tr>
                 <td>Maintenance Costs (%)</td>
                 <td>
-                  <input [(ngModel)]="expenses.maintenance_rate" name="maintenanceRate" type="number" placeholder="Enter Maintenance Cost Rate" (input)="updatePieChart()"/>
+                  <input [(ngModel)]="calcService.expenses.maintenance_rate" name="maintenanceRate" type="number" placeholder="Enter Maintenance Cost Rate" (input)="updatePieChart()"/>
                 </td>
               </tr>
       
@@ -51,7 +51,7 @@
               <tr>
                 <td>Management Fee (%)</td>
                 <td>
-                  <input [(ngModel)]="expenses.management_fee_rate" name="managementRate" type="number" placeholder="Enter Management Cost Rate" (input)="updatePieChart()"/>
+                  <input [(ngModel)]="calcService.expenses.management_fee_rate" name="managementRate" type="number" placeholder="Enter Management Cost Rate" (input)="updatePieChart()"/>
                 </td>
               </tr>
       
@@ -59,7 +59,7 @@
               <tr>
                 <td>Property Taxes ($)</td>
                 <td>
-                  <input [(ngModel)]="expenses.taxes_dol" name="propertyTaxes" type="number" placeholder="Enter Property Taxes" (input)="updatePieChart()"/>
+                  <input [(ngModel)]="calcService.expenses.taxes_dol" name="propertyTaxes" type="number" placeholder="Enter Property Taxes" (input)="updatePieChart()"/>
                 </td>
               </tr>
       
@@ -67,7 +67,7 @@
               <tr>
                 <td>Insurance ($)</td>
                 <td>
-                  <input [(ngModel)]="expenses.insurance_dol" name="insurance" type="number" placeholder="Enter Insurance Costs" (input)="updatePieChart()"/>
+                  <input [(ngModel)]="calcService.expenses.insurance_dol" name="insurance" type="number" placeholder="Enter Insurance Costs" (input)="updatePieChart()"/>
                 </td>
               </tr>
       
@@ -75,7 +75,7 @@
               <tr>
                 <td>HOA Fee ($)</td>
                 <td>
-                  <input [(ngModel)]="expenses.hoa_dol" name="hoaFee" type="number" placeholder="Enter Yearly HOA Fee" (input)="updatePieChart()"/>
+                  <input [(ngModel)]="calcService.expenses.hoa_dol" name="hoaFee" type="number" placeholder="Enter Yearly HOA Fee" (input)="updatePieChart()"/>
                 </td>
               </tr>
       
@@ -83,7 +83,7 @@
               <tr>
                 <td>Utilities Cost ($)</td>
                 <td>
-                  <input [(ngModel)]="expenses.utilities_dol" name="utilitiesCost" type="number" placeholder="Enter Yearly Utilities cost" (input)="updatePieChart()"/>
+                  <input [(ngModel)]="calcService.expenses.utilities_dol" name="utilitiesCost" type="number" placeholder="Enter Yearly Utilities cost" (input)="updatePieChart()"/>
                 </td>
               </tr>
       
@@ -91,7 +91,7 @@
               <tr>
                 <td>Miscellaneous Expenses ($)</td>
                 <td>
-                  <input [(ngModel)]="expenses.misc_expenses_dol" name="capex" type="number" placeholder="Enter Yearly Capital Expenses" (input)="updatePieChart()"/>
+                  <input [(ngModel)]="calcService.expenses.misc_expenses_dol" name="capex" type="number" placeholder="Enter Yearly Capital Expenses" (input)="updatePieChart()"/>
                 </td>
               </tr>
 
@@ -124,7 +124,7 @@
               <tr>
                 <td>Capital Expenses (%)</td>
                 <td>
-                  <input [(ngModel)]="expenses.capex_rate" name="miscCost" type="number" placeholder="Enter Yearly Miscellaneous cost" (input)="updatePieChart()"/>
+                  <input [(ngModel)]="calcService.expenses.capex_rate" name="miscCost" type="number" placeholder="Enter Yearly Miscellaneous cost" (input)="updatePieChart()"/>
                 </td>
               </tr>
 
