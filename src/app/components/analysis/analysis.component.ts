@@ -23,6 +23,9 @@ export class AnalysisComponent implements OnInit {
   ){}
   
   ngOnInit(): void {
+    
+    this.calcService.resetIncomeAndExpenses();
+
     this.route.queryParamMap.subscribe(params => {
       this.mls_id = params.get('mls_id');
     });

@@ -17,12 +17,19 @@ export class CalculatorServiceService {
   public refreshMortgage$ = this.mortgageSubject.asObservable(); //subscribe to this in P/L and update pie chart on next
 
   // Income
-  public income = {
-    rent_dol: 0
-  };
+  public income: any;
   
   // Expenses
-  public expenses = {
+  public expenses: any;
+
+  constructor(
+    private propertySearchService: PropertySearchService
+  ) { 
+    this.resetIncomeAndExpenses();
+  }
+
+  resetIncomeAndExpenses(){
+    this.expenses = {
     vacancy_rate: 5,
     maintenance_rate: 3,
     management_fee_rate: 10,
@@ -34,9 +41,10 @@ export class CalculatorServiceService {
     capex_rate: 2
   };
 
-  constructor(
-    private propertySearchService: PropertySearchService
-  ) { }
+    this.income = {
+      rent_dol: 0
+    };
+  }
 
   calculateCompoundInterest(principal: number, rate: number, years: number, compoundsPerYear: number = 1): number {
     return principal * (1 + rate / compoundsPerYear) ** (compoundsPerYear * years);
