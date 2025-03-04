@@ -16,6 +16,9 @@ export class CalculatorServiceService {
   public mortgageSubject = new Subject<string>();
   public refreshMortgage$ = this.mortgageSubject.asObservable(); //subscribe to this in P/L and update pie chart on next
 
+  public profitLossSubject = new Subject<string>();
+  public refreshProfitLoss$ = this.profitLossSubject.asObservable(); // subscribe to this in equity component and refresh graph on changes
+
   // Income
   public income: any;
   
@@ -30,16 +33,16 @@ export class CalculatorServiceService {
 
   resetIncomeAndExpenses(){
     this.expenses = {
-    vacancy_rate: 5,
-    maintenance_rate: 3,
-    management_fee_rate: 10,
-    taxes_dol: 0,
-    insurance_dol: 0,
-    hoa_dol: 0,
-    utilities_dol: 0,
-    misc_expenses_dol: 0,
-    capex_rate: 2
-  };
+      vacancy_rate: 5,
+      maintenance_rate: 3,
+      management_fee_rate: 10,
+      taxes_dol: 0,
+      insurance_dol: 0,
+      hoa_dol: 0,
+      utilities_dol: 0,
+      misc_expenses_dol: 0,
+      capex_rate: 2
+    };
 
     this.income = {
       rent_dol: 0

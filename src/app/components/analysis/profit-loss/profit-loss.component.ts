@@ -70,6 +70,8 @@ export class ProfitLossComponent implements OnInit {
   }
 
   updatePieChart(){
+    this.calcService.profitLossSubject.next('');
+
     this.pieChartData = {
       labels: ['Vacancy', 'Maintenance', 'Management', 'Taxes', 'Insurance', 'HOA Fees', 'Utilities', 'Miscellaneous', 'Capital Expenses', 'Debt Service'],
       datasets: [

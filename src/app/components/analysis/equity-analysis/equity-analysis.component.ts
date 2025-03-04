@@ -37,6 +37,10 @@ export class EquityAnalysisComponent implements OnInit {
       this.updateBarChart();
     })
 
+    this.calcService.refreshProfitLoss$.subscribe(() => {
+      this.updateBarChart();
+    })
+
     this.updateBarChart();
   }
   
