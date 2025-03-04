@@ -109,10 +109,10 @@
                 <!-- Profit -->
                 <tr>
                     <td>
-                        Profit ($)
+                        Total Equity ($)
                     </td>
                     <td>
-                        <input [value]="0" disabled type="number"/>
+                        <input [value]="calcTotalEquity(sellInYear)" disabled type="number"/>
                     </td>
                 </tr>
   
@@ -120,7 +120,7 @@
                 <tr>
                   <td><strong>ROI (%)</strong></td>
                   <td>
-                    <input [value]="calcROI(sellInYear)" disabled type="number"/>
+                    <input [value]="calcROI(sellInYear).toFixed(2)" disabled type="number"/>
                   </td>
                 </tr>
   
