@@ -49,6 +49,7 @@ export class EquityAnalysisComponent implements OnInit {
     return `${value}`;
   }
 
+  // Gross operating income
   calcOperatingIncomeInYr(yr: number){
     let initialRent = this.calcService.calculateOperatingIncome();
     return this.calcService.calculateCompoundInterest(initialRent, this.rentGrowthRate/100, yr);
