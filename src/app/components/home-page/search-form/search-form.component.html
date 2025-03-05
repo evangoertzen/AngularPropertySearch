@@ -14,7 +14,7 @@
 
     <!-- Min/Max slider -->
     <div class="row">
-        <mat-slider min={{minCost}} max={{maxCost}} step=5000>
+        <mat-slider min={{minCost}} max={{maxCost}} step=25000 showTickMarks style="width: 100%; max-width: 500px;">
             <input value="50000" formControlName="minPrice" matSliderStartThumb>
             <input value="75000" formControlName="maxPrice" matSliderEndThumb>
         </mat-slider>
@@ -33,11 +33,13 @@
     <div class="row">
         <div>
             <label>Listing Type:</label>
-            <select formControlName="listingType" >
-                <option *ngFor="let item of listingTypes | keyvalue" [value]="item.value">
-                    {{item.key}}
-                </option>
-            </select>
+            <p-dropdown 
+                formControlName="listingType" 
+                [options]="listingTypes | keyvalue"
+                optionLabel="key"
+                optionValue="value"
+                placeholder="Select Listing Type">
+            </p-dropdown>
         </div>
     </div>
 
