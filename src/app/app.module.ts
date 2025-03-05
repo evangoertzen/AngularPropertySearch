@@ -10,7 +10,7 @@ import { PanelModule } from 'primeng/panel';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { providePrimeNG } from 'primeng/config';
-import Aura from '@primeng/themes/aura';
+import Nora from '@primeng/themes/nora';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ToastModule } from 'primeng/toast';
@@ -33,6 +33,9 @@ import { MatCardModule } from '@angular/material/card';
 import { TaxGraphComponent } from './components/analysis/tax-graph/tax-graph.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { EquityAnalysisComponent } from './components/analysis/equity-analysis/equity-analysis.component';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { Select, SelectModule } from 'primeng/select';
+import { DropdownModule } from 'primeng/dropdown';
 
 @NgModule({ 
     declarations: [
@@ -68,12 +71,15 @@ import { EquityAnalysisComponent } from './components/analysis/equity-analysis/e
     ChartModule,
     TabViewModule,
     MatCardModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatFormFieldModule,
+    SelectModule,
+    DropdownModule
 ], 
     providers: [
         provideHttpClient(withInterceptorsFromDi()), 
         provideAnimationsAsync(),
-        providePrimeNG({ theme: { preset: Aura } })
+        providePrimeNG({ theme: { preset: Nora } })
     ]
  })
 export class AppModule { }
