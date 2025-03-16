@@ -1,6 +1,9 @@
-<div *ngIf="!property?.rent && !rentLoading && !rentErr">
+<div *ngIf="!property?.rent && !rentLoading && !rentErr" style="width: 125px;">
     <button (click)="getRent()">
-        Get rent for property
+        <span class="shadow"></span>
+                <span class="edge"></span>
+                <span class="front text"> Get rent
+                </span>
     </button>
 </div>
 
