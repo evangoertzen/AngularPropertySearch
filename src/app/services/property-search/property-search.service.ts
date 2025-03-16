@@ -32,7 +32,7 @@ export class PropertySearchService {
 
   public mapBounds = L.latLngBounds([{
       lat:40,
-      lng:-85
+      lng:-75
   }]);
 
   constructor(private http: HttpClient) { }

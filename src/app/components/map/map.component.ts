@@ -54,7 +54,7 @@ export class MapComponent implements OnInit {
 
   ngOnInit(): void {
     // Initialize the map centered at a default location
-    this.map = L.map('map').setView([this.propertySearch.mapBounds.getNorth(), this.propertySearch.mapBounds.getWest()], 5);
+    this.map = L.map('map').setView([this.propertySearch.mapBounds.getNorth(), this.propertySearch.mapBounds.getWest()], 4);
 
     // Add OpenStreetMap tile layer (Free & No API Key Needed)
     L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
