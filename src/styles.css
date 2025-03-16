@@ -12,7 +12,7 @@ body { margin: 0; padding: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 .custom-marker :hover {
-    color: rgb(237, 151, 2);
+    color: red;
 }
 
 html, body { height: 100%; }
