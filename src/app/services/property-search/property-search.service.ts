@@ -31,8 +31,8 @@ export class PropertySearchService {
   public searchFormObj: SearchFormModel | null = null;
 
   public mapBounds = L.latLngBounds([{
-      lat:37.7749,
-      lng:-122.4194
+      lat:40,
+      lng:-85
   }]);
 
   constructor(private http: HttpClient) { }
