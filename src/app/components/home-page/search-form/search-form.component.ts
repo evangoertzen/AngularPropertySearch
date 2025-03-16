@@ -64,10 +64,12 @@ export class SearchFormComponent implements OnInit{
 
   onSubmit(){
 
-    console.log("On submit called");
+    if(this.searchForm.valid){
+      const formData: SearchFormModel = this.searchForm.value as SearchFormModel;
+      
+      // set searchFormObj in propSearchService to the input values
+      this.propSearch.searchProperties(formData);
+    }
 
-    // set searchFormObj in propSearchService to the input values
-    const formData: SearchFormModel = this.searchForm.value as SearchFormModel;
-    this.propSearch.searchProperties(formData);
   }
 }
