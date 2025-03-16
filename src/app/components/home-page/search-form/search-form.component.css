@@ -89,7 +89,7 @@ button {
     outline: none;
    }
 
-  /* For min/max inputs */
+  /* For location and min/max inputs */
   .container-1 {
     display: flex;
     justify-content: space-between;
@@ -109,6 +109,21 @@ button {
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     height: 100%;
     width: 70px;
+    font-weight: 600;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border-radius: 10px 0px 0px 10px;
+  }
+
+  .location-prefix {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    font-size: 15px;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    height: 100%;
+    width: 100px;
     font-weight: 600;
     padding: 10px;
     background-color: #f0f0f0;
