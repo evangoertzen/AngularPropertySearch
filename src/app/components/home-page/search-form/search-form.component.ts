@@ -42,7 +42,7 @@ export class SearchFormComponent implements OnInit{
   ){
     this.searchForm = new FormGroup({
       location: new FormControl('Denver', [Validators.required, Validators.minLength(3)]),
-      minPrice: new FormControl(60000, [Validators.min(0), Validators.required]),
+      minPrice: new FormControl(250000, [Validators.min(0), Validators.required]),
       maxPrice: new FormControl(800000, [Validators.min(0)]),
       listingType: new FormControl(null, Validators.required)
       
