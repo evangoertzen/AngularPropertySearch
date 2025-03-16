@@ -18,7 +18,7 @@ import { DialogModule } from 'primeng/dialog';
 import { SearchFormComponent } from "./components/home-page/search-form/search-form.component";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSliderModule } from '@angular/material/slider';
-import { RentDisplayComponent } from "./components/home-page/property-view/property-panel/rent-display/rent-display/rent-display.component";
+import { RentDisplayComponent } from './components/analysis/rent-display/rent-display.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { NavbarComponent } from "./components/navbar/navbar.component";
 import { AnalysisComponent } from './components/analysis/analysis.component';
