@@ -1,0 +1,18 @@
+
+
+<div class="container border border-gray-300 rounded-lg transition">
+    
+    <span *ngIf="numType==='DOLLARS'" class="symbol">$</span>
+    
+    <input 
+        [(ngModel)]="modelField" 
+        class="after-symbol"
+        type="number" 
+        placeholder="{{placeHolder}}" 
+        (input)="onInputChange($event)"
+        [min]="0"
+    />
+
+    <span *ngIf="numType==='PERCENT'" class="symbol">%</span>
+
+</div>

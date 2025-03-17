@@ -36,6 +36,7 @@ import { EquityAnalysisComponent } from './components/analysis/equity-analysis/e
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { Select, SelectModule } from 'primeng/select';
 import { DropdownModule } from 'primeng/dropdown';
+import { NumericalInputComponent } from './components/analysis/shared/numerical-input/numerical-input.component';
 
 @NgModule({ 
     declarations: [
@@ -52,7 +53,8 @@ import { DropdownModule } from 'primeng/dropdown';
         MortgageCalcComponent,
         FullHomeInfoComponent,
         TaxGraphComponent,
-        EquityAnalysisComponent
+        EquityAnalysisComponent,
+        NumericalInputComponent
     ],
     bootstrap: [AppComponent], 
     imports: [

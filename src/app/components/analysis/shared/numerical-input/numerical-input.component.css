@@ -1,0 +1,48 @@
+.symbol{
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    height: 100%;
+    font-size: 20px;
+  }
+
+
+  .container {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    width: 140px;
+    height: 30px;
+    border-radius: 10px;
+    position: relative;
+    background-color: #fff;
+  }
+
+  .after-symbol {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    outline: none;
+    font-weight: 500;
+    border: none;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    padding: 0px 10px;
+    height: 100%;
+    background-color: #fff;
+  }
+
+input {
+    align-items: center;
+    justify-content: left;
+    outline: none;
+    font-weight: 500;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    padding: 0px 10px;
+    background-color: #fff;
+    font-size: 15px;
+    width: 100px;
+    height: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
