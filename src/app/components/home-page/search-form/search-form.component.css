@@ -154,6 +154,7 @@ button {
     padding-top: 9px;
     height: 100%;
     font-size: 20px;
+    background-color: #fff;
   }
 
   /* Property status dropdown */
