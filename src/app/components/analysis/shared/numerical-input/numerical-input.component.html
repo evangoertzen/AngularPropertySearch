@@ -1,16 +1,24 @@
 
 
-<div class="container border border-gray-300 rounded-lg transition">
+<div class="container border border-gray-300 rounded-lg transition"  
+    [ngClass]="{'disabled': disabled, 
+        'red-class':(colorMode == 'GP-RM') && modelField < 0, 
+        'green-class' :(colorMode == 'GP-RM') && modelField >= 0}">
     
     <span *ngIf="numType==='DOLLARS'" class="symbol">$</span>
     
     <input 
-        [(ngModel)]="modelField" 
+        [value]="formattedValue(modelField)"
         class="after-symbol"
         type="number" 
         placeholder="{{placeHolder}}" 
         (input)="onInputChange($event)"
         [min]="0"
+        [disabled]="disabled"
+        step="1"
+        [ngClass]="{'disabled': disabled, 
+        'red-class':(colorMode == 'GP-RM') && modelField < 0, 
+        'green-class' :(colorMode == 'GP-RM') && modelField >= 0}"
     />
 
     <span *ngIf="numType==='PERCENT'" class="symbol">%</span>

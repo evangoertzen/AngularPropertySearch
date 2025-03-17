@@ -46,7 +46,11 @@
               <tr>
                 <td><strong>Total Operating Income ($)</strong></td>
                 <td>
-                  <input [value]="calcService.calculateOperatingIncome().toFixed(2)" disabled type="number" />
+                  <app-numerical-input 
+                    [modelField]="calcService.calculateOperatingIncome()" 
+                    [numType]="'DOLLARS'" 
+                    [disabled]="true">
+                  </app-numerical-input>
                 </td>
               </tr>
       
@@ -144,7 +148,11 @@
               <tr>
                 <td><strong>Net Operating Income (NOI) ($)</strong></td>
                 <td>
-                  <input [value]="calculateNOI().toFixed(2)" disabled type="number"/>
+                  <app-numerical-input 
+                    [modelField]="calculateNOI()" 
+                    [numType]="'DOLLARS'" 
+                    [disabled]="true">
+                  </app-numerical-input>
                 </td>
               </tr>
 
@@ -155,7 +163,11 @@
                   <i class="material-icons" style="color: rgb(2, 151, 237); font-size: 1.3rem; vertical-align: middle;" matTooltip="Use the mortgage calculator to change this value." >info</i>
                 </td>
                 <td>
-                  <input [value]="(calcService.calcMonthlyPayment()*12).toFixed(2)" disabled type="number" placeholder="Enter mortgage calculation" (input)="updatePieChart()"/>
+                  <app-numerical-input 
+                    [modelField]="(calcService.calcMonthlyPayment()*12)" 
+                    [numType]="'DOLLARS'" 
+                    [disabled]="true">
+                  </app-numerical-input>
                 </td>
               </tr>
 
@@ -176,7 +188,13 @@
               <tr>
                 <td><strong>Pre-tax Cash Flow ($)</strong></td>
                 <td>
-                  <input [value]="calcCashFlow().toFixed(2)" disabled type="number" [style.border]="calcCashFlow() < 0 ? '4px solid red' : '4px solid rgb(41, 207, 8)'"/>
+                  <app-numerical-input 
+                    [modelField]="(calcCashFlow())" 
+                    [numType]="'DOLLARS'" 
+                    [disabled]="true"
+                    [colorMode]="'GP-RM'"
+                    >
+                  </app-numerical-input>
                 </td>
               </tr>
             </tbody>

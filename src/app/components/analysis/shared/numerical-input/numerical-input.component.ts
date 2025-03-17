@@ -20,8 +20,20 @@ export class NumericalInputComponent {
   @Input()
   placeHolder: string = '';
 
+  @Input()
+  disabled: boolean = false;
+
+  @Input()
+  colorMode: string = 'default'; // 'GP-RM' color mode to make green when positive and red when negative
+
   onInputChange(event: Event) {
     const newValue = (event.target as HTMLInputElement).valueAsNumber;
     this.modelFieldChange.emit(newValue); // Notify parent of new value
+  }
+
+  formattedValue(val: number): string {
+    return val % 1 === 0 
+        ? val.toString() 
+        : val.toFixed(2);
   }
 }
