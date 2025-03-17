@@ -44,7 +44,7 @@ export class SearchFormComponent implements OnInit{
       location: new FormControl('Denver', [Validators.required, Validators.minLength(3)]),
       minPrice: new FormControl(250000, [Validators.min(0), Validators.required]),
       maxPrice: new FormControl(800000, [Validators.min(0)]),
-      listingType: new FormControl(null, Validators.required)
+      listingType: new FormControl('FOR_SALE', Validators.required)
       
     }, { validators: [greaterThanValidator] });
   }
