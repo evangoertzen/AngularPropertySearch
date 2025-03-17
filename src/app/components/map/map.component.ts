@@ -58,7 +58,8 @@ export class MapComponent implements OnInit {
 
     // Add OpenStreetMap tile layer (Free & No API Key Needed)
     L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-      maxZoom: 20
+      maxZoom: 20,
+      minZoom: 3
     }).addTo(this.map);
 
     // Refresh when search returns
