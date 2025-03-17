@@ -18,8 +18,12 @@
               <tr>
                 <td>Annual Rent Income ($)</td>
                 <td>
-                  <input *ngIf="!property || (property && property.rent)" [(ngModel)]="calcService.income.rent_dol" name="rentIncome" type="number" placeholder="Enter Rent Income" (input)="updatePieChart()"/>
-                  <app-rent-display *ngIf="property && !property.rent" [property]="property" (rentChange)="rentChange($event)"></app-rent-display>
+                  <app-numerical-input 
+                    *ngIf="!property || (property && property.rent)"
+                    [modelField]="calcService.income.rent_dol" 
+                    [numType]="'DOLLARS'" 
+                    (modelFieldChange)="calcService.income.rent_dol = $event; updatePieChart()">
+                  </app-numerical-input>
                 </td>
               </tr>
       
@@ -27,7 +31,13 @@
               <tr>
                 <td>Vacancy Rate (%)</td>
                 <td>
-                  <input [(ngModel)]="calcService.expenses.vacancy_rate" name="vacancyRate" type="number" placeholder="Enter Vacancy Rate" (input)="updatePieChart()"/>
+                  
+                  <app-numerical-input 
+                    [modelField]="calcService.expenses.vacancy_rate" 
+                    [numType]="'PERCENT'" 
+                    (modelFieldChange)="calcService.expenses.vacancy_rate = $event; updatePieChart()">
+                  </app-numerical-input>
+
                 </td>
               </tr>
       
@@ -43,7 +53,11 @@
               <tr>
                 <td>Maintenance Costs (%)</td>
                 <td>
-                  <input [(ngModel)]="calcService.expenses.maintenance_rate" name="maintenanceRate" type="number" placeholder="Enter Maintenance Cost Rate" (input)="updatePieChart()"/>
+                  <app-numerical-input 
+                    [modelField]="calcService.expenses.maintenance_rate" 
+                    [numType]="'PERCENT'" 
+                    (modelFieldChange)="calcService.expenses.maintenance_rate = $event; updatePieChart()">
+                  </app-numerical-input>
                 </td>
               </tr>
       
@@ -51,7 +65,11 @@
               <tr>
                 <td>Management Fee (%)</td>
                 <td>
-                  <input [(ngModel)]="calcService.expenses.management_fee_rate" name="managementRate" type="number" placeholder="Enter Management Cost Rate" (input)="updatePieChart()"/>
+                  <app-numerical-input 
+                    [modelField]="calcService.expenses.management_fee_rate" 
+                    [numType]="'PERCENT'" 
+                    (modelFieldChange)="calcService.expenses.management_fee_rate = $event; updatePieChart()">
+                  </app-numerical-input>
                 </td>
               </tr>
       
@@ -59,7 +77,11 @@
               <tr>
                 <td>Property Taxes ($)</td>
                 <td>
-                  <input [(ngModel)]="calcService.expenses.taxes_dol" name="propertyTaxes" type="number" placeholder="Enter Property Taxes" (input)="updatePieChart()"/>
+                  <app-numerical-input 
+                    [modelField]="calcService.expenses.taxes_dol" 
+                    [numType]="'DOLLARS'" 
+                    (modelFieldChange)="calcService.expenses.taxes_dol = $event; updatePieChart()">
+                  </app-numerical-input>
                 </td>
               </tr>
       
@@ -67,7 +89,11 @@
               <tr>
                 <td>Insurance ($)</td>
                 <td>
-                  <input [(ngModel)]="calcService.expenses.insurance_dol" name="insurance" type="number" placeholder="Enter Insurance Costs" (input)="updatePieChart()"/>
+                  <app-numerical-input 
+                    [modelField]="calcService.expenses.insurance_dol" 
+                    [numType]="'DOLLARS'" 
+                    (modelFieldChange)="calcService.expenses.insurance_dol = $event; updatePieChart()">
+                  </app-numerical-input>
                 </td>
               </tr>
       
@@ -75,7 +101,11 @@
               <tr>
                 <td>HOA Fee ($)</td>
                 <td>
-                  <input [(ngModel)]="calcService.expenses.hoa_dol" name="hoaFee" type="number" placeholder="Enter Yearly HOA Fee" (input)="updatePieChart()"/>
+                  <app-numerical-input 
+                    [modelField]="calcService.expenses.hoa_dol" 
+                    [numType]="'DOLLARS'" 
+                    (modelFieldChange)="calcService.expenses.hoa_dol = $event; updatePieChart()">
+                  </app-numerical-input>
                 </td>
               </tr>
       
@@ -83,7 +113,11 @@
               <tr>
                 <td>Utilities Cost ($)</td>
                 <td>
-                  <input [(ngModel)]="calcService.expenses.utilities_dol" name="utilitiesCost" type="number" placeholder="Enter Yearly Utilities cost" (input)="updatePieChart()"/>
+                  <app-numerical-input 
+                    [modelField]="calcService.expenses.utilities_dol" 
+                    [numType]="'DOLLARS'" 
+                    (modelFieldChange)="calcService.expenses.utilities_dol = $event; updatePieChart()">
+                  </app-numerical-input>
                 </td>
               </tr>
       
@@ -91,7 +125,11 @@
               <tr>
                 <td>Miscellaneous Expenses ($)</td>
                 <td>
-                  <input [(ngModel)]="calcService.expenses.misc_expenses_dol" name="capex" type="number" placeholder="Enter Yearly Capital Expenses" (input)="updatePieChart()"/>
+                  <app-numerical-input 
+                    [modelField]="calcService.expenses.misc_expenses_dol" 
+                    [numType]="'DOLLARS'" 
+                    (modelFieldChange)="calcService.expenses.misc_expenses_dol = $event; updatePieChart()">
+                  </app-numerical-input>
                 </td>
               </tr>
 
@@ -124,7 +162,12 @@
               <tr>
                 <td>Capital Expenses (%)</td>
                 <td>
-                  <input [(ngModel)]="calcService.expenses.capex_rate" name="miscCost" type="number" placeholder="Enter Yearly Miscellaneous cost" (input)="updatePieChart()"/>
+                  <app-numerical-input 
+                    [modelField]="calcService.expenses.capex_rate" 
+                    [numType]="'PERCENT'" 
+                    (modelFieldChange)="calcService.expenses.capex_rate = $event; updatePieChart()">
+                  </app-numerical-input>
+                
                 </td>
               </tr>
 

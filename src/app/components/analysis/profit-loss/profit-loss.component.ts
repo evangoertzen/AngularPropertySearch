@@ -69,6 +69,11 @@ export class ProfitLossComponent implements OnInit {
     return this.calculateNOI() - this.calcService.calcCapexExpense() - this.calcService.calcMonthlyPayment()*12;
   }
 
+  updateVal(event: number, val: any){
+    val = event;
+    this.updatePieChart();
+  }
+
   updatePieChart(){
     this.calcService.profitLossSubject.next('');
 
