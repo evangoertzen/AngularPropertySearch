@@ -51,11 +51,11 @@ input {
 }
 
 .red-class {
-    background-color: red;
+    background-color: rgb(255, 126, 126);
     opacity: 1;
 }
 
 .green-class {
-    background-color: green;
+    background-color: rgb(135, 249, 135);
     opacity: 1;
 }
