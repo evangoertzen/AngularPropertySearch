@@ -13,7 +13,13 @@ export class ProfitLossComponent implements OnInit {
   @Input()
   property: PropertyModel | null = null;
 
+  showPieChart: boolean = true;
+
   pieChartData: any;
+  barChartData: any;
+
+  barChartOptions: any;
+  
 
   setRent(){
     if(this.property && this.property.rent){
@@ -88,6 +94,81 @@ export class ProfitLossComponent implements OnInit {
         }
       ]
     };
+
+    this.barChartOptions = {
+      responsive: true,
+      plugins: {
+        legend: {
+          display: true,
+          position: 'top'
+        }
+      },
+      scales: {
+        x: {
+          stacked: false
+        },
+        y: {
+          beginAtZero: true
+        }
+      }
+    };
+
+    this.barChartData = {
+      labels: ['Expenses'],
+      datasets: [
+        {
+          label: 'Vacancy',
+          data: [this.calcService.calcVacancyExpense()],
+          backgroundColor: '#FF6384'
+        },
+        {
+          label: 'Maintenance',
+          data: [this.calcService.calcMaintenanceExpense()],
+          backgroundColor: '#36A2EB'
+        },
+        {
+          label: 'Management',
+          data: [this.calcService.calcManagementExpense()],
+          backgroundColor: '#FFCE56'
+        },
+        {
+          label: 'Taxes',
+          data: [this.calcService.expenses.taxes_dol],
+          backgroundColor: '#4BC0C0'
+        },
+        {
+          label: 'Insurance',
+          data: [this.calcService.expenses.insurance_dol],
+          backgroundColor: '#9966FF'
+        },
+        {
+          label: 'HOA Fees',
+          data: [this.calcService.expenses.hoa_dol],
+          backgroundColor: '#FF9F40'
+        },
+        {
+          label: 'Utilities',
+          data: [this.calcService.expenses.utilities_dol],
+          backgroundColor: '#FFCD56'
+        },
+        {
+          label: 'Miscellaneous',
+          data: [this.calcService.expenses.misc_expenses_dol],
+          backgroundColor: '#C9CBCF'
+        },
+        {
+          label: 'Capital Expenses',
+          data: [this.calcService.calcCapexExpense()],
+          backgroundColor: '#B5E48C'
+        },
+        {
+          label: 'Debt Service',
+          data: [this.calcService.calcMonthlyPayment() * 12],
+          backgroundColor: '#A63D40'
+        }
+      ]
+    };
+    
   }
 
 }

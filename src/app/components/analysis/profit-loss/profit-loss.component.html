@@ -1,6 +1,8 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-6 justify-content-center"> 
+
+        <!-- First Column -->
+        <div class="col-3 justify-content-center"> 
 
             <!-- Income Card -->
             <div class="card m-2 p-4">
@@ -57,8 +59,9 @@
 
             <!-- Expenses Card -->
             <div class="card m-2 p-4">
-                <div class="flex justify-center">
-                    <h3><strong>Expenses</strong></h3>
+                <div class="flex w-full items-center">
+                    <h3 class="flex-grow text-center"><strong>Expenses</strong></h3>
+                    <span class="ml-auto mt-3"><app-lever-toggle [isChecked]="showPieChart" (checkboxChanged)="showPieChart = $event"></app-lever-toggle></span>
                 </div>
 
                 <table>
@@ -151,15 +154,11 @@
                     </tr>
                 </table>
             </div>
-        </div>    
+        </div>
 
-        <div class="col-6 d-flex flex-column align-items-center">
-            <div class="col-12 text-center">
-                <h2>Yearly Expenses</h2>
-            </div>
-            <div class="col-12">
-                <p-chart type="doughnut" [data]="pieChartData" height="50vh"></p-chart>
-            </div>
+
+        <!-- Column 2 -->
+        <div class="col-3 justify-content-center"> 
             <!-- Summary Card -->
             <div class="card m-2 p-4">
                 <div class="flex justify-center">
@@ -170,7 +169,7 @@
                     <tr>
                         <td colspan="2"><hr></td>
                     </tr>
-                    
+
                     <!-- Net Operating Income -->
                     <tr>
                         <td><strong>Net Operating Income (NOI) ($)</strong></td>
@@ -219,15 +218,24 @@
                                 [modelField]="(calcCashFlow())" 
                                 [numType]="'DOLLARS'" 
                                 [disabled]="true"
-                                [colorMode]="'GP-RM'"
-                                >
+                                [colorMode]="'GP-RM'">
                             </app-numerical-input>
                         </td>
                     </tr>
                 </table>
             </div>
-        </div>        
-    
+        </div>
+
+        <!-- Column 3 -->
+        <div class="col-6 d-flex flex-column align-items-center">
+            <div class="col-12 text-center">
+                <h2>Yearly Expenses</h2>
+            </div>
+            <div class="col-12">
+                <p-chart *ngIf="showPieChart" type="doughnut" [data]="pieChartData" height="50vh"></p-chart>
+                <p-chart *ngIf="!showPieChart" type="bar" [data]="barChartData" [options]="barChartOptions"></p-chart>
+            </div>
+        </div>
     </div>
-</div>    
+</div>
 
