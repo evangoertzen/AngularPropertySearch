@@ -15,7 +15,7 @@ export class NumericalInputComponent {
   modelFieldChange = new EventEmitter<number>();
 
   @Input()
-  numType: 'PERCENT' | 'DOLLARS' = 'DOLLARS';
+  numType: 'PERCENT' | 'DOLLARS' | null = null;
 
   @Input()
   placeHolder: string = '';
