@@ -1,217 +1,233 @@
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-6 d-flex flex-grow-1 justify-content-center"> 
-      <form>
-        <div class="rental-form">
-          <h2>Yearly Profit/Loss Calculator</h2>
-      
-          
-          <table>
-            <thead>
-              <tr>
-                <th>Category</th>
-                <th>Amount</th>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- Rent Income -->
-              <tr>
-                <td>Annual Rent Income ($)</td>
-                <td>
-                  <app-rent-display *ngIf="property && !property.rent" [property]="property" (rentChange)="rentChange($event)"></app-rent-display>
-                  <app-numerical-input 
-                    *ngIf="!property || (property && property.rent)"
-                    [modelField]="calcService.income.rent_dol" 
-                    [numType]="'DOLLARS'" 
-                    (modelFieldChange)="calcService.income.rent_dol = $event; updatePieChart()">
-                  </app-numerical-input>
-                </td>
-              </tr>
-      
-              <!-- Vacancy Rate -->
-              <tr>
-                <td>Vacancy Rate (%)</td>
-                <td>
-                  
-                  <app-numerical-input 
-                    [modelField]="calcService.expenses.vacancy_rate" 
-                    [numType]="'PERCENT'" 
-                    (modelFieldChange)="calcService.expenses.vacancy_rate = $event; updatePieChart()">
-                  </app-numerical-input>
+    <div class="row">
+        <div class="col-6 justify-content-center"> 
 
-                </td>
-              </tr>
-      
-              <!-- Operating Income -->
-              <tr>
-                <td><strong>Total Operating Income ($)</strong></td>
-                <td>
-                  <app-numerical-input 
-                    [modelField]="calcService.calculateOperatingIncome()" 
-                    [numType]="'DOLLARS'" 
-                    [disabled]="true">
-                  </app-numerical-input>
-                </td>
-              </tr>
-      
-              <!-- Maintenance Costs -->
-              <tr>
-                <td>Maintenance Costs (%)</td>
-                <td>
-                  <app-numerical-input 
-                    [modelField]="calcService.expenses.maintenance_rate" 
-                    [numType]="'PERCENT'" 
-                    (modelFieldChange)="calcService.expenses.maintenance_rate = $event; updatePieChart()">
-                  </app-numerical-input>
-                </td>
-              </tr>
-      
-              <!-- Management Fee -->
-              <tr>
-                <td>Management Fee (%)</td>
-                <td>
-                  <app-numerical-input 
-                    [modelField]="calcService.expenses.management_fee_rate" 
-                    [numType]="'PERCENT'" 
-                    (modelFieldChange)="calcService.expenses.management_fee_rate = $event; updatePieChart()">
-                  </app-numerical-input>
-                </td>
-              </tr>
-      
-              <!-- Property Taxes -->
-              <tr>
-                <td>Property Taxes ($)</td>
-                <td>
-                  <app-numerical-input 
-                    [modelField]="calcService.expenses.taxes_dol" 
-                    [numType]="'DOLLARS'" 
-                    (modelFieldChange)="calcService.expenses.taxes_dol = $event; updatePieChart()">
-                  </app-numerical-input>
-                </td>
-              </tr>
-      
-              <!-- Insurance -->
-              <tr>
-                <td>Insurance ($)</td>
-                <td>
-                  <app-numerical-input 
-                    [modelField]="calcService.expenses.insurance_dol" 
-                    [numType]="'DOLLARS'" 
-                    (modelFieldChange)="calcService.expenses.insurance_dol = $event; updatePieChart()">
-                  </app-numerical-input>
-                </td>
-              </tr>
-      
-              <!-- HOA Fee -->
-              <tr>
-                <td>HOA Fee ($)</td>
-                <td>
-                  <app-numerical-input 
-                    [modelField]="calcService.expenses.hoa_dol" 
-                    [numType]="'DOLLARS'" 
-                    (modelFieldChange)="calcService.expenses.hoa_dol = $event; updatePieChart()">
-                  </app-numerical-input>
-                </td>
-              </tr>
-      
-              <!-- Utilities Cost -->
-              <tr>
-                <td>Utilities Cost ($)</td>
-                <td>
-                  <app-numerical-input 
-                    [modelField]="calcService.expenses.utilities_dol" 
-                    [numType]="'DOLLARS'" 
-                    (modelFieldChange)="calcService.expenses.utilities_dol = $event; updatePieChart()">
-                  </app-numerical-input>
-                </td>
-              </tr>
-      
-              <!-- Miscellaneous Cost -->
-              <tr>
-                <td>Miscellaneous Expenses ($)</td>
-                <td>
-                  <app-numerical-input 
-                    [modelField]="calcService.expenses.misc_expenses_dol" 
-                    [numType]="'DOLLARS'" 
-                    (modelFieldChange)="calcService.expenses.misc_expenses_dol = $event; updatePieChart()">
-                  </app-numerical-input>
-                </td>
-              </tr>
+            <!-- Income Card -->
+            <div class="card m-2 p-4">
+                <div class="flex justify-center">
+                    <h3><strong>Income</strong></h3>
+                </div>
 
-              <tr>
-                <td colspan="2">
-                  <hr class="w-100">
-                </td>
-              </tr>
-              
-              <!-- Net Operating Income -->
-              <tr>
-                <td><strong>Net Operating Income (NOI) ($)</strong></td>
-                <td>
-                  <app-numerical-input 
-                    [modelField]="calculateNOI()" 
-                    [numType]="'DOLLARS'" 
-                    [disabled]="true">
-                  </app-numerical-input>
-                </td>
-              </tr>
+                <table>
+                    <tr>
+                        <td colspan="2"><hr></td>
+                    </tr>
 
-              <!-- Debt Service -->
-              <tr>
-                <td>
-                  Debt Service ($)
-                  <i class="material-icons" style="color: rgb(2, 151, 237); font-size: 1.3rem; vertical-align: middle;" matTooltip="Use the mortgage calculator to change this value." >info</i>
-                </td>
-                <td>
-                  <app-numerical-input 
-                    [modelField]="(calcService.calcMonthlyPayment()*12)" 
-                    [numType]="'DOLLARS'" 
-                    [disabled]="true">
-                  </app-numerical-input>
-                </td>
-              </tr>
+                    <!-- Rent Income -->
+                    <tr>
+                        <td>Annual Rent Income ($)</td>
+                        <td>
+                            <app-rent-display *ngIf="property && !property.rent" [property]="property" (rentChange)="rentChange($event)"></app-rent-display>
+                            <app-numerical-input 
+                                *ngIf="!property || (property && property.rent)"
+                                [modelField]="calcService.income.rent_dol" 
+                                [numType]="'DOLLARS'" 
+                                (modelFieldChange)="calcService.income.rent_dol = $event; updatePieChart()">
+                            </app-numerical-input>
+                        </td>
+                    </tr>
 
-              <!-- Capital Expenses -->
-              <tr>
-                <td>Capital Expenses (%)</td>
-                <td>
-                  <app-numerical-input 
-                    [modelField]="calcService.expenses.capex_rate" 
-                    [numType]="'PERCENT'" 
-                    (modelFieldChange)="calcService.expenses.capex_rate = $event; updatePieChart()">
-                  </app-numerical-input>
-                
-                </td>
-              </tr>
+                    <!-- Vacancy Rate -->
+                    <tr>
+                        <td>Vacancy Rate (%)</td>
+                        <td>
+                            
+                            <app-numerical-input 
+                                [modelField]="calcService.expenses.vacancy_rate" 
+                                [numType]="'PERCENT'" 
+                                (modelFieldChange)="calcService.expenses.vacancy_rate = $event; updatePieChart()">
+                            </app-numerical-input>
 
-              <!-- Net Operating Income -->
-              <tr>
-                <td><strong>Pre-tax Cash Flow ($)</strong></td>
-                <td>
-                  <app-numerical-input 
-                    [modelField]="(calcCashFlow())" 
-                    [numType]="'DOLLARS'" 
-                    [disabled]="true"
-                    [colorMode]="'GP-RM'"
-                    >
-                  </app-numerical-input>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </form>
-    </div>  
+                        </td>
+                    </tr>
 
-    <div class="col-6 d-flex flex-column align-items-center">
-      <div class="col-12 text-center">
-        <h2>Yearly Expenses</h2>
-      </div>
-      <div class="col-12">
-        <p-chart type="doughnut" [data]="pieChartData" height="50vh"></p-chart>
-      </div>
-    </div>    
-  
-  </div>
-</div>  
+                    <!-- Operating Income -->
+                    <tr>
+                        <td><strong>Total Operating Income ($)</strong></td>
+                        <td>
+                            <app-numerical-input 
+                                [modelField]="calcService.calculateOperatingIncome()" 
+                                [numType]="'DOLLARS'" 
+                                [disabled]="true">
+                            </app-numerical-input>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- Expenses Card -->
+            <div class="card m-2 p-4">
+                <div class="flex justify-center">
+                    <h3><strong>Expenses</strong></h3>
+                </div>
+
+                <table>
+                    <tr>
+                        <td colspan="2"><hr></td>
+                    </tr>
+
+                    <!-- Maintenance Costs -->
+                    <tr>
+                        <td>Maintenance Costs (%)</td>
+                        <td>
+                            <app-numerical-input 
+                                [modelField]="calcService.expenses.maintenance_rate" 
+                                [numType]="'PERCENT'" 
+                                (modelFieldChange)="calcService.expenses.maintenance_rate = $event; updatePieChart()">
+                            </app-numerical-input>
+                        </td>
+                    </tr>
+    
+                    <!-- Management Fee -->
+                    <tr>
+                        <td>Management Fee (%)</td>
+                        <td>
+                            <app-numerical-input 
+                                [modelField]="calcService.expenses.management_fee_rate" 
+                                [numType]="'PERCENT'" 
+                                (modelFieldChange)="calcService.expenses.management_fee_rate = $event; updatePieChart()">
+                            </app-numerical-input>
+                        </td>
+                    </tr>
+    
+                    <!-- Property Taxes -->
+                    <tr>
+                        <td>Property Taxes ($)</td>
+                        <td>
+                            <app-numerical-input 
+                                [modelField]="calcService.expenses.taxes_dol" 
+                                [numType]="'DOLLARS'" 
+                                (modelFieldChange)="calcService.expenses.taxes_dol = $event; updatePieChart()">
+                            </app-numerical-input>
+                        </td>
+                    </tr>
+    
+                    <!-- Insurance -->
+                    <tr>
+                        <td>Insurance ($)</td>
+                        <td>
+                            <app-numerical-input 
+                                [modelField]="calcService.expenses.insurance_dol" 
+                                [numType]="'DOLLARS'" 
+                                (modelFieldChange)="calcService.expenses.insurance_dol = $event; updatePieChart()">
+                            </app-numerical-input>
+                        </td>
+                    </tr>
+    
+                    <!-- HOA Fee -->
+                    <tr>
+                        <td>HOA Fee ($)</td>
+                        <td>
+                            <app-numerical-input 
+                                [modelField]="calcService.expenses.hoa_dol" 
+                                [numType]="'DOLLARS'" 
+                                (modelFieldChange)="calcService.expenses.hoa_dol = $event; updatePieChart()">
+                            </app-numerical-input>
+                        </td>
+                    </tr>
+    
+                    <!-- Utilities Cost -->
+                    <tr>
+                        <td>Utilities Cost ($)</td>
+                        <td>
+                            <app-numerical-input 
+                                [modelField]="calcService.expenses.utilities_dol" 
+                                [numType]="'DOLLARS'" 
+                                (modelFieldChange)="calcService.expenses.utilities_dol = $event; updatePieChart()">
+                            </app-numerical-input>
+                        </td>
+                    </tr>
+    
+                    <!-- Miscellaneous Cost -->
+                    <tr>
+                        <td>Miscellaneous Expenses ($)</td>
+                        <td>
+                            <app-numerical-input 
+                                [modelField]="calcService.expenses.misc_expenses_dol" 
+                                [numType]="'DOLLARS'" 
+                                (modelFieldChange)="calcService.expenses.misc_expenses_dol = $event; updatePieChart()">
+                            </app-numerical-input>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>    
+
+        <div class="col-6 d-flex flex-column align-items-center">
+            <div class="col-12 text-center">
+                <h2>Yearly Expenses</h2>
+            </div>
+            <div class="col-12">
+                <p-chart type="doughnut" [data]="pieChartData" height="50vh"></p-chart>
+            </div>
+            <!-- Summary Card -->
+            <div class="card m-2 p-4">
+                <div class="flex justify-center">
+                    <h3><strong>Summary</strong></h3>
+                </div>
+
+                <table>
+                    <tr>
+                        <td colspan="2"><hr></td>
+                    </tr>
+                    
+                    <!-- Net Operating Income -->
+                    <tr>
+                        <td><strong>Net Operating Income (NOI) ($)</strong></td>
+                        <td>
+                            <app-numerical-input 
+                                [modelField]="calculateNOI()" 
+                                [numType]="'DOLLARS'" 
+                                [disabled]="true">
+                            </app-numerical-input>
+                        </td>
+                    </tr>
+
+                    <!-- Debt Service -->
+                    <tr>
+                        <td>
+                            Debt Service ($)
+                            <i class="material-icons" style="color: rgb(2, 151, 237); font-size: 1.3rem; vertical-align: middle;" matTooltip="Use the mortgage calculator to change this value." >info</i>
+                        </td>
+                        <td>
+                            <app-numerical-input 
+                                [modelField]="(calcService.calcMonthlyPayment()*12)" 
+                                [numType]="'DOLLARS'" 
+                                [disabled]="true">
+                            </app-numerical-input>
+                        </td>
+                    </tr>
+
+                    <!-- Capital Expenses -->
+                    <tr>
+                        <td>Capital Expenses (%)</td>
+                        <td>
+                            <app-numerical-input 
+                                [modelField]="calcService.expenses.capex_rate" 
+                                [numType]="'PERCENT'" 
+                                (modelFieldChange)="calcService.expenses.capex_rate = $event; updatePieChart()">
+                            </app-numerical-input>
+                        
+                        </td>
+                    </tr>
+
+                    <!-- Net Operating Income -->
+                    <tr>
+                        <td><strong>Pre-tax Cash Flow ($)</strong></td>
+                        <td>
+                            <app-numerical-input 
+                                [modelField]="(calcCashFlow())" 
+                                [numType]="'DOLLARS'" 
+                                [disabled]="true"
+                                [colorMode]="'GP-RM'"
+                                >
+                            </app-numerical-input>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>        
+    
+    </div>
+</div>    
 
