@@ -1,63 +1,37 @@
 <div class="d-flex flex-column" style="height: 100vh; width: 100vw">
     <app-navbar></app-navbar>
 
-    <div style="width: 100%;">
-        <div class="row w-100" *ngIf="property">
+    <div class="flex-grow-1" style="overflow: hidden;">
+        <mat-tab-group [preserveContent]="true">
 
-            <div class="col-4" *ngIf="property">
-                <app-full-home-info [property]="property"></app-full-home-info>
-            </div>
+            <mat-tab *ngIf="property" label="Home Info"> 
+                <ng-template matTabContent>
+                    <app-full-home-info [property]="property"></app-full-home-info>
+                </ng-template>
+            </mat-tab>
 
-            <div class="col-8">
-                <mat-tab-group [preserveContent]="true">
-                    <mat-tab label="Profit/Loss Statement"> 
-                        <ng-template matTabContent>
-                            <app-profit-loss [property]="property"></app-profit-loss> 
-                        </ng-template>
-                    </mat-tab>
-                    
-                    <mat-tab label="Mortgage Calculator">
-                        <ng-template matTabContent>
-                            <app-mortgage-calc [property]="property"></app-mortgage-calc> 
-                        </ng-template>
-                    </mat-tab>
-                    
-                    <mat-tab label="Tax History">
-                        <app-tax-graph [property]="property"></app-tax-graph>
-                    </mat-tab>
+            <mat-tab label="Profit/Loss Statement"> 
+                <ng-template matTabContent>
+                    <app-profit-loss [property]="property"></app-profit-loss> 
+                </ng-template>
+            </mat-tab>
+            
+            <mat-tab label="Mortgage Calculator">
+                <ng-template matTabContent>
+                    <app-mortgage-calc [property]="property"></app-mortgage-calc> 
+                </ng-template>
+            </mat-tab>
+            
+            <mat-tab *ngIf="property" label="Tax History">
+                <app-tax-graph [property]="property"></app-tax-graph>
+            </mat-tab>
 
-                    <mat-tab label="Equity Growth">
-                        <ng-template matTabContent>
-                            <app-equity-analysis [property]="property"></app-equity-analysis>
-                        </ng-template>
-                    </mat-tab>
-                </mat-tab-group>
-            </div>
-        </div>
-
-        <div class="row w-100" *ngIf="!property">
-            <mat-tab-group [preserveContent]="true">
-                <mat-tab label="Profit/Loss Statement"> 
-                    <ng-template matTabContent>
-                        <app-profit-loss></app-profit-loss> 
-                    </ng-template>
-                </mat-tab>
-                
-                <mat-tab label="Mortgage Calculator">
-                    <ng-template matTabContent>
-                        <app-mortgage-calc></app-mortgage-calc> 
-                    </ng-template>
-                </mat-tab>
-
-                <mat-tab label="Equity Growth">
-                    <ng-template matTabContent>
-                        <app-equity-analysis></app-equity-analysis>
-                    </ng-template>
-                </mat-tab>
-            </mat-tab-group>
-        </div>
-
-
+            <mat-tab label="Equity Growth">
+                <ng-template matTabContent>
+                    <app-equity-analysis [property]="property"></app-equity-analysis>
+                </ng-template>
+            </mat-tab>
+        </mat-tab-group>
     </div>
 
     
