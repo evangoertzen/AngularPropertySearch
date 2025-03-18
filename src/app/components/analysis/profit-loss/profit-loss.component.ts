@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { PropertyModel } from 'src/app/models/property.model';
 import { CalculatorServiceService } from 'src/app/services/calculator-service/calculator-service.service';
+import { RentDisplayComponent } from '../shared/rent-display/rent-display.component';
 
 @Component({
   selector: 'app-profit-loss',
@@ -18,8 +19,34 @@ export class ProfitLossComponent implements OnInit {
   pieChartData: any;
   barChartData: any;
 
-  barChartOptions: any;
-  
+  pieChartOptions = {
+    responsive: true,
+    plugins: {
+      legend: {
+        display: true,
+        position: 'right',
+      },
+    },
+  };
+
+  barChartOptions = {
+    responsive: true,
+    plugins: {
+      legend: {
+        display: true,
+        position: 'right'
+      }
+    },
+    scales: {
+      x: { 
+        stacked: false,
+        ticks: {
+          display: false,
+        },
+      },
+      y: { beginAtZero: true }
+    }
+  };
 
   setRent(){
     if(this.property && this.property.rent){
@@ -95,26 +122,8 @@ export class ProfitLossComponent implements OnInit {
       ]
     };
 
-    this.barChartOptions = {
-      responsive: true,
-      plugins: {
-        legend: {
-          display: true,
-          position: 'top'
-        }
-      },
-      scales: {
-        x: {
-          stacked: false
-        },
-        y: {
-          beginAtZero: true
-        }
-      }
-    };
-
     this.barChartData = {
-      labels: ['Expenses'],
+      labels: ['none'],
       datasets: [
         {
           label: 'Vacancy',

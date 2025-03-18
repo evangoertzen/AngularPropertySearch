@@ -1,6 +1,5 @@
 <div class="container-fluid">
     <div class="row">
-
         <!-- First Column -->
         <div class="col-3 justify-content-center"> 
 
@@ -57,108 +56,6 @@
                 </table>
             </div>
 
-            <!-- Expenses Card -->
-            <div class="card m-2 p-4">
-                <div class="flex w-full items-center">
-                    <h3 class="flex-grow text-center"><strong>Expenses</strong></h3>
-                    <span class="ml-auto mt-3"><app-lever-toggle [isChecked]="showPieChart" (checkboxChanged)="showPieChart = $event"></app-lever-toggle></span>
-                </div>
-
-                <table>
-                    <tr>
-                        <td colspan="2"><hr></td>
-                    </tr>
-
-                    <!-- Maintenance Costs -->
-                    <tr>
-                        <td>Maintenance Costs (%)</td>
-                        <td>
-                            <app-numerical-input 
-                                [modelField]="calcService.expenses.maintenance_rate" 
-                                [numType]="'PERCENT'" 
-                                (modelFieldChange)="calcService.expenses.maintenance_rate = $event; updatePieChart()">
-                            </app-numerical-input>
-                        </td>
-                    </tr>
-    
-                    <!-- Management Fee -->
-                    <tr>
-                        <td>Management Fee (%)</td>
-                        <td>
-                            <app-numerical-input 
-                                [modelField]="calcService.expenses.management_fee_rate" 
-                                [numType]="'PERCENT'" 
-                                (modelFieldChange)="calcService.expenses.management_fee_rate = $event; updatePieChart()">
-                            </app-numerical-input>
-                        </td>
-                    </tr>
-    
-                    <!-- Property Taxes -->
-                    <tr>
-                        <td>Property Taxes ($)</td>
-                        <td>
-                            <app-numerical-input 
-                                [modelField]="calcService.expenses.taxes_dol" 
-                                [numType]="'DOLLARS'" 
-                                (modelFieldChange)="calcService.expenses.taxes_dol = $event; updatePieChart()">
-                            </app-numerical-input>
-                        </td>
-                    </tr>
-    
-                    <!-- Insurance -->
-                    <tr>
-                        <td>Insurance ($)</td>
-                        <td>
-                            <app-numerical-input 
-                                [modelField]="calcService.expenses.insurance_dol" 
-                                [numType]="'DOLLARS'" 
-                                (modelFieldChange)="calcService.expenses.insurance_dol = $event; updatePieChart()">
-                            </app-numerical-input>
-                        </td>
-                    </tr>
-    
-                    <!-- HOA Fee -->
-                    <tr>
-                        <td>HOA Fee ($)</td>
-                        <td>
-                            <app-numerical-input 
-                                [modelField]="calcService.expenses.hoa_dol" 
-                                [numType]="'DOLLARS'" 
-                                (modelFieldChange)="calcService.expenses.hoa_dol = $event; updatePieChart()">
-                            </app-numerical-input>
-                        </td>
-                    </tr>
-    
-                    <!-- Utilities Cost -->
-                    <tr>
-                        <td>Utilities Cost ($)</td>
-                        <td>
-                            <app-numerical-input 
-                                [modelField]="calcService.expenses.utilities_dol" 
-                                [numType]="'DOLLARS'" 
-                                (modelFieldChange)="calcService.expenses.utilities_dol = $event; updatePieChart()">
-                            </app-numerical-input>
-                        </td>
-                    </tr>
-    
-                    <!-- Miscellaneous Cost -->
-                    <tr>
-                        <td>Miscellaneous Expenses ($)</td>
-                        <td>
-                            <app-numerical-input 
-                                [modelField]="calcService.expenses.misc_expenses_dol" 
-                                [numType]="'DOLLARS'" 
-                                (modelFieldChange)="calcService.expenses.misc_expenses_dol = $event; updatePieChart()">
-                            </app-numerical-input>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-
-
-        <!-- Column 2 -->
-        <div class="col-3 justify-content-center"> 
             <!-- Summary Card -->
             <div class="card m-2 p-4">
                 <div class="flex justify-center">
@@ -226,14 +123,123 @@
             </div>
         </div>
 
-        <!-- Column 3 -->
-        <div class="col-6 d-flex flex-column align-items-center">
-            <div class="col-12 text-center">
-                <h2>Yearly Expenses</h2>
-            </div>
-            <div class="col-12">
-                <p-chart *ngIf="showPieChart" type="doughnut" [data]="pieChartData" height="50vh"></p-chart>
-                <p-chart *ngIf="!showPieChart" type="bar" [data]="barChartData" [options]="barChartOptions"></p-chart>
+
+        <!-- Column 2 -->
+        <div class="col-9 justify-content-center">
+
+            <!-- Expenses Card -->
+            <div class="card m-2 p-4">
+                <div class="flex w-full items-center">
+                    <h3 class="flex-grow text-center"><strong>Expenses</strong></h3>
+                    <span class="ml-auto mt-3"><app-lever-toggle [isChecked]="showPieChart" (checkboxChanged)="showPieChart = $event"></app-lever-toggle></span>
+                </div>
+
+                <div class="flex">
+                    <hr class="w-100 mx-auto">
+                </div>
+
+                <div class="container-fluid">
+                    <div class="row">
+
+                        <!-- Expenses First Column -->
+                        <div class="col-4 flex justify-center items-center" style="height: 400px;">
+                            <table>
+
+                                <!-- Maintenance Costs -->
+                                <tr>
+                                    <td>Maintenance Costs (%)</td>
+                                    <td>
+                                        <app-numerical-input 
+                                            [modelField]="calcService.expenses.maintenance_rate" 
+                                            [numType]="'PERCENT'" 
+                                            (modelFieldChange)="calcService.expenses.maintenance_rate = $event; updatePieChart()">
+                                        </app-numerical-input>
+                                    </td>
+                                </tr>
+                
+                                <!-- Management Fee -->
+                                <tr>
+                                    <td>Management Fee (%)</td>
+                                    <td>
+                                        <app-numerical-input 
+                                            [modelField]="calcService.expenses.management_fee_rate" 
+                                            [numType]="'PERCENT'" 
+                                            (modelFieldChange)="calcService.expenses.management_fee_rate = $event; updatePieChart()">
+                                        </app-numerical-input>
+                                    </td>
+                                </tr>
+                
+                                <!-- Property Taxes -->
+                                <tr>
+                                    <td>Property Taxes ($)</td>
+                                    <td>
+                                        <app-numerical-input 
+                                            [modelField]="calcService.expenses.taxes_dol" 
+                                            [numType]="'DOLLARS'" 
+                                            (modelFieldChange)="calcService.expenses.taxes_dol = $event; updatePieChart()">
+                                        </app-numerical-input>
+                                    </td>
+                                </tr>
+                
+                                <!-- Insurance -->
+                                <tr>
+                                    <td>Insurance ($)</td>
+                                    <td>
+                                        <app-numerical-input 
+                                            [modelField]="calcService.expenses.insurance_dol" 
+                                            [numType]="'DOLLARS'" 
+                                            (modelFieldChange)="calcService.expenses.insurance_dol = $event; updatePieChart()">
+                                        </app-numerical-input>
+                                    </td>
+                                </tr>
+                
+                                <!-- HOA Fee -->
+                                <tr>
+                                    <td>HOA Fee ($)</td>
+                                    <td>
+                                        <app-numerical-input 
+                                            [modelField]="calcService.expenses.hoa_dol" 
+                                            [numType]="'DOLLARS'" 
+                                            (modelFieldChange)="calcService.expenses.hoa_dol = $event; updatePieChart()">
+                                        </app-numerical-input>
+                                    </td>
+                                </tr>
+                
+                                <!-- Utilities Cost -->
+                                <tr>
+                                    <td>Utilities Cost ($)</td>
+                                    <td>
+                                        <app-numerical-input 
+                                            [modelField]="calcService.expenses.utilities_dol" 
+                                            [numType]="'DOLLARS'" 
+                                            (modelFieldChange)="calcService.expenses.utilities_dol = $event; updatePieChart()">
+                                        </app-numerical-input>
+                                    </td>
+                                </tr>
+                
+                                <!-- Miscellaneous Cost -->
+                                <tr>
+                                    <td>Miscellaneous Expenses ($)</td>
+                                    <td>
+                                        <app-numerical-input 
+                                            [modelField]="calcService.expenses.misc_expenses_dol" 
+                                            [numType]="'DOLLARS'" 
+                                            (modelFieldChange)="calcService.expenses.misc_expenses_dol = $event; updatePieChart()">
+                                        </app-numerical-input>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+
+
+                        <!-- Expenses Second Column -->
+                        <div class="col-8 flex justify-center items-center" style="height: 400px;">
+                            <p-chart *ngIf="showPieChart" type="doughnut" [data]="pieChartData" [options]="pieChartOptions" height="400px" width="800px"></p-chart>
+                            <p-chart *ngIf="!showPieChart" type="bar" [data]="barChartData" [options]="barChartOptions" height="400px" width="800px"></p-chart>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
