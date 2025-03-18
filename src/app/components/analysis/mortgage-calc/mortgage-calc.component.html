@@ -1,64 +1,85 @@
-<form>
-    <div class="rental-form">
-      <h2>Mortgage Payment Calculator</h2>
-      
-      <table>
-        <thead>
-          <tr>
-            <th>Category</th>
-            <th>Amount</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Purchase Price -->
-          <tr>
-            <td>Purchase Price ($)</td>
-            <td>
-              <input [(ngModel)]="calcService.purchasePrice" name="purchasePrice" type="number" placeholder="Enter Purchase Price" (input)="updatePieChart()"/>
-            </td>
-          </tr>
-          <!-- Interest Rate -->
-          <tr>
-            <td>Interest Rate (%)</td>
-            <td>
-              <input [(ngModel)]="calcService.interestRate" name="interestRate" type="number" placeholder="Enter Interest Rate" (input)="updatePieChart()"/>
-            </td>
-          </tr>
-  
-          <!-- Vacancy Rate -->
-          <tr>
-            <td>Loan Term (years)</td>
-            <td>
-              <input [(ngModel)]="calcService.loanTerm" name="loanTerm" type="number" placeholder="Loan Term in Years" (input)="updatePieChart()"/>
-            </td>
-          </tr>
-  
-          <!-- Down Payment -->
-          <tr>
-            <td>Down Payment (%)</td>
-            <td>
-              <input [(ngModel)]="calcService.downPaymentPercentage"  name="downPaymentPercentage" type="number" placeholder="Down Payment Percentage" (input)="updatePieChart()"/>
-            </td>
-          </tr>
-  
-          <!-- Cash Required -->
-          <tr>
-            <td><strong>Cash Required ($)</strong></td>
-            <td>
-              <input [value]="calcService.calcCashRequired().toFixed(2)" disabled type="number" />
-            </td>
-          </tr>
+<div class="d-flex justify-content-center backpattern" style="height: 100vh;">
+    <div class="card m-10 p-4" style="width: 500px; height: 450px;">
 
-          <!-- Monthly Payment -->
-          <tr>
-            <td><strong>Monthly Payment ($)</strong></td>
-            <td>
-              <input [value]="calcService.calcMonthlyPayment().toFixed(2)" disabled type="number" />
-            </td>
-          </tr>
-        </tbody>
-      </table>
+        <h2 class="text-center"><strong>Mortgage Calculator</strong></h2>
+
+        <div class="flex">
+            <hr class="w-100 mx-auto">
+        </div>
+
+        <table>
+            <tbody>
+            <!-- Purchase Price -->
+            <tr>
+                <td>Purchase Price</td>
+                <td>
+                    <app-numerical-input 
+                        [modelField]="calcService.purchasePrice" 
+                        [numType]="'DOLLARS'" 
+                        (modelFieldChange)="calcService.purchasePrice = $event; updatePieChart()">
+                    </app-numerical-input>
+                </td>
+            </tr>
+            <!-- Interest Rate -->
+            <tr>
+                <td>Interest Rate </td>
+                <td>
+                    <app-numerical-input 
+                        [modelField]="calcService.interestRate" 
+                        [numType]="'PERCENT'" 
+                        (modelFieldChange)="calcService.interestRate = $event; updatePieChart()">
+                    </app-numerical-input>
+                </td>
+            </tr>
+
+            <!-- Loan Term -->
+            <tr>
+                <td>Loan Term (years) </td>
+                <td>
+                    <app-numerical-input 
+                        [modelField]="calcService.loanTerm" 
+                        (modelFieldChange)="calcService.loanTerm = $event; updatePieChart()">
+                    </app-numerical-input>
+                </td>
+            </tr>
+
+            <!-- Down Payment -->
+            <tr>
+                <td>Down Payment</td>
+                <td>
+                    <app-numerical-input 
+                        [modelField]="calcService.downPaymentPercentage" 
+                        [numType]="'PERCENT'" 
+                        (modelFieldChange)="calcService.downPaymentPercentage = $event; updatePieChart()">
+                    </app-numerical-input>
+                </td>
+            </tr>
+
+            <!-- Cash Required -->
+            <tr>
+                <td><strong>Cash Required </strong></td>
+                <td>
+                    <app-numerical-input 
+                        [modelField]="calcService.calcCashRequired()" 
+                        [numType]="'DOLLARS'" 
+                        [disabled]="true">
+                    </app-numerical-input>
+                </td>
+            </tr>
+
+            <!-- Monthly Payment -->
+            <tr>
+                <td><strong>Monthly Payment </strong></td>
+                <td>
+                <app-numerical-input 
+                    [modelField]="calcService.calcMonthlyPayment()" 
+                    [numType]="'DOLLARS'" 
+                    [disabled]="true">
+                </app-numerical-input>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
-  </form>
-  
-  
+</div>
+

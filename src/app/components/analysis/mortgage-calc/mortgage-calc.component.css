@@ -1,23 +1,4 @@
-.rental-form {
-    width: 50%;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-  }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
   th, td {
     padding: 8px;
     text-align: left;
-  }
-  
-  strong {
-    font-size: 16px;
-    font-weight: bold;
   }
