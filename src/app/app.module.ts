@@ -37,6 +37,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { Select, SelectModule } from 'primeng/select';
 import { DropdownModule } from 'primeng/dropdown';
 import { NumericalInputComponent } from './components/analysis/shared/numerical-input/numerical-input.component';
+import { LeverToggleComponent } from "./components/analysis/shared/lever-toggle/lever-toggle.component";
 
 @NgModule({ 
     declarations: [
@@ -54,7 +55,8 @@ import { NumericalInputComponent } from './components/analysis/shared/numerical-
         FullHomeInfoComponent,
         TaxGraphComponent,
         EquityAnalysisComponent,
-        NumericalInputComponent
+        NumericalInputComponent,
+        LeverToggleComponent
     ],
     bootstrap: [AppComponent], 
     imports: [
