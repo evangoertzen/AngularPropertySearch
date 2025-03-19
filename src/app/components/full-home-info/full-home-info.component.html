@@ -35,7 +35,7 @@
                         </div>
                     </div>
                     <div class="col-6 d-flex justify-content-center align-items-center">
-                        <a [href]="property!.property_url" target="_blank" class="btn btn-primary">View Full Listing</a>
+                        <app-common-button [text]="'View Full Listing'" (onClickEmitter)="openUrlInNewTab(property.property_url)"></app-common-button>
                     </div>
                 </div>
             </div>

@@ -30,4 +30,8 @@ export class FullHomeInfoComponent {
   formatCurrency(value: number): string {
     return value ? `$${value.toLocaleString()}` : 'N/A';
   }
+
+  openUrlInNewTab(url: string): void {
+    window.open(url);
+  }
 }
