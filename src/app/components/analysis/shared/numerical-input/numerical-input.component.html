@@ -8,14 +8,13 @@
     <span *ngIf="numType==='DOLLARS'" class="symbol pt-1">$</span>
     
     <input 
-        [value]="formattedValue(modelField)"
+        [value]="formatService.numericValFormatted(modelField)"
         class="after-symbol"
-        type="number" 
+        type="text" 
         placeholder="{{placeHolder}}" 
         (input)="onInputChange($event)"
         [min]="0"
         [disabled]="disabled"
-        step="1"
         [ngClass]="{'disabled': disabled, 
         'red-class':(colorMode == 'GP-RM') && modelField < 0, 
         'green-class' :(colorMode == 'GP-RM') && modelField >= 0}"
