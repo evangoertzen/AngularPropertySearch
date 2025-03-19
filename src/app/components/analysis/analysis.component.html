@@ -5,7 +5,7 @@
         <mat-tab-group [preserveContent]="true">
 
             <mat-tab *ngIf="property" label="Home Info"> 
-                <ng-template matTabContent>
+                <ng-template matTabContent class="backpattern">
                     <app-full-home-info [property]="property"></app-full-home-info>
                 </ng-template>
             </mat-tab>
@@ -22,10 +22,6 @@
                 </ng-template>
             </mat-tab>
             
-            <mat-tab *ngIf="property" label="Tax History">
-                <app-tax-graph [property]="property"></app-tax-graph>
-            </mat-tab>
-
             <mat-tab label="Equity Growth">
                 <ng-template matTabContent>
                     <app-equity-analysis [property]="property"></app-equity-analysis>

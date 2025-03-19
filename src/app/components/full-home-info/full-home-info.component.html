@@ -1,62 +1,104 @@
-<div class="container">
-    <div class="card">
-      <div class="card-header text-center">
-        <h3>{{ property!.full_street_line }}, {{ property!.city }}, {{ property!.state }} {{ property!.zip_code }}</h3>
-      </div>
+<div class="container-fluid backpattern" style="height: 100vh;">
 
-      
-      <div class="card-body">
-        <div class="row">
-          <!-- Left Column: Main Info -->
-          <div class="col-md-6">
-            <img [src]="property!.primary_photo" class="img-fluid rounded" alt="Property Image">
-            
-            <ul class="list-group mt-3">
-              <li class="list-group-item"><strong>Price:</strong> {{ formatCurrency(property!.list_price) }}</li>
-              <li class="list-group-item"><strong>MLS:</strong> {{ property!.mls }} (ID: {{ property!.mls_id }})</li>
-              <li class="list-group-item"><strong>Status:</strong> {{ property!.status }}</li>
-              <li class="list-group-item"><strong>Style:</strong> {{ property!.style }}</li>
-              <li class="list-group-item"><strong>HOA Fee:</strong> {{ formatCurrency(property!.hoa_fee) }}</li>
-            </ul>
-          </div>
-          
-          <!-- Right Column: Details -->
-          <div class="col-md-6">
-            <p><strong>Beds:</strong> {{ property!.beds ? property!.beds : 0 }} | <strong>Baths:</strong> {{ property!.full_baths ? property!.full_baths: 0 }} Full, {{ property!.half_baths ? property!.half_baths : 0 }} Half</p>
-            <p><strong>Size:</strong> {{ property!.sqft.toLocaleString() }} sqft | <strong>Lot:</strong> {{ property!.lot_sqft.toLocaleString() }} sqft</p>
-            <p><strong>Built:</strong> {{ property!.year_built }}</p>
-            <p><strong>Days on MLS:</strong> {{ property!.days_on_mls }}</p>
-            
-            <h5>Location:</h5>
-            <div class="map-container">
-              <iframe width="100%" height="200" frameborder="0" 
-              [src]="mapUrl">
-            </iframe>
-          </div>
+    <!-- Street Address Card -->
+    <div class="row">
+        <div class="col-12 d-flex justify-content-center align-items-center">
+            <div class="card m-3 p-3 text-center w-50">
+                <h3><strong>{{ property!.full_street_line }}, {{ property!.city }}, {{ property!.state }} {{ property!.zip_code }}</strong></h3>
+            </div>
         </div>
-      </div>
-      
-      <!-- Additional Information Tabs -->
-      <mat-tab-group>
-        <mat-tab label="Financials">
-          <ul>
-            <li><strong>Assessed Value:</strong> {{ formatCurrency(property!.assessed_value) }}</li>
-            <li><strong>Estimated Value:</strong> {{ formatCurrency(property!.estimated_value) }}</li>
-            <li><strong>Tax:</strong> {{ formatCurrency(property!.tax) }}</li>
-            <li><strong>Price/Sqft:</strong> {{ formatCurrency(property!.price_per_sqft) }}</li>
-          </ul>
-        </mat-tab>
+    </div>
 
-        <mat-tab label="School Info">
-          <p>{{ property!.nearby_schools }}</p>
-        </mat-tab>
-      </mat-tab-group>
+    <div class="row">
+        <div class="col-4">
 
-        <!-- Listing Link -->
-        <div class="text-center mt-3">
-          <a [href]="property!.property_url" target="_blank" class="btn btn-primary">View Full Listing</a>
+            <!-- Home info card -->
+            <div class="card p-4 h-100">
+
+                <div class="row">
+                    <h3 class="flex-grow text-center"><strong>Home</strong></h3>
+    
+                    <div class="flex">
+                        <hr class="w-100 mx-auto">
+                    </div>
+                </div>
+
+                <img [src]="property!.primary_photo" class="img-fluid rounded" alt="Property Image">
+
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-6">
+                        <div class="p-3 pb-0 mt-4 ml-5">
+                            <p><strong>Beds:</strong> {{ property!.beds ? property!.beds : 0 }} | <strong>Baths:</strong> {{ property!.full_baths ? property!.full_baths: 0 }} Full, {{ property!.half_baths ? property!.half_baths : 0 }} Half</p>
+                            <p><strong>Size:</strong> {{ property!.sqft.toLocaleString() }} sqft | <strong>Lot:</strong> {{ property!.lot_sqft.toLocaleString() }} sqft</p>
+                            <p><strong>Built:</strong> {{ property!.year_built }}</p>
+                            <p><strong>Days on MLS:</strong> {{ property!.days_on_mls }}</p>
+                        </div>
+                    </div>
+                    <div class="col-6 d-flex justify-content-center align-items-center">
+                        <a [href]="property!.property_url" target="_blank" class="btn btn-primary">View Full Listing</a>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
+        
+        <div class="col-4">
+
+            <!-- Financial card -->
+            <div class="card p-4 h-100 d-flex flex-column">
+                
+                <div class="row">
+                    <h3 class="flex-grow text-center"><strong>Financial</strong></h3>
+        
+                    <div class="d-flex">
+                        <hr class="w-100 mx-auto">
+                    </div>
+
+                    <div class="col-6">
+                        <ul class="list-group mt-3">
+                          <li class="list-group-item"><strong>Price:</strong> {{ formatCurrency(property!.list_price) }}</li>
+                          <li class="list-group-item"><strong>MLS:</strong> {{ property!.mls }} (ID: {{ property!.mls_id }})</li>
+                          <li class="list-group-item"><strong>Status:</strong> {{ property!.status }}</li>
+                          <li class="list-group-item"><strong>Style:</strong> {{ property!.style }}</li>
+                          <li class="list-group-item"><strong>HOA Fee:</strong> {{ formatCurrency(property!.hoa_fee) }}</li>
+                        </ul>
+                    </div>
+    
+                    <div class="col-6">
+                        <ul class="list-group mt-3">
+                            <li class="list-group-item"><strong>Assessed Value:</strong> {{ formatCurrency(property!.assessed_value) }}</li>
+                            <li class="list-group-item"><strong>Estimated Value:</strong> {{ formatCurrency(property!.estimated_value) }}</li>
+                            <li class="list-group-item"><strong>Tax:</strong> {{ formatCurrency(property!.tax) }}</li>
+                            <li class="list-group-item"><strong>Price/Sqft:</strong> {{ formatCurrency(property!.price_per_sqft) }}</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="row flex-grow-1 d-flex justify-content-center align-items-center">
+                    <app-tax-graph [property]="property"></app-tax-graph>
+                </div>
+    
+            </div>
+        </div>
+
+        <div class="col-4">
+            <!-- Location card -->
+            <div class="card p-4">
+                <h3 class="flex-grow text-center"><strong>Location</strong></h3>
+    
+                <div class="flex">
+                    <hr class="w-100 mx-auto">
+                </div>
+    
+                <div class="map-container" style="height: 50vh;">
+                    <iframe width="100%" height="100%" frameborder="0" [src]="mapUrl"></iframe>
+                </div>
+
+                <div class="mt-4 ml-5">
+                    <p *ngIf="property.nearby_schools"><strong>School Info:</strong> {{ property.nearby_schools }} </p>
+                </div>
+    
+            </div>
+        </div>
     </div>
   </div>
   
