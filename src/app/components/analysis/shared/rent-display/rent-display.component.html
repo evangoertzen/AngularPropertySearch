@@ -1,5 +1,5 @@
-<div *ngIf="!property?.rent && !rentLoading && !rentErr" style="width: 140px;">
-    <app-common-button [text]="'Get Rent'" (onClickEmitter)="getRent()"></app-common-button>
+<div *ngIf="!property?.rent && !rentLoading && !rentErr">
+    <app-common-button [text]="'Get Rent'" (onClickEmitter)="getRent()" style="width: 800px;"></app-common-button>
 </div>
 
 <div *ngIf="rentLoading" class="d-flex justify-content-center">
@@ -9,13 +9,5 @@
 
 <div *ngIf="property?.rent">
     <p>Rent: ${{property.rent.toFixed(2)}}</p>
-</div>
-
-<div *ngIf="rentErr" class="text-danger">
-    <i class="pi pi-exclamation-triangle pi-3x me-2" style="font-size: 1.1rem; vertical-align: middle;"></i>
-    <span class="align-middle" style="font-size: 1rem;">Error </span>
-    <button (click)="getRent()">
-        <i class="pi pi-refresh" style="font-size: 1rem"></i>
-    </button>
 </div>
 

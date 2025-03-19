@@ -17,7 +17,7 @@
                     <!-- Monthly Rent Income -->
                     <tr>
                         <td>Monthly Rent Income</td>
-                        <td>
+                        <td class="text-center">
                             <app-rent-display *ngIf="property && !property.rent" [property]="property" (rentChange)="rentChange($event)"></app-rent-display>
                             <app-numerical-input 
                                 *ngIf="!property || (property && property.rent)"
