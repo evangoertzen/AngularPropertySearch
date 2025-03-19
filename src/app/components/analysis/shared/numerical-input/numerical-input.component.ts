@@ -33,7 +33,7 @@ export class NumericalInputComponent {
   }
 
   formattedValue(val: number): string {
-    return val % 1 === 0 || this.numType === 'PERCENT'
+    return val % 1 === 0
         ? val.toFixed(0) 
         : val.toFixed(2);
   }
