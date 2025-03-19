@@ -140,9 +140,9 @@ export class EquityAnalysisComponent implements OnInit {
     this.barChartData = {
       labels: xValues.map(x => x.toString()), // Convert to strings for labels
       datasets: [
-        { label: 'Cash Profit', data: cashProfit, backgroundColor: 'rgba(255, 99, 132)' },
-        { label: 'Property Value Growth', data: valueGrowth, backgroundColor: 'rgba(54, 162, 235)' },
-        { label: 'Debt Paid Down', data: debtPaydown, backgroundColor: 'rgba(255, 206, 86)' },
+        { label: 'Cumulative Cash Flow', data: cashProfit, backgroundColor: 'rgba(242, 24, 24)' },
+        { label: 'Property Value Growth', data: valueGrowth, backgroundColor: 'rgba(24, 157, 245)' },
+        { label: 'Debt Paid Down', data: debtPaydown, backgroundColor: 'rgba(255, 221, 0)' },
       ]
     };
   }
