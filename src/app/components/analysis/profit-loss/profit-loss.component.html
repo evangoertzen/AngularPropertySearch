@@ -14,8 +14,22 @@
                         <td colspan="2"><hr></td>
                     </tr>
 
-                    <!-- Rent Income -->
+                    <!-- Monthly Rent Income -->
                     <tr>
+                        <td>Monthly Rent Income ($)</td>
+                        <td>
+                            <app-rent-display *ngIf="property && !property.rent" [property]="property" (rentChange)="rentChange($event)"></app-rent-display>
+                            <app-numerical-input 
+                                *ngIf="!property || (property && property.rent)"
+                                [modelField]="calcService.income.rent_dol/12" 
+                                [numType]="'DOLLARS'" 
+                                (modelFieldChange)="calcService.income.rent_dol = $event*12; updatePieChart()">
+                            </app-numerical-input>
+                        </td>
+                    </tr>
+
+                    <!-- Annual Rent Income -->
+                    <tr *ngIf="!property || (property && property.rent)">
                         <td>Annual Rent Income ($)</td>
                         <td>
                             <app-rent-display *ngIf="property && !property.rent" [property]="property" (rentChange)="rentChange($event)"></app-rent-display>
@@ -23,7 +37,7 @@
                                 *ngIf="!property || (property && property.rent)"
                                 [modelField]="calcService.income.rent_dol" 
                                 [numType]="'DOLLARS'" 
-                                (modelFieldChange)="calcService.income.rent_dol = $event; updatePieChart()">
+                                [disabled]="true">
                             </app-numerical-input>
                         </td>
                     </tr>
@@ -57,7 +71,7 @@
             </div>
 
             <!-- Summary Card -->
-            <div class="card ml-5 mt-5 p-4">
+            <div class="card ml-5 mt-3 p-4">
                 <div class="flex justify-center">
                     <h3><strong>Summary</strong></h3>
                 </div>
