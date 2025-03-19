@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
@@ -32,8 +33,8 @@ export class NumericalInputComponent {
   }
 
   formattedValue(val: number): string {
-    return val % 1 === 0 
-        ? val.toString() 
+    return val % 1 === 0 || this.numType === 'PERCENT'
+        ? val.toFixed(0) 
         : val.toFixed(2);
   }
 }
