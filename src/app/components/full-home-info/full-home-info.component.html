@@ -13,7 +13,7 @@
         <div class="col-4">
 
             <!-- Home info card -->
-            <div class="card p-4 h-100">
+            <div class="card p-4 d-flex flex-column h-100">
 
                 <div class="row">
                     <h3 class="flex-grow text-center"><strong>Home</strong></h3>
@@ -23,20 +23,28 @@
                     </div>
                 </div>
 
-                <img [src]="property!.primary_photo" class="img-fluid rounded" alt="Property Image">
+                <img [src]="property!.primary_photo" class="img-fluid rounded" alt="Property Image" style="max-height: 250px;">
 
-                <div class="row align-items-center justify-content-center">
+                <div class="row justify-content-center">
                     <div class="col-6">
-                        <div class="p-3 pb-0 mt-4 ml-5">
-                            <p><strong>Beds:</strong> {{ property!.beds ? property!.beds : 0 }} | <strong>Baths:</strong> {{ property!.full_baths ? property!.full_baths: 0 }} Full, {{ property!.half_baths ? property!.half_baths : 0 }} Half</p>
-                            <p><strong>Size:</strong> {{ property!.sqft.toLocaleString() }} sqft | <strong>Lot:</strong> {{ property!.lot_sqft.toLocaleString() }} sqft</p>
-                            <p><strong>Built:</strong> {{ property!.year_built }}</p>
-                            <p><strong>Days on MLS:</strong> {{ property!.days_on_mls }}</p>
-                        </div>
+                        <ul class="list-group mt-3">
+                          <li class="list-group-item"><strong>Beds:</strong> {{ property!.beds ? property!.beds : 0 }}</li>
+                          <li class="list-group-item"><strong>Baths:</strong> {{ property!.full_baths ? property!.full_baths: 0 }} Full, {{ property!.half_baths ? property!.half_baths : 0 }} Half</li>
+                          <li class="list-group-item"><strong>Built:</strong> {{ property!.year_built }}</li>
+                          <li class="list-group-item"><strong>Style:</strong> {{ property!.style }}</li>
+                        </ul>
                     </div>
-                    <div class="col-6 d-flex justify-content-center align-items-center">
-                        <app-common-button [text]="'View Full Listing'" (onClickEmitter)="openUrlInNewTab(property.property_url)"></app-common-button>
+                    <div class="col-6">
+                        <ul class="list-group mt-3">
+                          <li class="list-group-item"><strong>MLS:</strong> {{ property!.mls }} (ID: {{ property!.mls_id }})</li>
+                          <li class="list-group-item"><strong>Days on MLS:</strong> {{ property!.days_on_mls }}</li>
+                          <li class="list-group-item"><strong>Status:</strong> {{ property!.status }}</li>
+                        </ul>
                     </div>
+                </div>
+
+                <div class="mt-auto d-flex justify-content-center">
+                    <app-common-button [text]="'View Full Listing'" (onClickEmitter)="openUrlInNewTab(property.property_url)"></app-common-button>
                 </div>
             </div>
         </div>
@@ -56,17 +64,14 @@
                     <div class="col-6">
                         <ul class="list-group mt-3">
                           <li class="list-group-item"><strong>Price:</strong> {{ formatCurrency(property!.list_price) }}</li>
-                          <li class="list-group-item"><strong>MLS:</strong> {{ property!.mls }} (ID: {{ property!.mls_id }})</li>
-                          <li class="list-group-item"><strong>Status:</strong> {{ property!.status }}</li>
-                          <li class="list-group-item"><strong>Style:</strong> {{ property!.style }}</li>
-                          <li class="list-group-item"><strong>HOA Fee:</strong> {{ formatCurrency(property!.hoa_fee) }}</li>
+                          <li class="list-group-item"><strong>Assessed Value:</strong> {{ formatCurrency(property!.assessed_value) }}</li>
+                          <li class="list-group-item"><strong>Estimated Value:</strong> {{ formatCurrency(property!.estimated_value) }}</li>
                         </ul>
                     </div>
-    
+                    
                     <div class="col-6">
                         <ul class="list-group mt-3">
-                            <li class="list-group-item"><strong>Assessed Value:</strong> {{ formatCurrency(property!.assessed_value) }}</li>
-                            <li class="list-group-item"><strong>Estimated Value:</strong> {{ formatCurrency(property!.estimated_value) }}</li>
+                            <li class="list-group-item"><strong>HOA Fee (Annual):</strong> {{ formatCurrency(property!.hoa_fee) }}</li>
                             <li class="list-group-item"><strong>Tax:</strong> {{ formatCurrency(property!.tax) }}</li>
                             <li class="list-group-item"><strong>Price/Sqft:</strong> {{ formatCurrency(property!.price_per_sqft) }}</li>
                         </ul>
@@ -82,11 +87,13 @@
 
         <div class="col-4">
             <!-- Location card -->
-            <div class="card p-4">
-                <h3 class="flex-grow text-center"><strong>Location</strong></h3>
-    
-                <div class="flex">
-                    <hr class="w-100 mx-auto">
+            <div class="card p-4 h-100">
+                <div class="row">
+                    <h3 class="flex-grow text-center"><strong>Location</strong></h3>
+        
+                    <div class="flex">
+                        <hr class="w-100 mx-auto">
+                    </div>
                 </div>
     
                 <div class="map-container" style="height: 50vh;">
