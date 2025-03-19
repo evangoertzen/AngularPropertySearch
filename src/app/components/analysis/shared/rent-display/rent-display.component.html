@@ -1,10 +1,5 @@
 <div *ngIf="!property?.rent && !rentLoading && !rentErr" style="width: 140px;">
-    <button (click)="getRent()">
-        <span class="shadow flex justify-center"></span>
-            <span class="edge"></span>
-            <span class="front text"> Get rent
-        </span>
-    </button>
+    <app-common-button [text]="'Get Rent'" (onClickEmitter)="getRent()"></app-common-button>
 </div>
 
 <div *ngIf="rentLoading" class="d-flex justify-content-center">
