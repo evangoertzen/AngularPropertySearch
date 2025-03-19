@@ -1,162 +1,227 @@
-<div class="container-fluid">
+<div class="container-fluid backpattern" style="height: 100vh;">
     <div class="row">
-      <div class="col-4 d-flex flex-grow-1 justify-content-center"> 
-        <form>
-          <div class="rental-form">
-            <h2>Equity Returns Calculation</h2>
-            
-            <table>
-              <thead>
-                <tr>
-                  <th>Category</th>
-                  <th>Amount</th>
-                </tr>
-              </thead>
-              <tbody>
-                <!-- Appreciation Rate -->
-                <tr>
-                  <td>Appreciation Rate (%)</td>
-                  <td>
-                    <input [(ngModel)]="appreciationRate" name="appreciationRate" type="number" placeholder="Enter appreciation rate" (input)="updateBarChart()"/>
-                  </td>
-                </tr>
-        
-                <!-- Expense Increase Rate -->
-                <tr>
-                  <td>Expense Increase Rate (%)</td>
-                  <td>
-                    <input [(ngModel)]="expenseIncreaseRate" name="expenseIncreaseRate" type="number" placeholder="Enter expense increase rate" (input)="updateBarChart()"/>
-                  </td>
-                </tr>
-        
-                <!-- Rent Growth -->
-                <tr>
-                  <td>Rent Growth Rate (%)</td>
-                  <td>
-                    <input [(ngModel)]="rentGrowthRate" name="rentGrowthRate" type="number" placeholder="Enter annual rent increase rate" (input)="updateBarChart()"/>
-                  </td>
-                </tr>
-        
-                <!-- Closing Costs -->
-                <tr>
-                  <td>Closing Costs (%)</td>
-                  <td>
-                    <input [(ngModel)]="closingCostRate" name="closingCostRate" type="number" placeholder="Enter closing cost rate" (input)="updateBarChart()"/>
-                  </td>
-                </tr>
-        
-                <!-- Selling Costs -->
-                <tr>
-                  <td>Cost to Sell (%)</td>
-                  <td>
-                    <input [(ngModel)]="costToSellRate" name="costToSellRate" type="number" placeholder="Enter cost to sell" (input)="updateBarChart()"/>
-                  </td>
-                </tr>
-        
-                <tr>
-                  <td colspan="2">
-                    <hr class="w-100">
-                  </td>
-                </tr>
-                
-                <!-- Year slider -->
-                <tr>
-                    <td colspan="2" class="text-center">
-                        <strong>Equity in year {{sellInYear}}</strong>
-                    </td>
-                  </tr>
-                <tr>
-                <tr>
-                  <td colspan="2">
-                    <mat-slider min="0" max="50" step="1" showTickMarks discrete 
-                        [displayWith]="formatLabel" style="width: 100%; max-width: 500px;"
-                        #slider>
-                        <input matSliderThumb [(value)]="sellInYear" (change)="updateBarChart()">
-                      </mat-slider>
-                  </td>
-                </tr>
-  
-                <!-- Equity From Appreciation -->
-                <tr>
-                  <td>
-                    Appreciation Equity ($)
-                  </td>
-                  <td>
-                    <input [value]="calcPropValueGrowth(sellInYear).toFixed(2)" disabled type="number"/>
-                  </td>
-                </tr>
+        <div class="col-3">
 
-                <!-- Equity From Debt Paydown -->
-                <tr>
-                    <td>
-                      Mortgage Equity ($)
-                    </td>
-                    <td>
-                      <input [value]="calcPaidDownDebt(sellInYear).toFixed(2)" disabled type="number"/>
-                    </td>
-                  </tr>
-
-                <!-- Equity From Cash -->
-                <tr>
-                    <td>
-                        Accumulated Cash Flow ($)
-                    </td>
-                    <td>
-                        <input [value]="calcCashEquityInYear(sellInYear).toFixed(2)" disabled type="number"/>
-                    </td>
-                </tr>
-
-                <!-- Total Equity -->
-                <tr>
-                    <td>
-                        Total Equity ($)
-                    </td>
-                    <td>
-                        <input [value]="calcTotalEquity(sellInYear).toFixed(2)" disabled type="number"/>
-                    </td>
-                </tr>
-
-                <!-- Equity Created -->
-                <tr>
-                  <td>
-                      Equity Created ($)
-                  </td>
-                  <td>
-                      <input [value]="(calcTotalEquity(sellInYear) - calcInitialCost()).toFixed(2)" disabled type="number"/>
-                  </td>
-              </tr>
-  
-                <!-- Return on Investment -->
-                <tr>
-                  <td><strong>ROI (%)</strong></td>
-                  <td>
-                    <input [value]="calcROI(sellInYear).toFixed(2)" disabled type="number"/>
-                  </td>
-                </tr>
-  
-                <!-- Internal Rate of Return -->
-                <tr>
-                  <td><strong>IRR (%)</strong></td>
-                  <td>
-                    <input [value]="calcIRR(sellInYear)" disabled type="number"/>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </form>
-      </div>  
-  
-      <div class="col-8 d-flex flex-column align-items-center">
-        <div class="col-12 text-center">
-          <h2>Equity Growth Chart</h2>
-        </div>
-        <div class="col-12">
-          <p-chart type="bar" [data]="barChartData" [options]="barChartOptions"></p-chart>
-        </div>
-      </div>    
+            <!-- Inputs Card -->
+            <div class="card p-4 mt-3 ml-3">
+                <div class="row">
+                    <h3 class="flex-grow text-center"><strong>Inputs</strong></h3>
     
+                    <div class="flex">
+                        <hr class="w-100 mx-auto">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <table>
+
+                        <!-- Appreciation Rate -->
+                        <tr>
+                            <td>Appreciation Rate</td>
+                            <td>
+                                <app-numerical-input 
+                                    [modelField]="appreciationRate" 
+                                    [numType]="'PERCENT'" 
+                                    (modelFieldChange)="appreciationRate = $event; updateBarChart()">
+                                </app-numerical-input>
+                            </td>
+                        </tr>
+                
+                        <!-- Expense Increase Rate -->
+                        <tr>
+                            <td>Expense Increase Rate</td>
+                            <td>
+                                <app-numerical-input 
+                                    [modelField]="expenseIncreaseRate" 
+                                    [numType]="'PERCENT'" 
+                                    (modelFieldChange)="expenseIncreaseRate = $event; updateBarChart()">
+                                </app-numerical-input>
+                            </td>
+                        </tr>
+                
+                        <!-- Rent Growth -->
+                        <tr>
+                            <td>Rent Growth Rate</td>
+                            <td>
+                                <app-numerical-input 
+                                    [modelField]="rentGrowthRate" 
+                                    [numType]="'PERCENT'" 
+                                    (modelFieldChange)="rentGrowthRate = $event; updateBarChart()">
+                                </app-numerical-input>
+                            </td>
+                        </tr>
+                
+                        <!-- Closing Costs -->
+                        <tr>
+                            <td>Closing Costs</td>
+                            <td>
+                                <app-numerical-input 
+                                    [modelField]="closingCostRate" 
+                                    [numType]="'PERCENT'" 
+                                    (modelFieldChange)="closingCostRate = $event; updateBarChart()">
+                                </app-numerical-input>
+                            </td>
+                        </tr>
+                
+                        <!-- Selling Costs -->
+                        <tr>
+                            <td>Cost to Sell</td>
+                            <td>
+                                <app-numerical-input 
+                                    [modelField]="costToSellRate" 
+                                    [numType]="'PERCENT'" 
+                                    (modelFieldChange)="costToSellRate = $event; updateBarChart()">
+                                </app-numerical-input>
+                            </td>
+                        </tr>
+                
+                        <!-- Year slider -->
+                        <tr>
+                            <td colspan="2" class="text-center">
+                                <strong>Equity in year {{sellInYear}}</strong>
+                            </td>
+                        </tr>
+                        <tr>
+
+                        <tr>
+                            <td colspan="2">
+                                <mat-slider min="0" max="50" step="1" showTickMarks discrete 
+                                    [displayWith]="formatLabel" style="width: 100%; max-width: 500px;"
+                                    #slider>
+                                    <input matSliderThumb [(value)]="sellInYear" (change)="updateBarChart()">
+                                </mat-slider>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-6">
+            <div class="card p-5 mt-3">
+                <div class="row">
+                    <p-chart type="bar" [data]="barChartData" [options]="barChartOptions"></p-chart>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-3">
+            <!-- Returns Card -->
+            <div class="card p-5 mt-3 mr-3">
+                <div class="row">
+                    <h3 class="flex-grow text-center"><strong>Returns</strong></h3>
+    
+                    <div class="flex">
+                        <hr class="w-100 mx-auto">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- Equity From Appreciation -->
+                    <table>
+                        <tr>
+                            <td>
+                                Appreciation Equity
+                            </td>
+                            <td>
+                                <app-numerical-input 
+                                    [modelField]="calcPropValueGrowth(sellInYear)" 
+                                    [numType]="'DOLLARS'"
+                                    [disabled]="true"
+                                    [colorMode]="'GP-RM'">
+                                </app-numerical-input>
+                            </td>
+                        </tr>
+        
+                        <!-- Equity From Debt Paydown -->
+                        <tr>
+                            <td>
+                                Mortgage Equity
+                            </td>
+                            <td>
+                                <app-numerical-input 
+                                    [modelField]="calcPaidDownDebt(sellInYear)" 
+                                    [numType]="'DOLLARS'"
+                                    [disabled]="true"
+                                    [colorMode]="'GP-RM'">
+                                </app-numerical-input>
+                            </td>
+                        </tr>
+        
+                        <!-- Equity From Cash -->
+                        <tr>
+                            <td>
+                                Accumulated Cash Flow
+                            </td>
+                            <td>
+                                <app-numerical-input 
+                                    [modelField]="calcCashEquityInYear(sellInYear)" 
+                                    [numType]="'DOLLARS'"
+                                    [disabled]="true"
+                                    [colorMode]="'GP-RM'">
+                                </app-numerical-input>
+                            </td>
+                        </tr>
+        
+                        <!-- Total Equity -->
+                        <tr>
+                            <td>
+                                Total Equity
+                            </td>
+                            <td>
+                                <app-numerical-input 
+                                    [modelField]="calcTotalEquity(sellInYear)" 
+                                    [numType]="'DOLLARS'"
+                                    [disabled]="true"
+                                    [colorMode]="'GP-RM'">
+                                </app-numerical-input>
+                            </td>
+                        </tr>
+        
+                        <!-- Equity Created -->
+                        <tr>
+                            <td>
+                                Equity Created
+                            </td>
+                            <td>
+                                <app-numerical-input 
+                                    [modelField]="(calcTotalEquity(sellInYear) - calcInitialCost())" 
+                                    [numType]="'DOLLARS'"
+                                    [disabled]="true"
+                                    [colorMode]="'GP-RM'">
+                                </app-numerical-input>
+                            </td>
+                        </tr>
+            
+                        <!-- Return on Investment -->
+                        <tr>
+                            <td><strong>ROI</strong></td>
+                            <td>
+                                <app-numerical-input 
+                                        [modelField]="calcROI(sellInYear)" 
+                                        [numType]="'PERCENT'"
+                                        [disabled]="true"
+                                        [colorMode]="'GP-RM'">
+                                </app-numerical-input>
+                            </td>
+                        </tr>
+            
+                        <!-- Internal Rate of Return -->
+                        <tr>
+                            <td><strong>IRR</strong></td>
+                            <td>
+                                <app-numerical-input 
+                                        [modelField]="calcIRR(sellInYear)" 
+                                        [numType]="'PERCENT'"
+                                        [disabled]="true"
+                                        [colorMode]="'GP-RM'">
+                                </app-numerical-input>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+        </div>
     </div>
-  </div>  
-  
-  
+</div>

@@ -5,7 +5,7 @@
         <mat-tab-group [preserveContent]="true">
 
             <mat-tab *ngIf="property" label="Home Info"> 
-                <ng-template matTabContent class="backpattern">
+                <ng-template matTabContent>
                     <app-full-home-info [property]="property"></app-full-home-info>
                 </ng-template>
             </mat-tab>
