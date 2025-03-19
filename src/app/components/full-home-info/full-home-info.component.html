@@ -26,19 +26,27 @@
                 <img [src]="property!.primary_photo" class="img-fluid rounded" alt="Property Image" style="max-height: 250px;">
 
                 <div class="row justify-content-center">
-                    <div class="col-6">
+                    <div class="col-6 d-flex justify-content-center align-items-center">
+                        <div class="justify-content-center">
+                            <h1 class="pt-3 pl-3"><strong>${{formatService.formatWithCommas(property.list_price)}}</strong></h1>
+    
+                            <div class="pt-1 pl-3">
+                                {{ property!.beds ? property!.beds : 0 }} <strong>bed</strong> 
+                                | {{ property.full_baths + property.half_baths ? property.full_baths + property.half_baths : 0 }} <strong>bath</strong> 
+                                | {{ property!.sqft ? property!.sqft : 0 }} <strong>sqft</strong>
+                            </div>
+                        </div>
+                        
                         <ul class="list-group mt-3">
-                          <li class="list-group-item"><strong>Beds:</strong> {{ property!.beds ? property!.beds : 0 }}</li>
-                          <li class="list-group-item"><strong>Baths:</strong> {{ property!.full_baths ? property!.full_baths: 0 }} Full, {{ property!.half_baths ? property!.half_baths : 0 }} Half</li>
-                          <li class="list-group-item"><strong>Built:</strong> {{ property!.year_built }}</li>
-                          <li class="list-group-item"><strong>Style:</strong> {{ property!.style }}</li>
                         </ul>
                     </div>
                     <div class="col-6">
                         <ul class="list-group mt-3">
-                          <li class="list-group-item"><strong>MLS:</strong> {{ property!.mls }} (ID: {{ property!.mls_id }})</li>
-                          <li class="list-group-item"><strong>Days on MLS:</strong> {{ property!.days_on_mls }}</li>
-                          <li class="list-group-item"><strong>Status:</strong> {{ property!.status }}</li>
+                            <li class="list-group-item"><strong>MLS:</strong> {{ property!.mls }} (ID: {{ property!.mls_id }})</li>
+                            <li class="list-group-item"><strong>Days on MLS:</strong> {{ property!.days_on_mls }}</li>
+                            <li class="list-group-item"><strong>Style:</strong> {{ property!.style }}</li>
+                            <li class="list-group-item"><strong>Status:</strong> {{ property!.status }}</li>
+                            <li class="list-group-item"><strong>Built:</strong> {{ property!.year_built }}</li>
                         </ul>
                     </div>
                 </div>
@@ -63,17 +71,17 @@
 
                     <div class="col-6">
                         <ul class="list-group mt-3">
-                          <li class="list-group-item"><strong>Price:</strong> {{ formatCurrency(property!.list_price) }}</li>
-                          <li class="list-group-item"><strong>Assessed Value:</strong> {{ formatCurrency(property!.assessed_value) }}</li>
-                          <li class="list-group-item"><strong>Estimated Value:</strong> {{ formatCurrency(property!.estimated_value) }}</li>
+                          <li class="list-group-item"><strong>Price:</strong> ${{ formatService.formatWithCommas(property!.list_price) }}</li>
+                          <li class="list-group-item"><strong>Assessed Value:</strong> ${{ formatService.formatWithCommas(property!.assessed_value) }}</li>
+                          <li class="list-group-item"><strong>Estimated Value:</strong> ${{ formatService.formatWithCommas(property!.estimated_value) }}</li>
                         </ul>
                     </div>
                     
                     <div class="col-6">
                         <ul class="list-group mt-3">
-                            <li class="list-group-item"><strong>HOA Fee (Annual):</strong> {{ formatCurrency(property!.hoa_fee) }}</li>
-                            <li class="list-group-item"><strong>Tax:</strong> {{ formatCurrency(property!.tax) }}</li>
-                            <li class="list-group-item"><strong>Price/Sqft:</strong> {{ formatCurrency(property!.price_per_sqft) }}</li>
+                            <li class="list-group-item"><strong>HOA Fee (Annual):</strong> ${{ formatService.formatWithCommas(property!.hoa_fee) }}</li>
+                            <li class="list-group-item"><strong>Tax:</strong> ${{ formatService.formatWithCommas(property!.tax) }}</li>
+                            <li class="list-group-item"><strong>Price/Sqft:</strong> ${{ formatService.formatWithCommas(property!.price_per_sqft) }}</li>
                         </ul>
                     </div>
                 </div>

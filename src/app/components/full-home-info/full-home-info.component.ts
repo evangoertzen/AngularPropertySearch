@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { PropertyModel } from 'src/app/models/property.model';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { FormatService } from 'src/app/services/format-service/format.service';
 
 @Component({
   selector: 'app-full-home-info [property]',
@@ -17,7 +18,8 @@ export class FullHomeInfoComponent {
   lineChartData: any;
 
   constructor(
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    public formatService: FormatService
   ){}
 
   ngOnChanges(): void {
@@ -25,10 +27,6 @@ export class FullHomeInfoComponent {
       const unsafeUrl = `https://www.google.com/maps?q=${encodeURIComponent(this.property.street + ', ' + this.property.city + ', ' + this.property.state)}&output=embed`;
       this.mapUrl = this.sanitizer.bypassSecurityTrustResourceUrl(unsafeUrl);
     }
-  }
-
-  formatCurrency(value: number): string {
-    return value ? `$${value.toLocaleString()}` : 'N/A';
   }
 
   openUrlInNewTab(url: string): void {
