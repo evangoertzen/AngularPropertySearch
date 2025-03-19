@@ -38,6 +38,7 @@ import { Select, SelectModule } from 'primeng/select';
 import { DropdownModule } from 'primeng/dropdown';
 import { NumericalInputComponent } from './components/analysis/shared/numerical-input/numerical-input.component';
 import { LeverToggleComponent } from "./components/analysis/shared/lever-toggle/lever-toggle.component";
+import { CommonButtonComponent } from './components/shared/common-button/common-button.component';
 
 @NgModule({ 
     declarations: [
@@ -56,7 +57,8 @@ import { LeverToggleComponent } from "./components/analysis/shared/lever-toggle/
         TaxGraphComponent,
         EquityAnalysisComponent,
         NumericalInputComponent,
-        LeverToggleComponent
+        LeverToggleComponent,
+        CommonButtonComponent
     ],
     bootstrap: [AppComponent], 
     imports: [
