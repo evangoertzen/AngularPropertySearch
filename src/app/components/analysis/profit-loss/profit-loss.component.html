@@ -16,7 +16,7 @@
 
                     <!-- Monthly Rent Income -->
                     <tr>
-                        <td>Monthly Rent Income ($)</td>
+                        <td>Monthly Rent Income</td>
                         <td>
                             <app-rent-display *ngIf="property && !property.rent" [property]="property" (rentChange)="rentChange($event)"></app-rent-display>
                             <app-numerical-input 
@@ -30,7 +30,7 @@
 
                     <!-- Annual Rent Income -->
                     <tr *ngIf="!property || (property && property.rent)">
-                        <td>Annual Rent Income ($)</td>
+                        <td>Annual Rent Income</td>
                         <td>
                             <app-rent-display *ngIf="property && !property.rent" [property]="property" (rentChange)="rentChange($event)"></app-rent-display>
                             <app-numerical-input 
@@ -44,7 +44,7 @@
 
                     <!-- Vacancy Rate -->
                     <tr>
-                        <td>Vacancy Rate (%)</td>
+                        <td>Vacancy Rate</td>
                         <td>
                             
                             <app-numerical-input 
@@ -58,7 +58,7 @@
 
                     <!-- Operating Income -->
                     <tr>
-                        <td><strong>Total Operating Income ($)</strong></td>
+                        <td><strong>Total Operating Income</strong></td>
                         <td>
                             <app-numerical-input 
                                 [modelField]="calcService.calculateOperatingIncome()" 
@@ -83,7 +83,7 @@
 
                     <!-- Net Operating Income -->
                     <tr>
-                        <td><strong>Net Operating Income (NOI) ($)</strong></td>
+                        <td><strong>Net Operating Income (NOI)</strong></td>
                         <td>
                             <app-numerical-input 
                                 [modelField]="calculateNOI()" 
@@ -96,7 +96,7 @@
                     <!-- Debt Service -->
                     <tr>
                         <td>
-                            Debt Service ($)
+                            Debt Service
                             <i class="material-icons" style="color: rgb(2, 151, 237); font-size: 1.3rem; vertical-align: middle;" matTooltip="Use the mortgage calculator to change this value." >info</i>
                         </td>
                         <td>
@@ -110,7 +110,7 @@
 
                     <!-- Capital Expenses -->
                     <tr>
-                        <td>Capital Expenses (%)</td>
+                        <td>Capital Expenses</td>
                         <td>
                             <app-numerical-input 
                                 [modelField]="calcService.expenses.capex_rate" 
@@ -123,7 +123,7 @@
 
                     <!-- Net Operating Income -->
                     <tr>
-                        <td><strong>Pre-tax Cash Flow ($)</strong></td>
+                        <td><strong>Pre-tax Cash Flow</strong></td>
                         <td>
                             <app-numerical-input 
                                 [modelField]="(calcCashFlow())" 
@@ -161,7 +161,7 @@
 
                                 <!-- Maintenance Costs -->
                                 <tr>
-                                    <td>Maintenance Costs (%)</td>
+                                    <td>Maintenance Costs</td>
                                     <td>
                                         <app-numerical-input 
                                             [modelField]="calcService.expenses.maintenance_rate" 
@@ -173,7 +173,7 @@
                 
                                 <!-- Management Fee -->
                                 <tr>
-                                    <td>Management Fee (%)</td>
+                                    <td>Management Fee</td>
                                     <td>
                                         <app-numerical-input 
                                             [modelField]="calcService.expenses.management_fee_rate" 
@@ -185,7 +185,7 @@
                 
                                 <!-- Property Taxes -->
                                 <tr>
-                                    <td>Property Taxes ($)</td>
+                                    <td>Property Taxes</td>
                                     <td>
                                         <app-numerical-input 
                                             [modelField]="calcService.expenses.taxes_dol" 
@@ -197,7 +197,7 @@
                 
                                 <!-- Insurance -->
                                 <tr>
-                                    <td>Insurance ($)</td>
+                                    <td>Insurance</td>
                                     <td>
                                         <app-numerical-input 
                                             [modelField]="calcService.expenses.insurance_dol" 
@@ -209,7 +209,7 @@
                 
                                 <!-- HOA Fee -->
                                 <tr>
-                                    <td>HOA Fee ($)</td>
+                                    <td>HOA Fee</td>
                                     <td>
                                         <app-numerical-input 
                                             [modelField]="calcService.expenses.hoa_dol" 
@@ -221,7 +221,7 @@
                 
                                 <!-- Utilities Cost -->
                                 <tr>
-                                    <td>Utilities Cost ($)</td>
+                                    <td>Utilities Cost</td>
                                     <td>
                                         <app-numerical-input 
                                             [modelField]="calcService.expenses.utilities_dol" 
@@ -233,7 +233,7 @@
                 
                                 <!-- Miscellaneous Cost -->
                                 <tr>
-                                    <td>Miscellaneous Expenses ($)</td>
+                                    <td>Miscellaneous Expenses</td>
                                     <td>
                                         <app-numerical-input 
                                             [modelField]="calcService.expenses.misc_expenses_dol" 
