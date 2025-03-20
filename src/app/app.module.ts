@@ -39,6 +39,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { NumericalInputComponent } from './components/analysis/shared/numerical-input/numerical-input.component';
 import { LeverToggleComponent } from "./components/analysis/shared/lever-toggle/lever-toggle.component";
 import { CommonButtonComponent } from './components/shared/common-button/common-button.component';
+import { HomeTypeAndStatusComponent } from "./components/shared/home-type-and-status/home-type-and-status.component";
 
 @NgModule({ 
     declarations: [
@@ -58,7 +59,9 @@ import { CommonButtonComponent } from './components/shared/common-button/common-
         EquityAnalysisComponent,
         NumericalInputComponent,
         LeverToggleComponent,
-        CommonButtonComponent
+        CommonButtonComponent,
+        HomeTypeAndStatusComponent
+
     ],
     bootstrap: [AppComponent], 
     imports: [
@@ -80,7 +83,7 @@ import { CommonButtonComponent } from './components/shared/common-button/common-
     MatTooltipModule,
     MatFormFieldModule,
     SelectModule,
-    DropdownModule
+    DropdownModule,
 ], 
     providers: [
         provideHttpClient(withInterceptorsFromDi()), 
