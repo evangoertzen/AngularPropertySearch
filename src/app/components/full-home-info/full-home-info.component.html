@@ -1,15 +1,5 @@
 <div class="container-fluid backpattern" style="height: 100vh;">
-
-    <!-- Street Address Card -->
-    <div class="row">
-        <div class="col-12 d-flex justify-content-center align-items-center">
-            <div class="card m-3 p-3 text-center w-50">
-                <h3><strong>{{ property!.full_street_line }}, {{ property!.city }}, {{ property!.state }} {{ property!.zip_code }}</strong></h3>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
+    <div class="row pt-4">
         <div class="col-4">
 
             <!-- Home info card -->
@@ -28,7 +18,7 @@
                 <div class="row justify-content-center">
                     <div class="col-6 d-flex flex-column align-items-center">
                         
-                        <div class="w-100 pt-3 d-flex justify-content-center">
+                        <div class="w-100 pt-3 pl-2 d-flex">
                             <app-home-type-and-status [homeType]="property.style" [saleStatus]="property.status"></app-home-type-and-status>
                         </div>
 
@@ -40,19 +30,23 @@
                                 | {{ property.full_baths + property.half_baths ? property.full_baths + property.half_baths : 0 }} <strong>bath</strong> 
                                 | {{ property!.sqft ? property!.sqft : 0 }} <strong>sqft</strong>
                             </div>
+
+                            <p class="text-muted pt-1">{{ property!.full_street_line }}, {{ property!.city }}, {{ property!.state }} {{ property!.zip_code }}</p>
                         </div>
                         
                     </div>
-                    <div class="col-6">
-                        <ul class="list-group mt-3">
-                            <li class="list-group-item"><strong>MLS:</strong> {{ property!.mls }} (ID: {{ property!.mls_id }})</li>
-                            <li class="list-group-item"><strong>Days on MLS:</strong> {{ property!.days_on_mls }}</li>
-                            <li class="list-group-item"><strong>Built:</strong> {{ property!.year_built }}</li>
-                        </ul>
+                    <div class="col-6  d-flex flex-column">
+                        <div class="d-flex flex-column justify-content-center flex-grow-1 pt-3">
+                            <ul class="list-group mt-3">
+                                <li class="list-group-item"><strong>MLS:</strong> {{ property!.mls }} (ID: {{ property!.mls_id }})</li>
+                                <li class="list-group-item"><strong>Days on MLS:</strong> {{ property!.days_on_mls }}</li>
+                                <li class="list-group-item"><strong>Built:</strong> {{ property!.year_built }}</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
 
-                <div class="mt-auto d-flex justify-content-center">
+                <div class="mt-auto d-flex justify-content-center align-items-center">
                     <app-common-button [text]="'View Full Listing'" (onClickEmitter)="openUrlInNewTab(property.property_url)"></app-common-button>
                 </div>
             </div>
