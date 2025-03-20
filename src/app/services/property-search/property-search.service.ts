@@ -106,4 +106,8 @@ export class PropertySearchService {
     })
   }
 
+  getPropById(mls_id: string){
+    return this.properties.find(item => item.mls_id === mls_id);
+  }
+
 }
