@@ -20,6 +20,23 @@ export class PropertySearchService {
 
   showErr: boolean = false;
 
+  public readonly listingTypes = {
+    'For sale': 'FOR_SALE',
+    'Sold': 'SOLD',
+    'Pending': 'PENDING',
+    'Any': ''
+  }
+
+  public readonly propTypes = {
+    'Single family': 'SINGLE_FAMILY',
+    'Multi family':'MULTI_FAMILY',
+    'Condo': 'CONDOS',
+    'Townhome': 'TOWNHOMES',
+    'Land': 'LAND',
+    'Farm': 'FARM',
+    'Mobile': 'MOBILE'
+  }
+
   // so map component can refresh when search returns
   private refreshSubject = new Subject<void>();
   public refresh$ = this.refreshSubject.asObservable();

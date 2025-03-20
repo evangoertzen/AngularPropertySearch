@@ -31,20 +31,14 @@ export class SearchFormComponent implements OnInit{
   public maxCost = 1000000
   public minCost = 0
 
-  public listingTypes = {
-    'For Sale': 'FOR_SALE',
-    'Sold': 'SOLD',
-    'Pending': 'PENDING'
-  }
-
   constructor(
-    private propSearch: PropertySearchService
+    protected propSearch: PropertySearchService
   ){
     this.searchForm = new FormGroup({
       location: new FormControl('Denver', [Validators.required, Validators.minLength(3)]),
       minPrice: new FormControl(250000, [Validators.min(0), Validators.required]),
       maxPrice: new FormControl(800000, [Validators.min(0)]),
-      listingType: new FormControl('FOR_SALE', Validators.required)
+      listingType: new FormControl('FOR_SALE')
       
     }, { validators: [greaterThanValidator] });
   }
