@@ -3,6 +3,9 @@
 </div>
 
 <div *ngIf="propertySearch.properties.length > 0" class="container">
+    <div class="row" *ngIf="highlightedProp">
+        <app-property-panel [property]="highlightedProp" class="flex-grow-1"></app-property-panel>
+    </div>
     <div class="row">
         <div *ngFor="let property of propertySearch.properties" class="col-md-6 mb-2 d-flex g-1">
             <div class="w-100 h-100 d-flex">
