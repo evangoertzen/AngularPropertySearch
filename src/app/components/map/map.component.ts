@@ -3,6 +3,7 @@ import * as L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { PropertySearchService } from 'src/app/services/property-search/property-search.service';
 import { Router } from '@angular/router';
+import { MapService } from 'src/app/services/map-service/map.service';
 
 // may need these imports in the future if leaflet won't show icon
 // import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css';
@@ -49,7 +50,8 @@ export class MapComponent implements OnInit {
 
   constructor(
     private propertySearch: PropertySearchService,
-    private router: Router
+    private router: Router,
+    private mapService: MapService
   ){}
 
   ngOnInit(): void {
@@ -108,7 +110,8 @@ export class MapComponent implements OnInit {
           icon: originalIcon,
         })
         .addTo(this.map)
-        .on('click', () => this.markerClicked(location.mls_id));
+        .on('click', () => this.markerClicked(location.mls_id))
+        .on('mouseover', () => this.markerHovered(location.mls_id));
       this.markers.set(location.mls_id, marker);
     });
 
@@ -120,6 +123,10 @@ export class MapComponent implements OnInit {
 
   markerClicked(mls_id: string){
     this.router.navigate(['analysis'], { queryParams: { mls_id: mls_id } })
+  }
+
+  markerHovered(mls_id: string){
+    this.mapService.mapHighlightSubject.next(mls_id);
   }
 
   
@@ -136,7 +143,9 @@ export class MapComponent implements OnInit {
           zIndexOffset: 1000,
         });
 
-        newMarker.addTo(this.map);
+        newMarker.addTo(this.map)
+          .on('click', () => this.markerClicked(mls_id))
+          .on('mouseover', () => this.markerHovered(mls_id));
         this.markers.set(marker_id, newMarker);
       }
     })
