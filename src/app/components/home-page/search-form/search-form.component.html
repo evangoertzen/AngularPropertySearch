@@ -46,7 +46,10 @@
                         type="number" 
                         formControlName="minPrice" 
                         [value]="searchForm.get('minPrice')?.value"
-                        [step]=25000>
+                        [step]=25000
+                        [max]="searchForm.get('maxPrice')?.value"
+                        (input)="updateMinPrice($event)"
+                        >
                 </div>
             </div>
             <div class="mt-1">
@@ -57,7 +60,9 @@
                         type="number" 
                         formControlName="maxPrice" 
                         [value]="searchForm.get('maxPrice')?.value"
-                        [step]=25000>
+                        [step]=25000
+                        [min]="searchForm.get('minPrice')?.value"
+                        (input)="updateMaxPrice($event)">
                 </div>
             </div>
         </div>  
