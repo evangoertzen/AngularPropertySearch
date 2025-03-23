@@ -1,10 +1,10 @@
 <div class="container-fluid backpattern" style="height: 100vh;">
     <div class="row">
         <!-- First Column -->
-        <div class="col-3 justify-content-center"> 
+        <div class="col-4 justify-content-center"> 
 
             <!-- Income Card -->
-            <div class="card ml-5 mt-3 p-4">
+            <div class="card ml-10 mt-10 p-4">
                 <div class="flex justify-center">
                     <h3><strong>Income</strong></h3>
                 </div>
@@ -17,7 +17,7 @@
                     <!-- Monthly Rent Income -->
                     <tr>
                         <td>Monthly Rent Income</td>
-                        <td class="text-center">
+                        <td class="text-center" style="width: 200px;">
                             <app-rent-display *ngIf="property && !property.rent" [property]="property" (rentChange)="rentChange($event)"></app-rent-display>
                             <app-numerical-input 
                                 *ngIf="!property || (property && property.rent)"
@@ -71,7 +71,7 @@
             </div>
 
             <!-- Summary Card -->
-            <div class="card ml-5 mt-3 p-4">
+            <div class="card ml-10 mt-3 p-4">
                 <div class="flex justify-center">
                     <h3><strong>Summary</strong></h3>
                 </div>
@@ -84,7 +84,7 @@
                     <!-- Net Operating Income -->
                     <tr>
                         <td><strong>Net Operating Income (NOI)</strong></td>
-                        <td>
+                        <td style="width: 200px;">
                             <app-numerical-input 
                                 [modelField]="calculateNOI()" 
                                 [numType]="'DOLLARS'" 
@@ -139,10 +139,10 @@
 
 
         <!-- Column 2 -->
-        <div class="col-9 justify-content-center">
+        <div class="col-8 justify-content-center">
 
             <!-- Expenses Card -->
-            <div class="card mr-5 mt-3 p-4">
+            <div class="card mr-10 mt-10 p-4">
                 <div class="flex w-full items-center">
                     <h3 class="flex-grow text-center"><strong>Expenses</strong></h3>
                     <span class="ml-auto mt-3"><app-lever-toggle [isChecked]="showPieChart" (checkboxChanged)="showPieChart = $event"></app-lever-toggle></span>
