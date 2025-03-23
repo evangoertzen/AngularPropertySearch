@@ -16,7 +16,7 @@ export class RentDialogComponent {
   ){}
 
   onContinue(){
-    this.dialogRef.close();
+    this.dialogRef.close(true);
   }
 
 }

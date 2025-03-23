@@ -31,16 +31,21 @@ export class RentDisplayComponent {
       width: '800px',
     });
 
-    dialogRef.afterClosed().subscribe(() => {
-      if(this.propertySearchService.useAPIKey){
+    dialogRef.afterClosed().subscribe(result => {
 
-        this.getRent();
+      // Only search on continue, not on cancel
+      if(result){
 
-      }else{
+        if(this.propertySearchService.useAPIKey){
 
-        // set rent to 0 so user can edit it themselves
-        this.property.rent = 1;
-        this.rentChange.emit(this.property);
+          this.getRent();
+
+        }else{
+
+          // set rent to 1 so user can edit it themselves
+          this.property.rent = 1;
+          this.rentChange.emit(this.property);
+        }
       }
     });
   }
