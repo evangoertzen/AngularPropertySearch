@@ -104,7 +104,8 @@ export class PropertySearchService {
   getRent(address: string){
     return this.http.get<number>(rentCalcURL, {
       params : {
-        address: address
+        address: address,
+        apiKey: this.rentAPIKey
       }
     })
   }
