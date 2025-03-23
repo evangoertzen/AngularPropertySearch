@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { PropertyModel } from 'src/app/models/property.model';
 import { PropertySearchService } from 'src/app/services/property-search/property-search.service';
+import { RentDialogComponent } from './rent-dialog/rent-dialog/rent-dialog.component';
 
 @Component({
   selector: 'app-rent-display [property]',
@@ -11,7 +13,10 @@ import { PropertySearchService } from 'src/app/services/property-search/property
 export class RentDisplayComponent {
 
   
-  constructor(private propertySearchService: PropertySearchService){}
+  constructor(
+    private propertySearchService: PropertySearchService,
+    private dialog: MatDialog
+  ){}
   
   @Input() property!: PropertyModel;
 
@@ -19,6 +24,26 @@ export class RentDisplayComponent {
   
   rentLoading: boolean = false;
   rentErr: boolean = false;
+
+  openRentDialog(){
+
+    let dialogRef = this.dialog.open(RentDialogComponent, {
+      width: '800px',
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      if(this.propertySearchService.useAPIKey){
+
+        this.getRent();
+
+      }else{
+
+        // set rent to 0 so user can edit it themselves
+        this.property.rent = 1;
+        this.rentChange.emit(this.property);
+      }
+    });
+  }
 
   getRent(){
 

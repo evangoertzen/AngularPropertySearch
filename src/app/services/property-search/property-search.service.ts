@@ -14,6 +14,9 @@ const rentCalcURL = 'http://localhost:8000/getRent'
 })
 export class PropertySearchService {
 
+  public useAPIKey = true;
+  rentAPIKey = '';
+
   loadingProperties: boolean = false;
   searchFinished: boolean = false;
   properties: PropertyModel[] = [];

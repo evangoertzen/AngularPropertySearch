@@ -40,6 +40,8 @@ import { NumericalInputComponent } from './components/analysis/shared/numerical-
 import { LeverToggleComponent } from "./components/analysis/shared/lever-toggle/lever-toggle.component";
 import { CommonButtonComponent } from './components/shared/common-button/common-button.component';
 import { HomeTypeAndStatusComponent } from "./components/shared/home-type-and-status/home-type-and-status.component";
+import { RentDialogComponent } from './components/analysis/shared/rent-display/rent-dialog/rent-dialog/rent-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({ 
     declarations: [
@@ -60,8 +62,8 @@ import { HomeTypeAndStatusComponent } from "./components/shared/home-type-and-st
         NumericalInputComponent,
         LeverToggleComponent,
         CommonButtonComponent,
-        HomeTypeAndStatusComponent
-
+        HomeTypeAndStatusComponent,
+        RentDialogComponent
     ],
     bootstrap: [AppComponent], 
     imports: [
@@ -84,6 +86,7 @@ import { HomeTypeAndStatusComponent } from "./components/shared/home-type-and-st
     MatFormFieldModule,
     SelectModule,
     DropdownModule,
+    MatDialogModule
 ], 
     providers: [
         provideHttpClient(withInterceptorsFromDi()), 

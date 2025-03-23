@@ -1,5 +1,5 @@
 <div *ngIf="!property?.rent && !rentLoading && !rentErr">
-    <app-common-button [text]="'Get Rent'" (onClickEmitter)="getRent()" style="width: 800px;"></app-common-button>
+    <app-common-button [text]="'Get Rent'" (onClickEmitter)="openRentDialog()"></app-common-button>
 </div>
 
 <div *ngIf="rentLoading" class="d-flex justify-content-center">
