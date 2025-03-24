@@ -101,11 +101,20 @@ export class PropertySearchService {
     }
   }
 
-  getRent(address: string){
+  getRent(property: PropertyModel){
+    
+    let address = property.street + ' ' + property.unit + ' ' + property.city + ' ' + property.state
+
+    let homeTypeString = Object.entries(this.propTypes).find(([key, value]) => value === property.style)?.[0] || '';
+
     return this.http.get<number>(rentCalcURL, {
       params : {
+        apiKey: this.rentAPIKey,
         address: address,
-        apiKey: this.rentAPIKey
+        propertyType: homeTypeString,
+        bedrooms: property.beds,
+        bathrooms: property.full_baths + 0.5*property.half_baths,
+        squareFootage: property.sqft,
       }
     })
   }

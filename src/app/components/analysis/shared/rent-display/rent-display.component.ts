@@ -55,7 +55,7 @@ export class RentDisplayComponent {
     this.rentLoading = true;
     this.rentErr = false;
 
-    this.propertySearchService.getRent(this.property.street + ' ' + this.property.unit + ' ' + this.property.city + ' ' + this.property.state).subscribe( rent => {
+    this.propertySearchService.getRent(this.property).subscribe( rent => {
 
       this.rentLoading = false;
       this.property.rent = rent;

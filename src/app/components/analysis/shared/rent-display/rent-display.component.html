@@ -1,4 +1,4 @@
-<div *ngIf="!property?.rent && !rentLoading && !rentErr">
+<div *ngIf="!property?.rent && !rentLoading">
     <app-common-button [text]="'Get Rent'" (onClickEmitter)="openRentDialog()"></app-common-button>
 </div>
 
