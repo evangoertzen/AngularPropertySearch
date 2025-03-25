@@ -32,7 +32,6 @@
                     <tr *ngIf="!property || (property && property.rent)">
                         <td>Annual Rent Income</td>
                         <td>
-                            <app-rent-display *ngIf="property && !property.rent" [property]="property" (rentChange)="rentChange($event)"></app-rent-display>
                             <app-numerical-input 
                                 *ngIf="!property || (property && property.rent)"
                                 [modelField]="calcService.income.rent_dol" 
