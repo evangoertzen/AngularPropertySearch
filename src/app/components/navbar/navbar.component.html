@@ -1,5 +1,14 @@
 <nav class="navbar">
-    <a routerLink="/" class="nav-logo">PropertySearch</a>
+    <a routerLink="/" class="nav-logo">
+        <div class="container p-0 d-flex flex-column justify-content-center align-items-center">
+            <div class="row m-0 justify-content-center">
+                <h3 class="m-0 p-0 fs-5" style="font-weight: 500;">Ivy Street</h3>
+            </div>
+            <div class="row m-0 justify-content-center">
+                <p class="m-0 p-0" style="font-size: 0.75rem; font-weight: 50;">Data-Driven Property Insights</p>
+            </div>
+        </div>
+    </a>
     <div *ngIf="isHomeRoute && searchService.properties.length > 0" class="dropdown">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
             Search
