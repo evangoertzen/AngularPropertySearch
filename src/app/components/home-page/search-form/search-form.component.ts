@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { SearchFormModel } from 'src/app/models/searchForm.model';
 import { FormatService } from 'src/app/services/format-service/format.service';
+import { MapService } from 'src/app/services/map-service/map.service';
 import { PropertySearchService } from 'src/app/services/property-search/property-search.service';
 
 function greaterThanValidator(control: AbstractControl): ValidationErrors | null {
@@ -34,7 +35,8 @@ export class SearchFormComponent implements OnInit{
 
   constructor(
     protected propSearch: PropertySearchService,
-    public formatService: FormatService
+    public formatService: FormatService,
+    private mapService: MapService
   ){
     this.searchForm = new FormGroup({
       location: new FormControl('Denver', [Validators.required, Validators.minLength(3)]),
@@ -70,6 +72,8 @@ export class SearchFormComponent implements OnInit{
 
     if(this.searchForm.valid){
       const formData: SearchFormModel = this.searchForm.value as SearchFormModel;
+
+      this.mapService.mapHighlightSubject.next('');
       
       // set searchFormObj in propSearchService to the input values
       this.propSearch.searchProperties(formData);
