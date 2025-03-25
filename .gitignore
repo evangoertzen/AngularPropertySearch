@@ -7,7 +7,8 @@
 /bazel-out
 
 # Node
-/node_modules
+Angular/node_modules
+API/node_modules
 npm-debug.log
 yarn-error.log
 
@@ -29,7 +30,7 @@ yarn-error.log
 .history/*
 
 # Miscellaneous
-/.angular/cache
+Angular/.angular/cache
 .sass-cache/
 /connect.lock
 /coverage
@@ -40,3 +41,9 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+#PropertyData directory
+API/PropertyData/
+
+#counter file to limit requests
+API/counter.json
