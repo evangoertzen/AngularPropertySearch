@@ -42,6 +42,7 @@ import { CommonButtonComponent } from './components/shared/common-button/common-
 import { HomeTypeAndStatusComponent } from "./components/shared/home-type-and-status/home-type-and-status.component";
 import { RentDialogComponent } from './components/analysis/shared/rent-display/rent-dialog/rent-dialog/rent-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { DarkModeToggleComponent } from './components/navbar/dark-mode-toggle/dark-mode-toggle/dark-mode-toggle.component';
 
 @NgModule({ 
     declarations: [
@@ -63,7 +64,8 @@ import { MatDialogModule } from '@angular/material/dialog';
         LeverToggleComponent,
         CommonButtonComponent,
         HomeTypeAndStatusComponent,
-        RentDialogComponent
+        RentDialogComponent,
+        DarkModeToggleComponent
     ],
     bootstrap: [AppComponent], 
     imports: [

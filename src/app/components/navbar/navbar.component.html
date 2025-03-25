@@ -1,4 +1,4 @@
-<nav class="navbar">
+<nav class="navbar navbar-expand-lg d-flex align-items-center justify-content-between">
     <a routerLink="/" class="nav-logo">
         <div class="container p-0 d-flex flex-column justify-content-center align-items-center">
             <div class="row m-0 justify-content-center">
@@ -9,18 +9,27 @@
             </div>
         </div>
     </a>
-    <div *ngIf="isHomeRoute && searchService.properties.length > 0" class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-            Search
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" (click)="$event.stopPropagation()">
-            <div class="p-4">
-                <app-search-form></app-search-form>
-            </div>
-        </ul>
+    
+    <div class="d-flex justify-content-center flex-grow-1">
+        <div *ngIf="isHomeRoute && searchService.properties.length > 0" class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                Search
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" (click)="$event.stopPropagation()">
+                <div class="p-4">
+                    <app-search-form></app-search-form>
+                </div>
+            </ul>
+        </div>
     </div>
-    <div class="nav-links">
-        <a routerLink="/" routerLinkActive="active">Home</a>
-        <a routerLink="/analysis" routerLinkActive="active">Analysis</a>
+
+    <div class="d-flex align-items-center">
+        <div class="nav-links d-flex">
+            <a routerLink="/" routerLinkActive="active">Home</a>
+            <a routerLink="/analysis" routerLinkActive="active">Analysis</a>
+        </div>
+        <div class="ms-3">
+            <app-dark-mode-toggle></app-dark-mode-toggle>
+        </div>
     </div>
 </nav>
