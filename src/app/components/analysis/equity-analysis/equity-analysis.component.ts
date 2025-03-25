@@ -24,7 +24,17 @@ export class EquityAnalysisComponent implements OnInit {
     scales: {
       x: { stacked: true },
       y: { stacked: true }
-    }
+    },
+    plugins: {
+      tooltip: {
+        callbacks: {
+          label: function (tooltipItem: any) {
+            let value = Number(tooltipItem.raw);
+            return `$${value.toLocaleString()}`;
+          }
+        }
+      }
+    },
   }
 
   constructor(

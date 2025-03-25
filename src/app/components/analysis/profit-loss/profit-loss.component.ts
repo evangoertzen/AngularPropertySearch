@@ -24,9 +24,31 @@ export class ProfitLossComponent implements OnInit {
     plugins: {
       legend: {
         display: true,
-        position: 'right',
+        position: 'right'
       },
-    },
+      tooltip: {
+        callbacks: {
+          label: function (tooltipItem: any) {
+            let dataset = tooltipItem.dataset.data;
+            let total = dataset.reduce((acc: number, val: number) => acc + val, 0);
+            let value = dataset[tooltipItem.dataIndex];
+            let percentage = ((value / total) * 100).toFixed(2) + "%";
+            return `${percentage}`;
+          }
+        }
+      },
+      datalabels: {
+        formatter: (value: number, ctx: any) => {
+          let dataset = ctx.chart.data.datasets[0].data;
+          let total = dataset.reduce((acc: number, val: number) => acc + val, 0);
+          let percentage = ((value / total) * 100).toFixed(2) + "%";
+          return percentage;
+        },
+        color: "white",
+        anchor: "end",
+        align: "start"
+      }
+    }
   };
 
   barChartOptions = {
@@ -35,6 +57,14 @@ export class ProfitLossComponent implements OnInit {
       legend: {
         display: true,
         position: 'right'
+      },
+      tooltip: {
+        callbacks: {
+          label: function (tooltipItem: any) {
+            let value = tooltipItem.raw;
+            return `$${value.toLocaleString()}`;
+          }
+        }
       }
     },
     scales: {
