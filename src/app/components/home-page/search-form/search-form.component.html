@@ -43,11 +43,8 @@
                     <span class="prefix">Min:</span>
                     <span class="dollar-sign">$</span>
                     <input class="myinput-link" 
-                        type="number" 
-                        formControlName="minPrice" 
-                        [value]="searchForm.get('minPrice')?.value"
-                        [step]=25000
-                        [max]="searchForm.get('maxPrice')?.value"
+                        type="text" 
+                        [value]="formatService.numericValFormatted(searchForm.get('minPrice')?.value)"
                         (input)="updateMinPrice($event)"
                         >
                 </div>
@@ -57,11 +54,8 @@
                     <span class="prefix">Max:</span>
                     <span class="dollar-sign">$</span>
                     <input class="myinput-link" 
-                        type="number" 
-                        formControlName="maxPrice" 
-                        [value]="searchForm.get('maxPrice')?.value"
-                        [step]=25000
-                        [min]="searchForm.get('minPrice')?.value"
+                        type="text" 
+                        [value]="formatService.numericValFormatted(searchForm.get('maxPrice')?.value)"
                         (input)="updateMaxPrice($event)">
                 </div>
             </div>
