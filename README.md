@@ -4,6 +4,8 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Development server
 
+Navigate to Angular directory
+
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
 ## Code scaffolding
@@ -25,3 +27,30 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+
+
+
+# PropertySearchAPI
+
+To run backend, navigate to API directory and then:
+
+Install FastAPI with Uvicorn:
+```
+pip install fastapi uvicorn
+```
+
+Install HomeHarvest:
+```
+pip install -U HomeHarvest
+```
+
+To run host:
+```
+uvicorn APIhost:app --host 0.0.0.0 --port 8000
+```
+
+Required to host/access from same PC for development:
+```
+pip install starlette
+```
