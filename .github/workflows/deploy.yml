@@ -24,7 +24,7 @@ jobs:
 
     - name: Build Docker image
       run: |
-        docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/capstone-api .
+        docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/capstone-api -f API/Dockerfile API
         docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/capstone-api
 
     - name: Deploy to Cloud Run
