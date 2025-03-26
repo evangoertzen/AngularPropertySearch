@@ -2,7 +2,6 @@ import json
 import os
 import time
 from homeharvest import scrape_property
-import random
 import numpy as np
 import pandas as pd
 import requests

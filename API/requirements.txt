@@ -1,0 +1,6 @@
+fastapi
+uvicorn
+homeharvest
+numpy
+pandas
+requests
