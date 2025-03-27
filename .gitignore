@@ -47,3 +47,6 @@ API/PropertyData/
 
 #counter file to limit requests
 API/counter.json
+
+#PropertyData directory
+Angular/dist/
