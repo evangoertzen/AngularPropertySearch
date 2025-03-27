@@ -50,3 +50,7 @@ API/counter.json
 
 #PropertyData directory
 Angular/dist/
+
+#pycache dir
+API/__pycache__
+*.pyc

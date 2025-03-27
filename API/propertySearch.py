@@ -67,9 +67,29 @@ def filter_df(properties, minPrice, maxPrice, status):
 
 def propSearch(location: str, limit: int, minPrice: int, maxPrice: int, listingType: str):
 
-    file_path = "PropertyData/" + location +".json"
+    storage_dir = "PropertyData/"
+    file_path = storage_dir + location +".json"
+
+    # create PropertyData dir if it doesn't exist
+    if not os.path.exists(storage_dir):
+        os.makedirs(storage_dir)
 
     four_hours_ago = time.time() - (4 * 3600)
+    
+    # delete all files over 4 hours old
+    for filename in os.listdir(storage_dir):
+        file_path = os.path.join(storage_dir, filename)
+
+        if os.path.isfile(file_path):
+
+            # Add your condition here, for example:
+            if os.path.getmtime(file_path) > four_hours_ago:  # Condition to check for .txt files
+                try:
+                    os.remove(file_path)  # Remove the file
+                    print(f"Removed: {file_path}")
+                except Exception as e:
+                    print(f"Error removing {file_path}: {e}")
+
 
     #If file was saved in the last 4 hours, load it. Otherwise
     if os.path.exists(file_path) and os.path.getmtime(file_path) > four_hours_ago:
