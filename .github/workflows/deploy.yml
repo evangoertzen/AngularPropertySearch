@@ -61,5 +61,5 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
-          folder: ./Angular/dist/PropertySearch
+          folder: ./Angular/dist/property-search
           token: ${{ secrets.GITHUB_TOKEN }}
