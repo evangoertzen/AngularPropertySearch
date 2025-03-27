@@ -62,4 +62,4 @@ jobs:
         with:
           branch: gh-pages
           folder: ./Angular/dist/property-search/browser
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GH_PAT }}
