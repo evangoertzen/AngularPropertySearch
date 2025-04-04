@@ -60,12 +60,10 @@ def get_counter():
     data = load_counter()
     return data["count"]
 
-def filter_df(properties, minPrice, maxPrice, status):
-    if status:
-        return properties[(properties['list_price'] <= maxPrice) & (properties['list_price'] >= minPrice) & (properties['status']==status)]
-    return properties[(properties['list_price'] <= maxPrice) & (properties['list_price'] >= minPrice)]
+def filter_df(properties, minPrice, maxPrice, minBeds, minBaths, status):
+    return properties[(properties['list_price'] <= maxPrice) & (properties['list_price'] >= minPrice) & (properties['status']==status) & (properties['beds']>=minBeds) & (properties['full_baths'] + properties['half_baths'] >= minBaths)]
 
-def propSearch(location: str, limit: int, minPrice: int, maxPrice: int, listingType: str):
+def propSearch(location: str, limit: int, minPrice: int, maxPrice: int, minBeds: int, minBaths: int, listingType: str):
 
     storage_dir = "PropertyData/"
     file_path = storage_dir + location +".json"
@@ -96,7 +94,7 @@ def propSearch(location: str, limit: int, minPrice: int, maxPrice: int, listingT
         
         with open(file_path, "r") as file:
             properties = pd.read_json(file_path, orient="records")
-            properties = filter_df(properties, minPrice, maxPrice, listingType)
+            properties = filter_df(properties, minPrice, maxPrice, minBeds, minBaths, listingType)
             return properties.to_dict(orient="records")
         return {}
     
@@ -127,12 +125,12 @@ def propSearch(location: str, limit: int, minPrice: int, maxPrice: int, listingT
         
         # replace inf/nan values before converting to json
         properties.replace([np.inf, -np.inf], np.nan, inplace=True)
-        properties.fillna('', inplace=True)
+        properties.fillna(0, inplace=True)
 
         # save json file
         properties.to_json(file_path, orient="records", indent=4)
     
-        properties = filter_df(properties, minPrice, maxPrice, listingType)
+        properties = filter_df(properties, minPrice, maxPrice, minBeds, minBaths, listingType)
 
         return properties.to_dict(orient="records")
 

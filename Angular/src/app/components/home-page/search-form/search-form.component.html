@@ -10,7 +10,7 @@
         <div class="mt-3">
             <label for="listingType" class="block text-gray-700 font-semibold">Location:</label>
             <div class="mt-2">
-                <div class="container-1 border border-gray-300 rounded-lg transition w-100">
+                <div class="container-1 border border-gray-300 rounded-lg transition w-100 pl-2">
                     <input
                     formControlName="location"
                     type="text"
@@ -38,28 +38,57 @@
 
         <!-- Min/Max -->
         <div class="row">
-            <div>
+            <div class="rounded-lg">
                 <div class="container-1 border border-gray-300 rounded-lg transition w-100">
                     <span class="prefix">Min:</span>
                     <span class="dollar-sign">$</span>
-                    <input class="myinput-link" 
+                    <input class="myinput-link rounded-lg" 
                         type="text" 
                         [value]="formatService.numericValFormatted(searchForm.get('minPrice')?.value)"
                         (input)="updateMinPrice($event)"
                         >
                 </div>
             </div>
-            <div class="mt-1">
+            <div class="mt-1 rounded-lg">
                 <div class="container-1 border border-gray-300 rounded-lg transition w-100">
                     <span class="prefix">Max:</span>
                     <span class="dollar-sign">$</span>
-                    <input class="myinput-link" 
+                    <input class="myinput-link rounded-lg" 
                         type="text" 
                         [value]="formatService.numericValFormatted(searchForm.get('maxPrice')?.value)"
                         (input)="updateMaxPrice($event)">
                 </div>
             </div>
-        </div>  
+        </div>
+
+        <!-- Beds/Baths -->
+        <div class="d-flex align-items-center gap-3 mt-4">
+            <!-- Beds -->
+            <div>
+            <div class="container-2 border border-gray-300 rounded-lg transition">
+                <span class="prefix">Beds:</span>
+                <input class="bed-bath-input" 
+                    type="text" 
+                    pattern="\d*" 
+                    inputmode="numeric"
+                    formControlName="minBeds">
+                <span class="plus-sign rounded-lg">+</span>
+            </div>
+            </div>
+        
+            <!-- Baths -->
+            <div>
+            <div class="container-2 border border-gray-300 rounded-lg transition">
+                <span class="prefix">Baths:</span>
+                <input class="bed-bath-input" 
+                    type="text" 
+                    pattern="\d*" 
+                    inputmode="numeric"
+                    formControlName="minBaths">
+                <span class="plus-sign rounded-lg">+</span>
+            </div>
+            </div>
+        </div>
     
         <div class="mt-4">
             <label for="listingType" class="block text-gray-700 font-semibold mb-2">Listing Type:</label>

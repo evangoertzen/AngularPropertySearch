@@ -42,6 +42,8 @@ export class SearchFormComponent implements OnInit{
       location: new FormControl('Denver', [Validators.required, Validators.minLength(3)]),
       minPrice: new FormControl(250000, [Validators.min(0), Validators.required]),
       maxPrice: new FormControl(800000, [Validators.min(0), Validators.required]),
+      minBeds: new FormControl(1, [Validators.min(0), Validators.required]),
+      minBaths: new FormControl(1, [Validators.min(0), Validators.required]),
       listingType: new FormControl('FOR_SALE')
       
     }, { validators: [greaterThanValidator] });
@@ -55,17 +57,11 @@ export class SearchFormComponent implements OnInit{
         location: this.propSearch.searchFormObj.location,
         minPrice: this.propSearch.searchFormObj.minPrice,
         maxPrice: this.propSearch.searchFormObj.maxPrice,
+        minBeds: this.propSearch.searchFormObj.minBeds,
+        minBaths: this.propSearch.searchFormObj.minBaths,
         listingType: this.propSearch.searchFormObj.listingType,
       });
     }
-
-    // this.searchForm.get('minPrice')?.valueChanges.subscribe(value => {
-    //   this.searchForm.patchValue({ minPrice: value }, { emitEvent: false });
-    // });
-  
-    // this.searchForm.get('maxPrice')?.valueChanges.subscribe(value => {
-    //   this.searchForm.patchValue({ maxPrice: value }, { emitEvent: false });
-    // });
   }
 
   onSubmit(){
