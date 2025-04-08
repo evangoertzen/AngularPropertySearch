@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { PropertyModel } from 'src/app/models/property.model';
-import { CalculatorServiceService } from 'src/app/services/calculator-service/calculator-service.service';
+import { CalculatorService } from 'src/app/services/calculator-service/calculator-service.service';
 
 @Component({
   selector: 'app-mortgage-calc',
@@ -15,7 +15,7 @@ export class MortgageCalcComponent {
 
   
   constructor(
-    public calcService: CalculatorServiceService
+    public calcService: CalculatorService
   ){}
 
   updatePieChart(){

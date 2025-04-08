@@ -6,7 +6,7 @@ import { Subject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class CalculatorServiceService {
+export class CalculatorService {
 
   public purchasePrice =  0;
   public interestRate = 6.7;

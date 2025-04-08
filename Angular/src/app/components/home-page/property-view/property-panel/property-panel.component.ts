@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { PropertyModel } from 'src/app/models/property.model';
-import { CalculatorServiceService } from 'src/app/services/calculator-service/calculator-service.service';
+import { CalculatorService } from 'src/app/services/calculator-service/calculator-service.service';
 import { PropertySearchService } from 'src/app/services/property-search/property-search.service';
 
 @Component({
@@ -14,7 +14,7 @@ export class PropertyPanelComponent {
     @Input() property!: PropertyModel;
 
     constructor(
-        public calcService: CalculatorServiceService,
+        public calcService: CalculatorService,
         private searchService: PropertySearchService
     ){}
 

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { PropertyModel } from 'src/app/models/property.model';
-import { CalculatorServiceService } from 'src/app/services/calculator-service/calculator-service.service';
+import { CalculatorService } from 'src/app/services/calculator-service/calculator-service.service';
 
 @Component({
   selector: 'app-equity-analysis',
@@ -38,7 +38,7 @@ export class EquityAnalysisComponent implements OnInit {
   }
 
   constructor(
-    public calcService: CalculatorServiceService
+    public calcService: CalculatorService
   ){}
 
   ngOnInit(){

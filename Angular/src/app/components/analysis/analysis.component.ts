@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PropertyModel } from 'src/app/models/property.model';
-import { CalculatorServiceService } from 'src/app/services/calculator-service/calculator-service.service';
+import { CalculatorService } from 'src/app/services/calculator-service/calculator-service.service';
 import { PropertySearchService } from 'src/app/services/property-search/property-search.service';
 
 @Component({
@@ -19,7 +19,7 @@ export class AnalysisComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private propertySearch: PropertySearchService,
-    public calcService: CalculatorServiceService
+    public calcService: CalculatorService
   ){}
   
   ngOnInit(): void {
