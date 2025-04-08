@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { PropertyModel } from 'src/app/models/property.model';
+import { AnalysisService } from 'src/app/services/analysis-service/analysis.service';
 import { CalculatorService } from 'src/app/services/calculator-service/calculator-service.service';
 
 @Component({
@@ -10,12 +11,6 @@ import { CalculatorService } from 'src/app/services/calculator-service/calculato
 })
 export class EquityAnalysisComponent implements OnInit {
   @Input() property: PropertyModel | null = null;
-
-  public appreciationRate = 3;
-  public expenseIncreaseRate = 3;
-  public rentGrowthRate = 5;
-  public closingCostRate = 4;
-  public costToSellRate = 5.5;
 
   public sellInYear = 30;
 
@@ -38,7 +33,8 @@ export class EquityAnalysisComponent implements OnInit {
   }
 
   constructor(
-    public calcService: CalculatorService
+    public calcService: CalculatorService,
+    public analysisService: AnalysisService
   ){}
 
   ngOnInit(){
@@ -59,26 +55,57 @@ export class EquityAnalysisComponent implements OnInit {
     return `${value}`;
   }
 
-  // Gross operating income
-  calcOperatingIncomeInYr(yr: number){
-    let initialRent = this.calcService.calculateOperatingIncome();
-    return this.calcService.calculateCompoundInterest(initialRent, this.rentGrowthRate/100, yr);
-  }
-
   calcTotalExpensesInYr(yr: number){
-    let initialExpenses = this.calcService.calcCapexExpense() + this.calcService.calcTotalOperatingExpenses();
+    let operatingExpenses = this.calcService.calcTotalOperatingExpensesInYear(
+      this.analysisService.year,
+      this.analysisService.yr0_income.rent_dol,
+      this.analysisService.purchasePrice,
+      this.analysisService.rentGrowthRate,
+      this.analysisService.yr0_expenses.maintenance_rate,
+      this.analysisService.yr0_expenses.management_fee_rate,
+      this.analysisService.appreciationRate,
+      this.analysisService.yr0_expenses.taxes_dol,
+      this.analysisService.yr0_expenses.insurance_dol,
+      this.analysisService.yr0_expenses.hoa_dol,
+      this.analysisService.yr0_expenses.utilities_dol,
+      this.analysisService.yr0_expenses.misc_expenses_dol
+    );
 
-    // don't include mortgage expense if it's already paid off
-    if(yr>this.calcService.loanTerm){
-      return this.calcService.calculateCompoundInterest(initialExpenses, this.expenseIncreaseRate/100, yr)
+    // include mortgage only if not paid off
+    if(yr<this.analysisService.loanTerm){
+      let mortgageExpense = this.calcService.calcMonthlyPayment(
+        this.analysisService.purchasePrice,
+        this.analysisService.downPaymentPercentage,
+        this.analysisService.loanTerm,
+        this.analysisService.interestRate)*12;
+
+      return operatingExpenses+mortgageExpense;
     }
 
-    return this.calcService.calculateCompoundInterest(initialExpenses, this.expenseIncreaseRate/100, yr) + 12*this.calcService.calcMonthlyPayment();
+    // if not still paying mortgage, return only NOE
+    return operatingExpenses;
   }
 
   // get cash generated in year from rent - vacancy - other expenses - mortgage
   calcCashProfitInYear(yr:number){
-    return this.calcOperatingIncomeInYr(yr) - this.calcTotalExpensesInYr(yr);
+    return this.calcService.calcCashFlowInYear(
+      yr,
+      this.analysisService.yr0_income.rent_dol,
+      this.analysisService.purchasePrice,
+      this.analysisService.rentGrowthRate,
+      this.analysisService.yr0_expenses.maintenance_rate,
+      this.analysisService.yr0_expenses.management_fee_rate,
+      this.analysisService.appreciationRate,
+      this.analysisService.yr0_expenses.taxes_dol,
+      this.analysisService.yr0_expenses.insurance_dol,
+      this.analysisService.yr0_expenses.hoa_dol,
+      this.analysisService.yr0_expenses.utilities_dol,
+      this.analysisService.yr0_expenses.misc_expenses_dol,
+      this.analysisService.yr0_expenses.vacancy_rate,
+      this.analysisService.downPaymentPercentage,
+      this.analysisService.loanTerm,
+      this.analysisService.interestRate
+    )
   }
 
   // get total cash generated from property in the past x years
@@ -87,35 +114,41 @@ export class EquityAnalysisComponent implements OnInit {
     for(let i=0; i<=yr; i++){
       total+=this.calcCashProfitInYear(i);
     }
+
     return total;
-  }
-
-  calcRemainingLoanBalance(yr: number){
-    let loanAmount = this.calcService.calcDebtTotal();
-    let monthlyRate = (this.calcService.interestRate / 100) / 12;
-    let totalMonths = this.calcService.loanTerm*12;
-    let monthsPaid = yr*12;
-
-    // don't keep paying down debt after loan is free and clear
-    if(monthsPaid > totalMonths){
-      monthsPaid = totalMonths;
-    }
-
-    if(monthlyRate === 0){
-      return loanAmount * (1-monthsPaid / totalMonths)
-    }
-
-    return loanAmount * ((1 + monthlyRate) ** totalMonths - (1 + monthlyRate) ** monthsPaid) / ((1 + monthlyRate) ** totalMonths - 1);
   }
 
   // get paid down debt in year
   calcPaidDownDebt(yr: number){
-    return this.calcService.purchasePrice - this.calcRemainingLoanBalance(yr);
+    let ogLoanAmount = this.calcService.calcMortgageAmount(this.analysisService.purchasePrice, this.analysisService.downPaymentPercentage) ;
+    
+    let loanLeft = this.calcService.calcRemainingLoanBalance(
+      this.analysisService.purchasePrice,
+      yr,
+      this.analysisService.downPaymentPercentage,
+      this.analysisService.loanTerm,
+      this.analysisService.interestRate
+    );
+
+    return ogLoanAmount - loanLeft;
+  }
+
+  calcDownPayment(){
+    return this.calcService.calcDownPayment(
+      this.analysisService.purchasePrice,
+      this.analysisService.downPaymentPercentage
+    )
   }
 
   // get growth of property value
   calcPropValueGrowth(yr: number){
-    return this.calcService.calculateCompoundInterest(this.calcService.purchasePrice, this.appreciationRate/100, yr) - this.calcService.purchasePrice;
+    let curVal = this.calcService.calcHomeValueInYear(
+      yr,
+      this.analysisService.purchasePrice,
+      this.analysisService.appreciationRate,
+    )
+
+    return curVal - this.analysisService.purchasePrice;
   }
 
   calcTotalEquity(yr: number){
@@ -123,7 +156,9 @@ export class EquityAnalysisComponent implements OnInit {
   }
 
   calcInitialCost(){
-    return this.calcService.purchasePrice*(this.calcService.downPaymentPercentage/100) + this.calcService.purchasePrice*(this.closingCostRate/100);
+    let downPayment = this.calcService.calcDownPayment(this.analysisService.purchasePrice, this.analysisService.downPaymentPercentage);
+    let closingCosts = this.calcService.calcClosingCosts(this.analysisService.purchasePrice, this.analysisService.closingCostRate);
+    return downPayment+closingCosts;
   }
 
 
@@ -146,13 +181,15 @@ export class EquityAnalysisComponent implements OnInit {
     const cashProfit = xValues.map(x => this.calcCashEquityInYear(x).toFixed(2));
     const valueGrowth = xValues.map(x => this.calcPropValueGrowth(x).toFixed(2));
     const debtPaydown = xValues.map(x => this.calcPaidDownDebt(x).toFixed(2));
+    const downPayment = xValues.map(x => this.calcDownPayment().toFixed(2));
 
     this.barChartData = {
       labels: xValues.map(x => x.toString()), // Convert to strings for labels
       datasets: [
-        { label: 'Cumulative Cash Flow', data: cashProfit, backgroundColor: 'rgba(242, 24, 24)' },
-        { label: 'Property Value Growth', data: valueGrowth, backgroundColor: 'rgba(24, 157, 245)' },
-        { label: 'Debt Paid Down', data: debtPaydown, backgroundColor: 'rgba(255, 221, 0)' },
+        { label: 'Cumulative Cash Flow', data: cashProfit, backgroundColor: 'rgba(255, 0, 0, 1)' },
+        { label: 'Property Value Growth', data: valueGrowth, backgroundColor: 'rgba(0, 0, 255, 1)' },
+        { label: 'Mortgage Paydown', data: debtPaydown, backgroundColor: 'rgba(0, 128, 0, 1)' },
+        { label: 'Downpayment', data: downPayment, backgroundColor: 'rgba(255, 255, 0, 1)' },
       ]
     };
   }

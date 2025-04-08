@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PropertyModel } from 'src/app/models/property.model';
+import { AnalysisService } from 'src/app/services/analysis-service/analysis.service';
 import { CalculatorService } from 'src/app/services/calculator-service/calculator-service.service';
 import { PropertySearchService } from 'src/app/services/property-search/property-search.service';
 
@@ -19,12 +20,13 @@ export class AnalysisComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private propertySearch: PropertySearchService,
-    public calcService: CalculatorService
+    public calcService: CalculatorService,
+    private analysisService: AnalysisService
   ){}
   
   ngOnInit(): void {
     
-    this.calcService.resetIncomeAndExpenses();
+    this.analysisService.resetIncomeAndExpenses();
 
     this.route.queryParamMap.subscribe(params => {
       this.mls_id = params.get('mls_id');
@@ -39,7 +41,7 @@ export class AnalysisComponent implements OnInit {
     }
     
     if (this.property && this.property.list_price){
-      this.calcService.purchasePrice = this.property.list_price;
+      this.analysisService.purchasePrice = this.property.list_price;
     }
   }
 }
