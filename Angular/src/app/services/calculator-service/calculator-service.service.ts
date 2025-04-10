@@ -36,6 +36,10 @@ export class CalculatorService {
   calcRemainingLoanBalance(purchase_price: number, year: number, downPaymentPercentage:number = 20, loanTerm: number = 30, interestRate: number = 6.7){
     // B = L * ((1 + c)^n - (1 + c)^t) / ((1 + c)^n - 1), 
 
+    if(year>=loanTerm){
+      return 0;
+    }
+
     let L = purchase_price - this.calcDownPayment(purchase_price, downPaymentPercentage);
     let c = interestRate/1200; //1200 because 12 months and divide by 100
     let n = 12*loanTerm;
@@ -198,4 +202,113 @@ export class CalculatorService {
   }
 
 
+
+  calcNetGrowthByYear(
+    year: number,
+    yr0_rent: number,
+    yr0_price: number,
+    rentGrowthRate: number,
+    maintenenceRate: number, 
+    managementFeeRate: number,
+    appreciationRate: number,
+    yr0_propTaxes: number,
+    yr0_insurance: number,
+    yr0_hoaFee: number,
+    yr0_utilities: number,
+    yr0_miscExpenses: number,
+    vacancyRate: number,
+    downPaymentPercentage: number,
+    loanTerm: number,
+    interestRate: number,
+  ){
+    
+    let cashFlow = this.calcCashFlowInYear(
+      year, yr0_rent, yr0_price, rentGrowthRate, maintenenceRate, managementFeeRate,
+      appreciationRate, yr0_propTaxes, yr0_insurance, yr0_hoaFee, yr0_utilities,
+      yr0_miscExpenses, vacancyRate, downPaymentPercentage, loanTerm, interestRate
+    )
+
+    let thisYearValueGrowth = 0;
+    let debtPaydown = 0;
+
+    if(year!=0){
+      thisYearValueGrowth = this.calcHomeValueInYear(year, yr0_price, appreciationRate) - this.calcHomeValueInYear(year-1, yr0_price, appreciationRate);
+      debtPaydown = this.calcRemainingLoanBalance(yr0_price, year, downPaymentPercentage, loanTerm, interestRate) - this.calcRemainingLoanBalance(yr0_price, year-1, downPaymentPercentage, loanTerm, interestRate);
+    }
+
+    return cashFlow + thisYearValueGrowth + debtPaydown;
+  }
+
+  calcSellingCosts(homeValue: number, sellingCostRate:number){
+    return homeValue*(sellingCostRate/100);
+  }
+
+  irrNewtonRaphson(values: number[], guess = 0.1): number {
+    let result: number = guess;
+    for (let i = 0; i < 100; i++) {
+        let npv: number = 0;
+        for (let j = 0; j < values.length; j++) {
+            npv += values[j] / Math.pow(1 + result, j);
+        }
+
+        let derivative: number = 0;
+        for (let j = 1; j < values.length; j++) {
+            derivative -= j * values[j] / Math.pow(1 + result, j + 1);
+        }
+
+        result -= npv / derivative;
+    }
+    return result;
+  }
+
+  calcIRR(
+    year: number,
+    yr0_rent: number,
+    yr0_price: number,
+    rentGrowthRate: number,
+    maintenenceRate: number, 
+    managementFeeRate: number,
+    appreciationRate: number,
+    yr0_propTaxes: number,
+    yr0_insurance: number,
+    yr0_hoaFee: number,
+    yr0_utilities: number,
+    yr0_miscExpenses: number,
+    vacancyRate: number,
+    downPaymentPercentage: number,
+    loanTerm: number,
+    interestRate: number,
+    closingCostRate: number,
+    sellingCostRate: number,
+  ){
+
+    // redo this. Don't add equity every year, just add how much you can sell it for in the last year. only add cash flow for years in between
+    
+    if (year <= 0 ){
+      return 0;
+    }
+
+    let yearGrowthArr: number[] = [];
+
+    for(let i=0; i<=year; i++){
+      let yearGrowth = this.calcNetGrowthByYear(
+        i, yr0_rent, yr0_price, rentGrowthRate, maintenenceRate, managementFeeRate,
+        appreciationRate, yr0_propTaxes, yr0_insurance, yr0_hoaFee, yr0_utilities,
+        yr0_miscExpenses, vacancyRate, downPaymentPercentage, loanTerm, interestRate,
+      )
+
+      yearGrowthArr.push(yearGrowth)
+    }
+
+    let initialCash = this.calcCashRequired(yr0_price, downPaymentPercentage, closingCostRate)
+    
+    yearGrowthArr[0] = yearGrowthArr[0] - initialCash;
+
+    let finalHomeVal = this.calcHomeValueInYear(year, yr0_price, appreciationRate);
+    let sellingCosts = this.calcSellingCosts(finalHomeVal, sellingCostRate);
+    yearGrowthArr[year] = yearGrowthArr[year] - sellingCosts;
+
+    console.log(yearGrowthArr);
+    return this.irrNewtonRaphson(yearGrowthArr);
+  }
 }
