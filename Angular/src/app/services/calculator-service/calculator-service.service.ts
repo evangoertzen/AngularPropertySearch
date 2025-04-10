@@ -291,6 +291,12 @@ export class CalculatorService {
     yearGrowthArr[year] = yearGrowthArr[year] + cashAfterSale;
 
     console.log("IRR Array: " + initialCashReq + ", " + yearGrowthArr);
-    return this.finance.IRR(-initialCashReq, ...yearGrowthArr);
+    
+    try{
+      return this.finance.IRR(-initialCashReq, ...yearGrowthArr);
+    }catch{
+      console.log("Couldn't calc IRR")
+      return 0;
+    }
   }
 }
