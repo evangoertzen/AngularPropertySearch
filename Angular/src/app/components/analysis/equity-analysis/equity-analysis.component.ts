@@ -152,13 +152,19 @@ export class EquityAnalysisComponent implements OnInit {
   }
 
   calcTotalEquity(yr: number){
-    return this.calcPaidDownDebt(yr) + this.calcPropValueGrowth(yr)+this.calcCashEquityInYear(yr);
+    return this.calcService.calcDownPayment(this.analysisService.purchasePrice, this.analysisService.downPaymentPercentage) 
+    + this.calcPaidDownDebt(yr) 
+    + this.calcPropValueGrowth(yr)
+    + this.calcCashEquityInYear(yr);
   }
 
   calcInitialCost(){
-    let downPayment = this.calcService.calcDownPayment(this.analysisService.purchasePrice, this.analysisService.downPaymentPercentage);
-    let closingCosts = this.calcService.calcClosingCosts(this.analysisService.purchasePrice, this.analysisService.closingCostRate);
-    return downPayment+closingCosts;
+    return this.calcService.calcCashRequired(this.analysisService.purchasePrice, this.analysisService.downPaymentPercentage, this.analysisService.closingCostRate);
+  }
+
+  calcCreatedEquity(yr: number){
+    let initialCost = this.calcInitialCost();
+    return this.calcTotalEquity(yr) - initialCost;
   }
 
 
@@ -172,7 +178,27 @@ export class EquityAnalysisComponent implements OnInit {
   }
 
   calcIRR(yr: number){
-    return 1;
+    return this.calcService.calcIRR(
+      yr,
+      this.analysisService.yr0_income.rent_dol,
+      this.analysisService.purchasePrice,
+      this.analysisService.rentGrowthRate,
+      this.analysisService.yr0_expenses.maintenance_rate,
+      this.analysisService.yr0_expenses.management_fee_rate,
+      this.analysisService.appreciationRate,
+      this.analysisService.yr0_expenses.taxes_dol,
+      this.analysisService.yr0_expenses.insurance_dol,
+      this.analysisService.yr0_expenses.hoa_dol,
+      this.analysisService.yr0_expenses.utilities_dol,
+      this.analysisService.yr0_expenses.misc_expenses_dol,
+      this.analysisService.yr0_expenses.vacancy_rate,
+      this.analysisService.downPaymentPercentage,
+      this.analysisService.loanTerm,
+      this.analysisService.interestRate,
+      this.analysisService.closingCostRate,
+      this.analysisService.costToSellRate
+    )
+
   }
   
   updateBarChart(){

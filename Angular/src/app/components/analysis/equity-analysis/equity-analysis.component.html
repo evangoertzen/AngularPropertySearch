@@ -185,7 +185,7 @@
                             </td>
                             <td>
                                 <app-numerical-input 
-                                    [modelField]="(calcTotalEquity(sellInYear) - calcInitialCost())" 
+                                    [modelField]="calcCreatedEquity(sellInYear)" 
                                     [numType]="'DOLLARS'"
                                     [disabled]="true"
                                     [colorMode]="'GP-RM'">
