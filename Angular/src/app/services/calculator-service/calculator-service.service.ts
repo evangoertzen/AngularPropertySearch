@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { PropertyModel } from 'src/app/models/property.model';
 import { PropertySearchService } from '../property-search/property-search.service';
 import { Subject } from 'rxjs';
+import { Finance } from 'financejs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,9 +15,13 @@ export class CalculatorService {
   public profitLossSubject = new Subject<string>();
   public refreshProfitLoss$ = this.profitLossSubject.asObservable(); // subscribe to this in equity component and refresh graph on changes
 
+  private finance: Finance;
+
   constructor(
     private propertySearchService: PropertySearchService
-  ) {}
+  ) {
+    this.finance = new Finance();
+  }
 
   calculateCompoundInterest(principal: number, rate: number, years: number, compoundsPerYear: number = 1): number {
     let adjRate = rate/100;
@@ -243,24 +248,6 @@ export class CalculatorService {
     return homeValue*(sellingCostRate/100);
   }
 
-  irrNewtonRaphson(values: number[], guess = 0.1): number {
-    let result: number = guess;
-    for (let i = 0; i < 100; i++) {
-        let npv: number = 0;
-        for (let j = 0; j < values.length; j++) {
-            npv += values[j] / Math.pow(1 + result, j);
-        }
-
-        let derivative: number = 0;
-        for (let j = 1; j < values.length; j++) {
-            derivative -= j * values[j] / Math.pow(1 + result, j + 1);
-        }
-
-        result -= npv / derivative;
-    }
-    return result;
-  }
-
   calcIRR(
     year: number,
     yr0_rent: number,
@@ -282,8 +269,6 @@ export class CalculatorService {
     sellingCostRate: number,
   ){
 
-    // redo this. Don't add equity every year, just add how much you can sell it for in the last year. only add cash flow for years in between
-    
     if (year <= 0 ){
       return 0;
     }
@@ -291,24 +276,21 @@ export class CalculatorService {
     let yearGrowthArr: number[] = [];
 
     for(let i=0; i<=year; i++){
-      let yearGrowth = this.calcNetGrowthByYear(
-        i, yr0_rent, yr0_price, rentGrowthRate, maintenenceRate, managementFeeRate,
-        appreciationRate, yr0_propTaxes, yr0_insurance, yr0_hoaFee, yr0_utilities,
-        yr0_miscExpenses, vacancyRate, downPaymentPercentage, loanTerm, interestRate,
-      )
+      let yearCashFlow = this.calcCashFlowInYear(i, yr0_rent, yr0_price, rentGrowthRate, maintenenceRate, managementFeeRate, appreciationRate, yr0_propTaxes, yr0_insurance, yr0_hoaFee, yr0_utilities, yr0_miscExpenses, vacancyRate, downPaymentPercentage, loanTerm, interestRate)
 
-      yearGrowthArr.push(yearGrowth)
+      yearGrowthArr.push(yearCashFlow)
     }
 
-    let initialCash = this.calcCashRequired(yr0_price, downPaymentPercentage, closingCostRate)
     
-    yearGrowthArr[0] = yearGrowthArr[0] - initialCash;
-
     let finalHomeVal = this.calcHomeValueInYear(year, yr0_price, appreciationRate);
     let sellingCosts = this.calcSellingCosts(finalHomeVal, sellingCostRate);
-    yearGrowthArr[year] = yearGrowthArr[year] - sellingCosts;
+    let cashAfterSale = finalHomeVal-this.calcRemainingLoanBalance(yr0_price, year, downPaymentPercentage, loanTerm, interestRate)-sellingCosts;
+    
+    
+    let initialCashReq = this.calcCashRequired(yr0_price, downPaymentPercentage, closingCostRate)
+    yearGrowthArr[year] = yearGrowthArr[year] + cashAfterSale;
 
-    console.log(yearGrowthArr);
-    return this.irrNewtonRaphson(yearGrowthArr);
+    console.log("IRR Array: " + initialCashReq + ", " + yearGrowthArr);
+    return this.finance.IRR(-initialCashReq, ...yearGrowthArr);
   }
 }
