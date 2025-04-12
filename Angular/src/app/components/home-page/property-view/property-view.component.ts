@@ -15,7 +15,7 @@ export class PropertyViewComponent {
 
   highlightedProp: PropertyModel | undefined = undefined;
 
-  @ViewChild("hoveredProp") hoveredProp!: ElementRef;
+  @ViewChild("topDiv") topDiv!: ElementRef;
 
   constructor(
     public propertySearch: PropertySearchService,
@@ -31,8 +31,8 @@ export class PropertyViewComponent {
     this.highlightedProp = this.propertySearch.getPropById(id);
 
     // Scroll into view
-    if (this.hoveredProp) {
-      this.hoveredProp.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (this.topDiv) {
+      this.topDiv.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }
 }

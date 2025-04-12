@@ -2,10 +2,14 @@
         <i class="pi pi-spin pi-cog" style="font-size: 2rem"></i>
 </div>
 
+
 <div *ngIf="propertySearch.properties.length > 0" class="container">
+    <div #topDiv>
+        <app-filter-and-sort></app-filter-and-sort>
+    </div>
     <div class="row" *ngIf="highlightedProp">
         <div class="mt-2 d-flex g-1">
-            <div #hoveredProp class="w-100 h-100 d-flex">
+            <div class="w-100 h-100 d-flex">
                 <app-property-panel [property]="highlightedProp" class="flex-grow-1"></app-property-panel>
             </div>
         </div>
@@ -16,19 +20,5 @@
                 <app-property-panel [property]="property" class="flex-grow-1"></app-property-panel>
             </div>
         </div>
-    </div>
-</div>
-
-<div *ngIf="propertySearch.searchFinished && propertySearch.properties.length === 0" class="d-flex text-danger justify-content-center align-items-center h-100">
-    <div class="d-flex align-items-center">
-        <i class="pi pi-exclamation-triangle pi-3x me-2" style="font-size: 2rem; vertical-align: middle;"></i>
-        <span class="align-middle" style="font-size: 1rem;">No properties found</span>
-    </div>
-</div>
-
-<div *ngIf="propertySearch.searchFinished && propertySearch.showErr" class="d-flex text-danger justify-content-center align-items-center h-100">
-    <div class="d-flex align-items-center">
-        <i class="pi pi-exclamation-triangle pi-3x me-2" style="font-size: 2rem; vertical-align: middle;"></i>
-        <span class="align-middle" style="font-size: 1rem;">Error finding properties</span>
     </div>
 </div>
