@@ -1,0 +1,20 @@
+<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+    Sort
+</button>
+<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" (click)="$event.stopPropagation()">
+    <div class="p-4">
+        <div>
+            Sort
+        </div>
+        <div>
+            <mat-radio-group aria-label="Sort By" (change)="onSortChange($event)" [(ngModel)]="sortMethod">
+                <mat-radio-button value="priceAsc" style="display: block;">Price <i class="material-icons" style="position: relative; top: 7px;">arrow_downward</i> </mat-radio-button>
+                <mat-radio-button value="priceDesc" style="display: block;">Price <i class="material-icons" style="position: relative; top: 7px;">arrow_upward</i> </mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <div>
+            Advanced Sort
+            <app-common-button [text]="'Sort'" (onClickEmitter)="advancedSortPopup()"></app-common-button>
+        </div>
+    </div>
+</ul>

@@ -1,0 +1,39 @@
+.myinput-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+    font-weight: 500;
+    border: none;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    padding: 0px 10px;
+    height: 100%;
+    background-color: #fff;
+    font-size: 20px;
+    width: 69%;
+  }
+
+  .container-1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 270px;
+    height: 50px;
+    border-radius: 10px;
+    position: relative;
+  }
+  
+  .prefix {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    font-size: 20px;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    height: 100%;
+    width: 120px;
+    font-weight: 600;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border-radius: 10px 0px 0px 10px;
+  }

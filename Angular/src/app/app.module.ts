@@ -42,6 +42,9 @@ import { CommonButtonComponent } from './components/shared/common-button/common-
 import { HomeTypeAndStatusComponent } from "./components/shared/home-type-and-status/home-type-and-status.component";
 import { RentDialogComponent } from './components/analysis/shared/rent-display/rent-dialog/rent-dialog/rent-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { FilterAndSortComponent } from './components/home-page/property-view/filter-and-sort/filter-and-sort.component';
+import { MatRadioModule } from '@angular/material/radio';
+import { AdvancedSortDialogComponent } from './components/home-page/property-view/filter-and-sort/advanced-sort-dialog/advanced-sort-dialog.component';
 
 @NgModule({ 
     declarations: [
@@ -63,31 +66,34 @@ import { MatDialogModule } from '@angular/material/dialog';
         LeverToggleComponent,
         CommonButtonComponent,
         HomeTypeAndStatusComponent,
-        RentDialogComponent
+        RentDialogComponent,
+        FilterAndSortComponent,
+        AdvancedSortDialogComponent
     ],
     bootstrap: [AppComponent], 
     imports: [
-    BrowserModule,
-    AppRoutingModule,
-    PanelModule,
-    BrowserAnimationsModule,
-    ProgressBarModule,
-    ProgressSpinnerModule,
-    ToastModule,
-    DialogModule,
-    ReactiveFormsModule,
-    MatSliderModule,
-    FormsModule,
-    MatTabsModule,
-    ChartModule,
-    TabViewModule,
-    MatCardModule,
-    MatTooltipModule,
-    MatFormFieldModule,
-    SelectModule,
-    DropdownModule,
-    MatDialogModule
-], 
+        BrowserModule,
+        AppRoutingModule,
+        PanelModule,
+        BrowserAnimationsModule,
+        ProgressBarModule,
+        ProgressSpinnerModule,
+        ToastModule,
+        DialogModule,
+        ReactiveFormsModule,
+        MatSliderModule,
+        FormsModule,
+        MatTabsModule,
+        ChartModule,
+        TabViewModule,
+        MatCardModule,
+        MatTooltipModule,
+        MatFormFieldModule,
+        SelectModule,
+        DropdownModule,
+        MatDialogModule,
+        MatRadioModule
+    ], 
     providers: [
         provideHttpClient(withInterceptorsFromDi()), 
         provideAnimationsAsync(),
