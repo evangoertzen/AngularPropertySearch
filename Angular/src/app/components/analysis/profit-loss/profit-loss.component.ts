@@ -125,18 +125,12 @@ export class ProfitLossComponent implements OnInit {
 
   // Profit/Loss Calculation
   calculateNOI() {
-    const operatingIncome  = this.calcService.calculateOperatingIncomeInYear(
-      this.analysisService.year, 
-      this.analysisService.yr0_income.rent_dol, 
-      this.analysisService.rentGrowthRate,
-      this.analysisService.yr0_expenses.vacancy_rate
-    );
-    
-    const totalExpenses = this.calcService.calcTotalOperatingExpensesInYear(
+    return this.calcService.calculateNOI(
       this.analysisService.year,
       this.analysisService.yr0_income.rent_dol,
-      this.analysisService.purchasePrice,
       this.analysisService.rentGrowthRate,
+      this.analysisService.yr0_expenses.vacancy_rate,
+      this.analysisService.purchasePrice,
       this.analysisService.yr0_expenses.maintenance_rate,
       this.analysisService.yr0_expenses.management_fee_rate,
       this.analysisService.appreciationRate,
@@ -144,24 +138,21 @@ export class ProfitLossComponent implements OnInit {
       this.analysisService.yr0_expenses.insurance_dol,
       this.analysisService.yr0_expenses.hoa_dol,
       this.analysisService.yr0_expenses.utilities_dol,
-      this.analysisService.yr0_expenses.misc_expenses_dol      
+      this.analysisService.yr0_expenses.misc_expenses_dol
     );
-
-    return operatingIncome - totalExpenses;
   }
 
   calcCashFlow(){
-    return this.calculateNOI() - this.calcService.calcCapexExpenseInYear(
-      this.analysisService.year, 
+    return this.calcService.calcCashFlow(
+      this.calculateNOI(),
+      this.analysisService.year,
       this.analysisService.appreciationRate,
-      this.analysisService.purchasePrice, 
-      this.analysisService.yr0_expenses.capex_rate) 
-    - 
-    this.calcService.calcMonthlyPayment(
       this.analysisService.purchasePrice,
+      this.analysisService.yr0_expenses.capex_rate,
       this.analysisService.downPaymentPercentage,
       this.analysisService.loanTerm,
-      this.analysisService.interestRate)*12;
+      this.analysisService.interestRate
+    )
   }
 
   updateVal(event: number, val: any){

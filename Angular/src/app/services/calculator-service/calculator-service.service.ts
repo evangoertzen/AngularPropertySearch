@@ -299,4 +299,73 @@ export class CalculatorService {
       return 0;
     }
   }
+
+  calculateNOI(
+    year: number,
+    rent_dol: number,
+    rentGrowthRate: number,
+    vacancy_rate: number,
+    purchasePrice: number,
+    maintenance_rate: number,
+    management_fee_rate: number,
+    appreciationRate: number,
+    taxes_dol: number,
+    insurance_dol: number,
+    hoa_dol: number,
+    utilities_dol: number,
+    misc_expenses_dol: number
+  ) {
+    const operatingIncome = this.calculateOperatingIncomeInYear(
+      year,
+      rent_dol,
+      rentGrowthRate,
+      vacancy_rate
+    );
+  
+    const totalExpenses = this.calcTotalOperatingExpensesInYear(
+      year,
+      rent_dol,
+      purchasePrice,
+      rentGrowthRate,
+      maintenance_rate,
+      management_fee_rate,
+      appreciationRate,
+      taxes_dol,
+      insurance_dol,
+      hoa_dol,
+      utilities_dol,
+      misc_expenses_dol
+    );
+  
+    const noi = operatingIncome - totalExpenses;
+    return noi;
+  }
+
+  calcCashFlow(
+    noi: number,
+    year: number,
+    appreciationRate: number,
+    purchasePrice: number,
+    capex_rate: number,
+    downPaymentPercentage: number,
+    loanTerm: number,
+    interestRate: number
+  ): number {
+    const capex = this.calcCapexExpenseInYear(
+      year,
+      appreciationRate,
+      purchasePrice,
+      capex_rate
+    );
+  
+    const annualDebtService = this.calcMonthlyPayment(
+      purchasePrice,
+      downPaymentPercentage,
+      loanTerm,
+      interestRate
+    ) * 12;
+  
+    return noi - capex - annualDebtService;
+  }
+  
 }
