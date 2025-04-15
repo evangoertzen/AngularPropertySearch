@@ -3,7 +3,11 @@ import { PropertySearchService } from 'src/app/services/property-search/property
 import { MatDialog } from '@angular/material/dialog';
 import { RentDialogComponent } from 'src/app/components/analysis/shared/rent-display/rent-dialog/rent-dialog/rent-dialog.component';
 import { AdvancedSortDialogComponent } from './advanced-sort-dialog/advanced-sort-dialog.component';
-import { forkJoin } from 'rxjs';
+import { forkJoin, tap } from 'rxjs';
+import { CalculatorService } from 'src/app/services/calculator-service/calculator-service.service';
+import { PropertyModel } from 'src/app/models/property.model';
+import { AnalysisService } from 'src/app/services/analysis-service/analysis.service';
+import { MapService } from 'src/app/services/map-service/map.service';
 
 @Component({
   selector: 'app-filter-and-sort',
@@ -17,7 +21,10 @@ export class FilterAndSortComponent {
 
   constructor(
     private searchService: PropertySearchService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private calcService: CalculatorService,
+    private analysisService: AnalysisService,
+    private mapService: MapService
   ){}
 
   onSortChange(event: any){
@@ -25,8 +32,10 @@ export class FilterAndSortComponent {
     console.log("Sort called: " + event.value)
     if(this.sortMethod === "priceAsc"){
       this.searchService.properties.sort((a, b) => b.list_price - a.list_price);
+      this.mapService.mapHighlightSubject.next(''); //clear highlighted property on sort
     }else if (this.sortMethod = "priceDesc"){
       this.searchService.properties.sort((a, b) => a.list_price - b.list_price);
+      this.mapService.mapHighlightSubject.next('');
     }
   }
 
@@ -40,12 +49,60 @@ export class FilterAndSortComponent {
       // Only search on continue, not on cancel
       if(result){
 
+        this.mapService.mapHighlightSubject.next('')
+        this.sortMethod = '';
         this.searchService.loadingProperties = true;
-        const requests = this.searchService.properties.map(property => this.searchService.getRent(property));
+        const rentRequests = this.searchService.properties.map(property =>
+          this.searchService.getRent(property).pipe(
+            tap(rent => property.rent = rent)
+          )
+        );
 
-        forkJoin(requests).subscribe(results => {
+        forkJoin(rentRequests).subscribe(results => {
           console.log('All responses:', results);
+
+          let tupleArr: [number, PropertyModel][] = [];
+
+          this.searchService.properties.forEach(property => {
+            console.log(property.rent +", " + property.list_price + ", " + property.tax + ", " + property.tax)
+            let NOI = this.calcService.calculateNOI(
+              0,
+              property.rent,
+              this.analysisService.rentGrowthRate,
+              this.analysisService.yr0_expenses.vacancy_rate,
+              property.list_price,
+              this.analysisService.yr0_expenses.maintenance_rate,
+              this.analysisService.yr0_expenses.management_fee_rate,
+              this.analysisService.appreciationRate,
+              property.tax,
+              this.analysisService.yr0_expenses.insurance_dol,
+              property.hoa_fee,
+              this.analysisService.yr0_expenses.utilities_dol,
+              this.analysisService.yr0_expenses.misc_expenses_dol);
+
+            console.log("NOI: " + NOI);
+          
+            tupleArr.push([this.calcService.calcCashFlow(
+              NOI,
+              0,
+              this.analysisService.appreciationRate,
+              property.list_price,
+              this.analysisService.yr0_expenses.capex_rate,
+              this.analysisService.downPaymentPercentage,
+              this.analysisService.loanTerm,
+              this.analysisService.interestRate
+            ), property ])
+          })
+
+          tupleArr.sort(((a, b) => b[0] - a[0]));
+          console.log("Sorted tuple array values:");
+          tupleArr.forEach(tuple => {
+            console.log(tuple[0]);
+          })
+
+          this.searchService.properties = tupleArr.map(([x, item]) => item);
           this.searchService.loadingProperties = false;
+
         });
 
 
