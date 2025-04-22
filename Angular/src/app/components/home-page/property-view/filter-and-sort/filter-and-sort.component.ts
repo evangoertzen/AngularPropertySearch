@@ -19,17 +19,22 @@ export class FilterAndSortComponent {
 
   public sortMethod = '';
 
+  selectedTypes: Set<string> = new Set();
+
   constructor(
-    private searchService: PropertySearchService,
+    public searchService: PropertySearchService,
     private dialog: MatDialog,
     private calcService: CalculatorService,
     private analysisService: AnalysisService,
     private mapService: MapService
   ){}
 
-  onSortChange(event: any){
+  setSortMethod(event: any){
     this.sortMethod=event.value;
-    console.log("Sort called: " + event.value)
+    this.sort();
+  }
+
+  sort(){
     if(this.sortMethod === "priceAsc"){
       this.searchService.properties.sort((a, b) => b.list_price - a.list_price);
       this.mapService.mapHighlightSubject.next(''); //clear highlighted property on sort
@@ -37,6 +42,35 @@ export class FilterAndSortComponent {
       this.searchService.properties.sort((a, b) => a.list_price - b.list_price);
       this.mapService.mapHighlightSubject.next('');
     }
+  }
+
+  toggleFilter(type: string, checked: Boolean): void {
+
+    if (checked) {
+      this.selectedTypes.add(type);
+    } else {
+      this.selectedTypes.delete(type);
+    }
+    this.filter();
+  }
+
+  filter(){
+    this.searchService.resetPropertyList();
+
+    // apply property type filters
+    if (this.selectedTypes.size > 0) {
+      const temp = this.searchService.properties.filter(p => this.selectedTypes.has(p.style));
+      
+      if(temp.length === 0){
+        // send warning that nothing matches these filters
+        this.searchService.resetPropertyList();
+      }else{
+        this.searchService.properties = temp;
+      }
+
+    }
+
+    this.searchService.updateMap();
   }
 
   advancedSortPopup(){
@@ -95,7 +129,6 @@ export class FilterAndSortComponent {
           })
 
           tupleArr.sort(((a, b) => b[0] - a[0]));
-          console.log("Sorted tuple array values:");
           tupleArr.forEach(tuple => {
             console.log(tuple[0]);
           })

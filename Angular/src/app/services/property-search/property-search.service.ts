@@ -6,8 +6,8 @@ import { SearchFormModel } from 'src/app/models/searchForm.model';
 import * as L from 'leaflet';
 
 
-const propSearchURL = 'https://capstone-api-q4ndukmdiq-uc.a.run.app/getProperties'
-const rentCalcURL = 'https://capstone-api-q4ndukmdiq-uc.a.run.app/getRent'
+const propSearchURL = 'http://localhost:8000/getProperties'
+const rentCalcURL = 'http://localhost:8000/getRent'
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +19,8 @@ export class PropertySearchService {
 
   loadingProperties: boolean = false;
   searchFinished: boolean = false;
+
+  unfilteredProperties: PropertyModel[] = [];
   properties: PropertyModel[] = [];
 
   showErr: boolean = false;
@@ -73,11 +75,21 @@ export class PropertySearchService {
     );
   }
 
+  updateMap(){
+    this.refreshSubject.next();
+  }
+
+  resetPropertyList(){
+    this.properties = this.unfilteredProperties;
+    this.updateMap();
+  }
+
   searchProperties(searchForm: SearchFormModel){
 
     this.searchFormObj = searchForm;
 
     this.properties = [];
+    this.unfilteredProperties= [];
     this.loadingProperties = true;
     this.showErr = false;
     this.searchFinished = false;
@@ -86,12 +98,13 @@ export class PropertySearchService {
       this.getPropertyJson(searchForm.location, searchForm.minPrice, searchForm.maxPrice, searchForm.minBeds, searchForm.minBaths, searchForm.listingType).subscribe( propList => {
   
         this.properties = propList;
+        this.unfilteredProperties = this.properties;
         console.log(this.properties);
   
         this.loadingProperties = false;
         this.searchFinished = true;
 
-        this.refreshSubject.next();
+        this.updateMap();
   
       }, err => {
         this.showErr = true;

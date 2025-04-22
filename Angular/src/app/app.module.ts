@@ -45,6 +45,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { FilterAndSortComponent } from './components/home-page/property-view/filter-and-sort/filter-and-sort.component';
 import { MatRadioModule } from '@angular/material/radio';
 import { AdvancedSortDialogComponent } from './components/home-page/property-view/filter-and-sort/advanced-sort-dialog/advanced-sort-dialog.component';
+import { FilterToggleComponent } from './components/home-page/property-view/filter-and-sort/filter-toggle/filter-toggle.component';
 
 @NgModule({ 
     declarations: [
@@ -68,7 +69,8 @@ import { AdvancedSortDialogComponent } from './components/home-page/property-vie
         HomeTypeAndStatusComponent,
         RentDialogComponent,
         FilterAndSortComponent,
-        AdvancedSortDialogComponent
+        AdvancedSortDialogComponent,
+        FilterToggleComponent
     ],
     bootstrap: [AppComponent], 
     imports: [
