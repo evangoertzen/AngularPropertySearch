@@ -6,8 +6,8 @@ import { SearchFormModel } from 'src/app/models/searchForm.model';
 import * as L from 'leaflet';
 
 
-const propSearchURL = 'http://localhost:8000/getProperties'
-const rentCalcURL = 'http://localhost:8000/getRent'
+const propSearchURL = 'https://capstone-api-q4ndukmdiq-uc.a.run.app/getProperties'
+const rentCalcURL = 'https://capstone-api-q4ndukmdiq-uc.a.run.app/getRent'
 
 @Injectable({
   providedIn: 'root'
