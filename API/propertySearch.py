@@ -67,7 +67,10 @@ def filter_df(properties, minPrice, maxPrice, minBeds, minBaths, status):
 def propSearch(location: str, limit: int, minPrice: int, maxPrice: int, minBeds: int, minBaths: int, listingType: str):
 
     storage_dir = "PropertyData/"
-    file_path = storage_dir + location +".json"
+    location = location.lower().replace(" ", "_")
+    file_path = f"{storage_dir}{location}.json"
+
+
 
     # create PropertyData dir if it doesn't exist
     if not os.path.exists(storage_dir):
@@ -77,17 +80,16 @@ def propSearch(location: str, limit: int, minPrice: int, maxPrice: int, minBeds:
     
     # delete all files over 4 hours old
     for filename in os.listdir(storage_dir):
-        file_path = os.path.join(storage_dir, filename)
+        full_path = os.path.join(storage_dir, filename)
 
-        if os.path.isfile(file_path):
+        if os.path.isfile(full_path) and os.path.getmtime(full_path) < four_hours_ago:
+            try:
+                os.remove(full_path)
+                print(f"Removed: {full_path}")
+            except Exception as e:
+                print(f"Error removing {full_path}: {e}")
 
-            # Add your condition here, for example:
-            if os.path.getmtime(file_path) < four_hours_ago:  # Condition to check for .txt files
-                try:
-                    os.remove(file_path)  # Remove the file
-                    print(f"Removed: {file_path}")
-                except Exception as e:
-                    print(f"Error removing {file_path}: {e}")
+
 
 
     #If file was saved in the last 4 hours, load it. Otherwise
@@ -138,7 +140,6 @@ def propSearch(location: str, limit: int, minPrice: int, maxPrice: int, minBeds:
 
 def calcRent(address: str, apiKey: str, propertyType: str, bedrooms: str, bathrooms: str, squareFootage: str):
 
-    return random.randint(1000, 5000)
     url = "https://api.rentcast.io/v1/avm/rent/long-term"
 
     params = {
