@@ -5,6 +5,7 @@ from homeharvest import scrape_property
 import numpy as np
 import pandas as pd
 import requests
+import random
 
 # allFields = ['property_url', 'property_id', 'listing_id', 'mls', 'mls_id', 'status', 'text', 
 #              'style', 'full_street_line', 'street', 'unit', 'city', 'state', 'zip_code', 'beds',
@@ -81,7 +82,7 @@ def propSearch(location: str, limit: int, minPrice: int, maxPrice: int, minBeds:
         if os.path.isfile(file_path):
 
             # Add your condition here, for example:
-            if os.path.getmtime(file_path) > four_hours_ago:  # Condition to check for .txt files
+            if os.path.getmtime(file_path) < four_hours_ago:  # Condition to check for .txt files
                 try:
                     os.remove(file_path)  # Remove the file
                     print(f"Removed: {file_path}")
@@ -137,6 +138,7 @@ def propSearch(location: str, limit: int, minPrice: int, maxPrice: int, minBeds:
 
 def calcRent(address: str, apiKey: str, propertyType: str, bedrooms: str, bathrooms: str, squareFootage: str):
 
+    return random.randint(1000, 5000)
     url = "https://api.rentcast.io/v1/avm/rent/long-term"
 
     params = {
