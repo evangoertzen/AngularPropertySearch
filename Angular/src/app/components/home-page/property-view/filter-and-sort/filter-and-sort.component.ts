@@ -37,15 +37,14 @@ export class FilterAndSortComponent {
   sort(){
     if(this.sortMethod === "priceAsc"){
       this.searchService.properties.sort((a, b) => b.list_price - a.list_price);
-      this.mapService.mapHighlightSubject.next(''); //clear highlighted property on sort
+      this.mapService.resetMapHighlight();
     }else if (this.sortMethod = "priceDesc"){
       this.searchService.properties.sort((a, b) => a.list_price - b.list_price);
-      this.mapService.mapHighlightSubject.next('');
+      this.mapService.resetMapHighlight();
     }
   }
 
   toggleFilter(type: string, checked: Boolean): void {
-
     if (checked) {
       this.selectedTypes.add(type);
     } else {
@@ -56,6 +55,7 @@ export class FilterAndSortComponent {
 
   filter(){
     this.searchService.resetPropertyList();
+    this.mapService.resetMapHighlight();
 
     // apply property type filters
     if (this.selectedTypes.size > 0) {
@@ -83,7 +83,7 @@ export class FilterAndSortComponent {
       // Only search on continue, not on cancel
       if(result){
 
-        this.mapService.mapHighlightSubject.next('')
+        this.mapService.resetMapHighlight();
         this.sortMethod = '';
         this.searchService.loadingProperties = true;
         const rentRequests = this.searchService.properties.map(property =>

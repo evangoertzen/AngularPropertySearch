@@ -12,4 +12,8 @@ export class MapService {
   public refreshMapHighlight$ = this.mapHighlightSubject.asObservable(); 
 
   constructor() { }
+
+  resetMapHighlight(){
+    this.mapHighlightSubject.next('');
+  }
 }
