@@ -18,4 +18,13 @@ export class FormatService {
         ? this.formatWithCommas(val.toFixed(0))
         : this.formatWithCommas(val.toFixed(2));
   }
+
+  dollarFormatted(val: number){
+    if(val < 0){
+      return "-$"+this.numericValFormatted(-1*val);
+    }else{
+      return "$" + this.numericValFormatted(val);
+    }
+  }
+
 }

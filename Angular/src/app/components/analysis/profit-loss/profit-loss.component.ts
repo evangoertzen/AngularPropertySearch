@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { PropertyModel } from 'src/app/models/property.model';
 import { CalculatorService } from 'src/app/services/calculator-service/calculator-service.service';
-import { RentDisplayComponent } from '../shared/rent-display/rent-display.component';
 import { AnalysisService } from 'src/app/services/analysis-service/analysis.service';
 
 @Component({

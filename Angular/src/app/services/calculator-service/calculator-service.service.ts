@@ -17,9 +17,7 @@ export class CalculatorService {
 
   private finance: Finance;
 
-  constructor(
-    private propertySearchService: PropertySearchService
-  ) {
+  constructor() {
     this.finance = new Finance();
   }
 
