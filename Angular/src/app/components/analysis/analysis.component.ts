@@ -43,5 +43,18 @@ export class AnalysisComponent implements OnInit {
     if (this.property && this.property.list_price){
       this.analysisService.purchasePrice = this.property.list_price;
     }
+
+    if(this.property && this.property.rent){
+      this.analysisService.yr0_income.rent_dol = this.property.rent * 12;
+    }
+
+    if(this.property && this.property.tax){
+      this.analysisService.yr0_expenses.taxes_dol = this.property.tax;
+    }
+
+    if(this.property && this.property.hoa_fee){
+      this.analysisService.yr0_expenses.hoa_dol = this.property.hoa_fee * 12;
+    }
+
   }
 }

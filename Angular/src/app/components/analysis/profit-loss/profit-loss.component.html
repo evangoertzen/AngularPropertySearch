@@ -18,12 +18,12 @@
                     <tr>
                         <td>Monthly Rent Income</td>
                         <td class="text-center" style="width: 200px;">
-                            <app-rent-display *ngIf="property && !property.rent" [property]="property" (rentChange)="rentChange($event)"></app-rent-display>
+                            <app-rent-display *ngIf="property && !property.rent" [property]="property" (rentChange)="rentChangeFromAPI($event)"></app-rent-display>
                             <app-numerical-input 
                                 *ngIf="!property || (property && property.rent)"
                                 [modelField]="analysisService.yr0_income.rent_dol/12" 
                                 [numType]="'DOLLARS'" 
-                                (modelFieldChange)="analysisService.yr0_income.rent_dol = $event*12; updatePieChart()">
+                                (modelFieldChange)="updateRent($event); updatePieChart()">
                             </app-numerical-input>
                         </td>
                     </tr>

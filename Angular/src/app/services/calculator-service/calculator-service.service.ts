@@ -340,32 +340,5 @@ export class CalculatorService {
     const noi = operatingIncome - totalExpenses;
     return noi;
   }
-
-  calcCashFlow(
-    noi: number,
-    year: number,
-    appreciationRate: number,
-    purchasePrice: number,
-    capex_rate: number,
-    downPaymentPercentage: number,
-    loanTerm: number,
-    interestRate: number
-  ): number {
-    const capex = this.calcCapexExpenseInYear(
-      year,
-      appreciationRate,
-      purchasePrice,
-      capex_rate
-    );
-  
-    const annualDebtService = this.calcMonthlyPayment(
-      purchasePrice,
-      downPaymentPercentage,
-      loanTerm,
-      interestRate
-    ) * 12;
-  
-    return noi - capex - annualDebtService;
-  }
   
 }

@@ -98,13 +98,12 @@ export class FilterAndSortComponent {
           let tupleArr: [number, PropertyModel][] = [];
 
           this.searchService.properties.forEach(property => {
-            console.log(property.rent +", " + property.list_price + ", " + property.tax + ", " + property.tax)
-            let NOI = this.calcService.calculateNOI(
+          
+            tupleArr.push([this.calcService.calcCashFlowInYear(
               0,
-              property.rent,
-              this.analysisService.rentGrowthRate,
-              this.analysisService.yr0_expenses.vacancy_rate,
+              property.rent*12,
               property.list_price,
+              this.analysisService.rentGrowthRate,
               this.analysisService.yr0_expenses.maintenance_rate,
               this.analysisService.yr0_expenses.management_fee_rate,
               this.analysisService.appreciationRate,
@@ -112,16 +111,8 @@ export class FilterAndSortComponent {
               this.analysisService.yr0_expenses.insurance_dol,
               property.hoa_fee,
               this.analysisService.yr0_expenses.utilities_dol,
-              this.analysisService.yr0_expenses.misc_expenses_dol);
-
-            console.log("NOI: " + NOI);
-          
-            tupleArr.push([this.calcService.calcCashFlow(
-              NOI,
-              0,
-              this.analysisService.appreciationRate,
-              property.list_price,
-              this.analysisService.yr0_expenses.capex_rate,
+              this.analysisService.yr0_expenses.misc_expenses_dol,
+              this.analysisService.yr0_expenses.vacancy_rate,
               this.analysisService.downPaymentPercentage,
               this.analysisService.loanTerm,
               this.analysisService.interestRate

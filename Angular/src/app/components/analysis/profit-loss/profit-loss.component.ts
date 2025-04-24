@@ -84,42 +84,27 @@ export class ProfitLossComponent implements OnInit {
     }
   };
 
-  setRent(){
-    if(this.property && this.property.rent){
-      this.analysisService.yrx_income.rent_dol = 12 * this.property.rent;
-    }
-  }
-
-  setHoaFee(){
-    if(this.property && this.property.hoa_fee){
-      this.analysisService.yrx_expenses.hoa_dol = 12 * this.property.hoa_fee;
-    }
-  }
-
-
   ngOnInit(): void {
 
-    this.setRent();
-    this.setHoaFee();
-
-    if(this.property){
-
-      if(this.property.tax){
-        this.analysisService.yrx_expenses.taxes_dol = this.property.tax;
-      }
-
-    }
-
+    // update when mortgage changes
     this.calcService.refreshMortgage$.subscribe(() => {
       this.updatePieChart();
     })
 
+    // update once on init
     this.updatePieChart();
   }
   
-  rentChange(updatedProperty: PropertyModel): void{
-    this.property = updatedProperty;
-    this.setRent();
+  rentChangeFromAPI(updatedProperty: PropertyModel): void{
+    this.updateRent(updatedProperty.rent);
+    this.updatePieChart();
+  }
+
+  updateRent(event: number){
+    if(this.property != null){
+      this.property.rent = event;
+    }
+    this.analysisService.yr0_income.rent_dol = event*12;
     this.updatePieChart();
   }
 
@@ -143,12 +128,21 @@ export class ProfitLossComponent implements OnInit {
   }
 
   calcCashFlow(){
-    return this.calcService.calcCashFlow(
-      this.calculateNOI(),
-      this.analysisService.year,
-      this.analysisService.appreciationRate,
+
+    return this.calcService.calcCashFlowInYear(
+      0,
+      this.analysisService.yr0_income.rent_dol,
       this.analysisService.purchasePrice,
-      this.analysisService.yr0_expenses.capex_rate,
+      this.analysisService.rentGrowthRate,
+      this.analysisService.yr0_expenses.maintenance_rate,
+      this.analysisService.yr0_expenses.management_fee_rate,
+      this.analysisService.appreciationRate,
+      this.analysisService.yr0_expenses.taxes_dol,
+      this.analysisService.yr0_expenses.insurance_dol,
+      this.analysisService.yr0_expenses.hoa_dol,
+      this.analysisService.yr0_expenses.utilities_dol,
+      this.analysisService.yr0_expenses.misc_expenses_dol,
+      this.analysisService.yr0_expenses.vacancy_rate,
       this.analysisService.downPaymentPercentage,
       this.analysisService.loanTerm,
       this.analysisService.interestRate
