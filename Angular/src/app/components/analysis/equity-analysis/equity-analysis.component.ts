@@ -122,7 +122,9 @@ export class EquityAnalysisComponent implements OnInit {
   }
 
   calcTotalEquity(yr: number){
-    return this.property.calcDownPayment(this.mortgage)
+    return this.calcCashEquityInYear(yr) 
+    + this.property.calcHomeValueInYear(yr, this.growth)
+    - this.property.calcRemainingLoanBalance(yr, this.mortgage)
   }
 
   calcInitialCost(){
