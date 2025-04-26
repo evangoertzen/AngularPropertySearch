@@ -211,9 +211,9 @@
                                     <td>HOA Fee</td>
                                     <td>
                                         <app-numerical-input 
-                                            [modelField]="expenses.hoa_dol" 
+                                            [modelField]="property.yearly_hoa_fee" 
                                             [numType]="'DOLLARS'" 
-                                            (modelFieldChange)="expenses.hoa_dol = $event; updatePieChart()">
+                                            (modelFieldChange)="property.yearly_hoa_fee = $event; updatePieChart()">
                                         </app-numerical-input>
                                     </td>
                                 </tr>

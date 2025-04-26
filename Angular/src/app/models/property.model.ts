@@ -214,8 +214,11 @@ export class PropertyModel {
     get longitude() { return this._longitude; }
     set longitude(val: number) { this._longitude = val; }
     
-    get hoa_fee() { return this._hoa_fee; }
-    set hoa_fee(val: number) { this._hoa_fee = val; }
+    get monthly_hoa_fee() { return this._hoa_fee; }
+    set monthly_hoa_fee(val: number) { this._hoa_fee = val; }
+
+    get yearly_hoa_fee() { return this._hoa_fee; }
+    set yearly_hoa_fee(val: number) { this._hoa_fee = val; }
 
     get nearby_schools() { return this._nearby_schools; }
     set nearby_schools(val: string) { this._nearby_schools = val; }
@@ -311,7 +314,7 @@ export class PropertyModel {
 
     public calcHOAFeeInYear(year:number, growth: GrowthModel){
         let yrx_homeValue = this.calcHomeValueInYear(year, growth);
-        let yr0_HOARate = this.hoa_fee/this.list_price;
+        let yr0_HOARate = this.yearly_hoa_fee/this.list_price;
     
         return yrx_homeValue * yr0_HOARate;
     }
