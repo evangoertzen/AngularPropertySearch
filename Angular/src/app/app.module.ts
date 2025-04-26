@@ -27,7 +27,7 @@ import { ProfitLossComponent } from './components/analysis/profit-loss/profit-lo
 import { MortgageCalcComponent } from "./components/analysis/mortgage-calc/mortgage-calc.component";
 import { MatTabsModule } from '@angular/material/tabs';
 import { ChartModule } from 'primeng/chart';
-import { FullHomeInfoComponent } from "./components/full-home-info/full-home-info.component";
+import { FullHomeInfoComponent } from "./components/analysis/full-home-info/full-home-info.component";
 import { TabViewModule } from 'primeng/tabview';
 import { MatCardModule } from '@angular/material/card';
 import { TaxGraphComponent } from './components/analysis/tax-graph/tax-graph.component';
