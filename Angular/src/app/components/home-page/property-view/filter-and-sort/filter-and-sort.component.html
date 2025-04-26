@@ -18,7 +18,9 @@
                 </div>
                 <div>
                     Advanced Sort
-                    <app-common-button [text]="'Sort'" (onClickEmitter)="advancedSortPopup()"></app-common-button>
+                    <div class="pt-2">
+                        <app-common-button [text]="'Sort'" (onClickEmitter)="advancedSortPopup()"></app-common-button>
+                    </div>
                 </div>
             </div>
         </ul>
@@ -30,15 +32,19 @@
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2" (click)="$event.stopPropagation()">
             <div class="p-4">
-                <div>Filters</div>
+                <div>Property Type</div>
                 <div>
-                    <app-filter-toggle [filterName]="'Single-family'" (toggled)="toggleFilter(searchService.propTypes['Single family'], $event)"></app-filter-toggle>
-                    <app-filter-toggle [filterName]="'Multi-family'" (toggled)="toggleFilter(searchService.propTypes['Multi family'], $event)"></app-filter-toggle>
-                    <app-filter-toggle [filterName]="'Condos'" (toggled)="toggleFilter(searchService.propTypes.Condo, $event)"></app-filter-toggle>
-                    <app-filter-toggle [filterName]="'Townhomes'" (toggled)="toggleFilter(searchService.propTypes.Townhome, $event)"></app-filter-toggle>
-                    <app-filter-toggle [filterName]="'Land'" (toggled)="toggleFilter(searchService.propTypes.Land, $event)"></app-filter-toggle>
-                    <app-filter-toggle [filterName]="'Farm'" (toggled)="toggleFilter(searchService.propTypes.Farm, $event)"></app-filter-toggle>
-                    <app-filter-toggle [filterName]="'Mobile Homes'" (toggled)="toggleFilter(searchService.propTypes.Mobile, $event)"></app-filter-toggle>
+                    <app-filter-toggle [filterName]="'Single-family'" (toggled)="togglePropertyTypeFilter(searchService.propTypes['Single family'], $event)"></app-filter-toggle>
+                    <app-filter-toggle [filterName]="'Multi-family'" (toggled)="togglePropertyTypeFilter(searchService.propTypes['Multi family'], $event)"></app-filter-toggle>
+                    <app-filter-toggle [filterName]="'Condos'" (toggled)="togglePropertyTypeFilter(searchService.propTypes.Condo, $event)"></app-filter-toggle>
+                    <app-filter-toggle [filterName]="'Townhomes'" (toggled)="togglePropertyTypeFilter(searchService.propTypes.Townhome, $event)"></app-filter-toggle>
+                    <app-filter-toggle [filterName]="'Land'" (toggled)="togglePropertyTypeFilter(searchService.propTypes.Land, $event)"></app-filter-toggle>
+                    <app-filter-toggle [filterName]="'Farm'" (toggled)="togglePropertyTypeFilter(searchService.propTypes.Farm, $event)"></app-filter-toggle>
+                    <app-filter-toggle [filterName]="'Mobile Homes'" (toggled)="togglePropertyTypeFilter(searchService.propTypes.Mobile, $event)"></app-filter-toggle>
+                </div>
+                <div>Home Info</div>
+                <div>
+                    <app-filter-toggle [filterName]="'No-HOA'" (toggled)="toggleFilter('No-HOA', $event)"></app-filter-toggle>
                 </div>
             </div>
         </ul>

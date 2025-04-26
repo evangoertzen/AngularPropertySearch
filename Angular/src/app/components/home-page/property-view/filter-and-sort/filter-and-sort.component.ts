@@ -23,6 +23,7 @@ export class FilterAndSortComponent {
   public sortMethod = '';
 
   selectedTypes: Set<string> = new Set();
+  selectedFilters: Set<string> = new Set();
 
   constructor(
     public searchService: PropertySearchService,
@@ -47,7 +48,7 @@ export class FilterAndSortComponent {
     }
   }
 
-  toggleFilter(type: string, checked: Boolean): void {
+  togglePropertyTypeFilter(type: string, checked: Boolean): void {
     if (checked) {
       this.selectedTypes.add(type);
     } else {
@@ -56,21 +57,38 @@ export class FilterAndSortComponent {
     this.filter();
   }
 
+  toggleFilter(filterName: string, checked: Boolean): void {
+    console.log("toggling filter: " + filterName)
+    if (checked) {
+      this.selectedFilters.add(filterName);
+    } else {
+      this.selectedFilters.delete(filterName);
+    }
+    this.filter();
+  }
+
   filter(){
     this.searchService.resetPropertyList();
     this.mapService.resetMapHighlight();
 
+    let tempProps = this.searchService.properties;
+
     // apply property type filters
     if (this.selectedTypes.size > 0) {
-      const temp = this.searchService.properties.filter(p => this.selectedTypes.has(p.style));
-      
-      if(temp.length === 0){
-        // send warning that nothing matches these filters
-        this.searchService.resetPropertyList();
-      }else{
-        this.searchService.properties = temp;
-      }
+      tempProps = tempProps.filter(p => this.selectedTypes.has(p.style));
 
+    }
+
+    // apply no hoa filter  
+    if(this.selectedFilters.has('No-HOA')){
+      tempProps = tempProps.filter(p => p.yearly_hoa_fee == 0)
+    }
+    
+    if(tempProps.length === 0){
+      // send warning that nothing matches these filters
+      this.searchService.resetPropertyList();
+    }else{
+      this.searchService.properties = tempProps;
     }
 
     this.searchService.updateMap();
