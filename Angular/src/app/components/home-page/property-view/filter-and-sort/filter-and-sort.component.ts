@@ -107,35 +107,49 @@ export class FilterAndSortComponent {
         this.mapService.resetMapHighlight();
         this.sortMethod = '';
         this.searchService.loadingProperties = true;
-        const rentRequests = this.searchService.properties.map(property =>
-          this.searchService.getRent(property).pipe(
-            tap(rent => property.monthly_rent = rent)
-          )
-        );
+        const rentRequests = this.searchService.properties.map(property =>{
+          if(!property.monthly_rent){
 
-        forkJoin(rentRequests).subscribe(results => {
-          console.log('All responses:', results);
+            return this.searchService.getRent(property).pipe(
+              tap(rent => property.monthly_rent = rent)
+            )
+          }
+          return null;
+        }).filter(request => request !== null);
 
-          let tupleArr: [number, PropertyModel][] = [];
-
-          this.searchService.properties.forEach(property => {
-          
-            tupleArr.push([property.calcCashFlowInYear( 0, createDefaultExpenses(), createDefaultGrowthModel(), createDefaultMortgageModel() ), property ])
-          })
-
-          tupleArr.sort(((a, b) => b[0] - a[0]));
-          tupleArr.forEach(tuple => {
-            console.log(tuple[0]);
-          })
-
-          this.searchService.properties = tupleArr.map(([x, item]) => item);
-          this.searchService.loadingProperties = false;
-
-        });
-
-
-        
+        if (rentRequests.length > 0) {
+          // wait for rent requests to finish
+          forkJoin(rentRequests).subscribe(results => {
+            this.sortPropertiesByCashFlow();
+          });
+        } else {
+          this.sortPropertiesByCashFlow();
+        }
       }
     });
+  }
+
+  sortPropertiesByCashFlow(){
+    let tupleArr: [number, PropertyModel][] = [];
+
+    this.searchService.properties.forEach(property => {
+      tupleArr.push([
+        property.calcCashFlowInYear(
+          0, 
+          createDefaultExpenses(), 
+          createDefaultGrowthModel(), 
+          createDefaultMortgageModel()
+        ),
+        property
+      ]);
+    });
+
+    tupleArr.sort((a, b) => b[0] - a[0]);
+    tupleArr.forEach(tuple => {
+      console.log(tuple[0]);
+    });
+
+    this.searchService.properties = tupleArr.map(([x, item]) => item);
+    this.searchService.loadingProperties = false;
   }
 }

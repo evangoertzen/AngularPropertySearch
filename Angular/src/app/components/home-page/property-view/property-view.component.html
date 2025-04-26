@@ -5,7 +5,7 @@
 
 <div *ngIf="propertySearch.properties.length > 0" class="container">
     <div #topDiv>
-        <app-filter-and-sort></app-filter-and-sort>
+        <!-- <app-filter-and-sort></app-filter-and-sort> -->
     </div>
     <div class="row" *ngIf="highlightedProp">
         <div class="mt-2 d-flex g-1">
@@ -20,5 +20,20 @@
                 <app-property-panel [property]="property" class="flex-grow-1"></app-property-panel>
             </div>
         </div>
+    </div>
+
+    <!-- Floating popup button -->
+    <div style="position: fixed; bottom: 2rem; right: 2rem; z-index: 1000;">
+        <button class="btn btn-secondary rounded-circle d-flex justify-content-center align-items-center" 
+                style="width: 60px; height: 60px;" 
+                (click)="toggleFilterSortMenu()">
+          <i class="material-icons">menu</i>
+        </button>
+    </div>
+      
+      
+      <!-- Floating Popup Menu -->
+    <div *ngIf="showFilterSortMenu" style="position: fixed; bottom: 6rem; right: 2rem; z-index: 1000;">
+        <app-filter-and-sort></app-filter-and-sort>
     </div>
 </div>

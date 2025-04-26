@@ -35,6 +35,13 @@ export class PropertyViewComponent {
       this.topDiv.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }
+
+
+  showFilterSortMenu = false;
+
+  toggleFilterSortMenu() {
+    this.showFilterSortMenu = !this.showFilterSortMenu;
+  }
 }
 
 

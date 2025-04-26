@@ -1,52 +1,46 @@
-<div style="display: flex; gap: 1rem;">
-    <div>
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-            Sort
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" (click)="$event.stopPropagation()">
-            <div class="p-4">
-                <div>Sort</div>
-                <div>
-                    <mat-radio-group aria-label="Sort By" (change)="setSortMethod($event)" [(ngModel)]="sortMethod">
-                        <mat-radio-button value="priceAsc" style="display: block;">
-                            Price <i class="material-icons" style="position: relative; top: 7px;">arrow_downward</i>
-                        </mat-radio-button>
-                        <mat-radio-button value="priceDesc" style="display: block;">
-                            Price <i class="material-icons" style="position: relative; top: 7px;">arrow_upward</i>
-                        </mat-radio-button>
-                    </mat-radio-group>
-                </div>
-                <div>
-                    Advanced Sort
-                    <div class="pt-2">
-                        <app-common-button [text]="'Sort'" (onClickEmitter)="advancedSortPopup()"></app-common-button>
-                    </div>
-                </div>
-            </div>
-        </ul>
+<div style="display: flex; gap: 2rem; padding: 1rem; background: white; border-radius: 1rem; box-shadow: 0 2px 10px rgba(0,0,0,0.5);">
+  
+    <!-- Sort column -->
+    <div style="min-width: 200px;">
+      <div class="fw-bold mb-2">Sort</div>
+      <mat-radio-group aria-label="Sort By" (change)="setSortMethod($event)" [(ngModel)]="sortMethod">
+        <mat-radio-button value="priceAsc" style="display: block; margin-bottom: 0.5rem;">
+          Price <i class="material-icons" style="position: relative; top: 6px;">arrow_downward</i>
+        </mat-radio-button>
+        <mat-radio-button value="priceDesc" style="display: block;">
+          Price <i class="material-icons" style="position: relative; top: 6px;">arrow_upward</i>
+        </mat-radio-button>
+      </mat-radio-group>
+      <hr>
+      <div class="fw-bold mb-2">Advanced Sort</div>
+      <div class="pt-2">
+        <app-common-button [text]="'Sort'" (onClickEmitter)="advancedSortPopup()"></app-common-button>
+      </div>
     </div>
 
-    <div>
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-            Additional Filters
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2" (click)="$event.stopPropagation()">
-            <div class="p-4">
-                <div>Property Type</div>
-                <div>
-                    <app-filter-toggle [filterName]="'Single-family'" (toggled)="togglePropertyTypeFilter(searchService.propTypes['Single family'], $event)"></app-filter-toggle>
-                    <app-filter-toggle [filterName]="'Multi-family'" (toggled)="togglePropertyTypeFilter(searchService.propTypes['Multi family'], $event)"></app-filter-toggle>
-                    <app-filter-toggle [filterName]="'Condos'" (toggled)="togglePropertyTypeFilter(searchService.propTypes.Condo, $event)"></app-filter-toggle>
-                    <app-filter-toggle [filterName]="'Townhomes'" (toggled)="togglePropertyTypeFilter(searchService.propTypes.Townhome, $event)"></app-filter-toggle>
-                    <app-filter-toggle [filterName]="'Land'" (toggled)="togglePropertyTypeFilter(searchService.propTypes.Land, $event)"></app-filter-toggle>
-                    <app-filter-toggle [filterName]="'Farm'" (toggled)="togglePropertyTypeFilter(searchService.propTypes.Farm, $event)"></app-filter-toggle>
-                    <app-filter-toggle [filterName]="'Mobile Homes'" (toggled)="togglePropertyTypeFilter(searchService.propTypes.Mobile, $event)"></app-filter-toggle>
-                </div>
-                <div>Home Info</div>
-                <div>
-                    <app-filter-toggle [filterName]="'No-HOA'" (toggled)="toggleFilter('No-HOA', $event)"></app-filter-toggle>
-                </div>
-            </div>
-        </ul>
+    <!-- Vertical divider -->
+    <div style="width: 1px; background-color: #ccc;"></div>
+
+    <!-- Filter column -->
+    <div style="min-width: 250px;">
+      <div class="fw-bold mb-2">Filters</div>
+      
+      <div class="small fw-bold">Property Type</div>
+      <div class="mb-2">
+        <app-filter-toggle [filterName]="'Single-family'" (toggled)="togglePropertyTypeFilter(searchService.propTypes['Single family'], $event)"></app-filter-toggle>
+        <app-filter-toggle [filterName]="'Multi-family'" (toggled)="togglePropertyTypeFilter(searchService.propTypes['Multi family'], $event)"></app-filter-toggle>
+        <app-filter-toggle [filterName]="'Condos'" (toggled)="togglePropertyTypeFilter(searchService.propTypes.Condo, $event)"></app-filter-toggle>
+        <app-filter-toggle [filterName]="'Townhomes'" (toggled)="togglePropertyTypeFilter(searchService.propTypes.Townhome, $event)"></app-filter-toggle>
+        <app-filter-toggle [filterName]="'Land'" (toggled)="togglePropertyTypeFilter(searchService.propTypes.Land, $event)"></app-filter-toggle>
+        <app-filter-toggle [filterName]="'Farm'" (toggled)="togglePropertyTypeFilter(searchService.propTypes.Farm, $event)"></app-filter-toggle>
+        <app-filter-toggle [filterName]="'Mobile Homes'" (toggled)="togglePropertyTypeFilter(searchService.propTypes.Mobile, $event)"></app-filter-toggle>
+      </div>
+  
+      <div class="small fw-bold">Home Info</div>
+      <div>
+        <app-filter-toggle [filterName]="'No-HOA'" (toggled)="toggleFilter('No-HOA', $event)"></app-filter-toggle>
+      </div>
     </div>
-</div>
+  
+  </div>
+  
