@@ -4,6 +4,7 @@ import { Observable, Subject, map } from 'rxjs';
 import { PropertyModel } from '../../models/property.model'
 import { SearchFormModel } from 'src/app/models/searchForm.model';
 import * as L from 'leaflet';
+import { CalculatorService } from '../calculator-service/calculator-service.service';
 
 
 const propSearchURL = 'https://capstone-api-q4ndukmdiq-uc.a.run.app/getProperties'
@@ -57,7 +58,10 @@ export class PropertySearchService {
       lng:-75
   }]);
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private calcService: CalculatorService
+  ) { }
 
   private getPropertyJson(location: string, minPrice: number, maxPrice: number, minBeds: number, minBaths:number, listingType: string): Observable<PropertyModel[]>{
     return this.http.get<{ properties: PropertyModel[] }>(propSearchURL, {
@@ -71,7 +75,7 @@ export class PropertySearchService {
         listingType: listingType
       }
     }).pipe( 
-      map(response => response.properties)
+      map(response => response.properties.map(p => PropertyModel.fromJson(p, this.calcService)))
     );
   }
 
