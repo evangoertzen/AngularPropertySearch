@@ -8,7 +8,7 @@
     <span *ngIf="numType==='DOLLARS'" class="symbol pt-1">$</span>
     
     <input 
-        [value]="formatService.numericValFormatted(modelField)"
+        [value]="modelField ? formatService.numericValFormatted(modelField) : 'N/A' "
         class="after-symbol"
         type="text" 
         placeholder="{{placeHolder}}" 
