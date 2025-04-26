@@ -142,4 +142,14 @@ export class PropertySearchService {
     return this.properties.find(item => item.mls_id === mls_id);
   }
 
+  countPropertiesWithoutRent(){
+    let count = 0;
+    this.properties.forEach(p => {
+      if(!p.monthly_rent){
+        count++;
+      }
+    })
+    return count;
+  }
+
 }
