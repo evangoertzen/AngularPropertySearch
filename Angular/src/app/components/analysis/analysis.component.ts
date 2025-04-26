@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ExpensesModel } from 'src/app/models/expenses.model';
 import { PropertyModel } from 'src/app/models/property.model';
-import { AnalysisService } from 'src/app/services/analysis-service/analysis.service';
 import { CalculatorService } from 'src/app/services/calculator-service/calculator-service.service';
 import { PropertySearchService } from 'src/app/services/property-search/property-search.service';
+import { createDefaultExpenses } from 'src/app/models/expenses.model';
+import { createDefaultPropertyModel } from 'src/app/models/property.model';
+import { createDefaultMortgageModel, MortgageModel } from 'src/app/models/mortgage.model';
+import { createDefaultGrowthModel, GrowthModel } from 'src/app/models/equityGrowth.model';
 
 @Component({
   selector: 'app-analysis',
@@ -15,18 +19,22 @@ export class AnalysisComponent implements OnInit {
 
   public mls_id: string | null = "";
 
-  public property: PropertyModel | null = null;
+  public property: PropertyModel;
+  public expenses: ExpensesModel = createDefaultExpenses();
+  public mortgage: MortgageModel = createDefaultMortgageModel();
+  public growth: GrowthModel = createDefaultGrowthModel();
 
   constructor(
     private route: ActivatedRoute,
     private propertySearch: PropertySearchService,
-    public calcService: CalculatorService,
-    private analysisService: AnalysisService
-  ){}
+    public calcService: CalculatorService
+  ){
+    this.property = createDefaultPropertyModel(calcService);
+  }
   
   ngOnInit(): void {
     
-    this.analysisService.resetIncomeAndExpenses();
+    this.resetIncomeAndExpenses();
 
     this.route.queryParamMap.subscribe(params => {
       this.mls_id = params.get('mls_id');
@@ -39,22 +47,11 @@ export class AnalysisComponent implements OnInit {
         this.property = propTemp;
       }
     }
-    
-    if (this.property && this.property.list_price){
-      this.analysisService.purchasePrice = this.property.list_price;
-    }
+  }
 
-    if(this.property && this.property.rent){
-      this.analysisService.yr0_income.rent_dol = this.property.rent * 12;
-    }
-
-    if(this.property && this.property.tax){
-      this.analysisService.yr0_expenses.taxes_dol = this.property.tax;
-    }
-
-    if(this.property && this.property.hoa_fee){
-      this.analysisService.yr0_expenses.hoa_dol = this.property.hoa_fee * 12;
-    }
-
+  resetIncomeAndExpenses(){
+    this.expenses = createDefaultExpenses();
+    this.mortgage = createDefaultMortgageModel();
+    this.growth = createDefaultGrowthModel();
   }
 }

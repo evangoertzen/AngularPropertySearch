@@ -8,6 +8,9 @@ import { CalculatorService } from 'src/app/services/calculator-service/calculato
 import { PropertyModel } from 'src/app/models/property.model';
 import { AnalysisService } from 'src/app/services/analysis-service/analysis.service';
 import { MapService } from 'src/app/services/map-service/map.service';
+import { createDefaultExpenses } from 'src/app/models/expenses.model';
+import { createDefaultGrowthModel } from 'src/app/models/equityGrowth.model';
+import { createDefaultMortgageModel } from 'src/app/models/mortgage.model';
 
 @Component({
   selector: 'app-filter-and-sort',
@@ -88,7 +91,7 @@ export class FilterAndSortComponent {
         this.searchService.loadingProperties = true;
         const rentRequests = this.searchService.properties.map(property =>
           this.searchService.getRent(property).pipe(
-            tap(rent => property.rent = rent)
+            tap(rent => property.monthly_rent = rent)
           )
         );
 
@@ -99,24 +102,7 @@ export class FilterAndSortComponent {
 
           this.searchService.properties.forEach(property => {
           
-            tupleArr.push([this.calcService.calcCashFlowInYear(
-              0,
-              property.rent*12,
-              property.list_price,
-              this.analysisService.rentGrowthRate,
-              this.analysisService.yr0_expenses.maintenance_rate,
-              this.analysisService.yr0_expenses.management_fee_rate,
-              this.analysisService.appreciationRate,
-              property.tax,
-              this.analysisService.yr0_expenses.insurance_dol,
-              property.hoa_fee,
-              this.analysisService.yr0_expenses.utilities_dol,
-              this.analysisService.yr0_expenses.misc_expenses_dol,
-              this.analysisService.yr0_expenses.vacancy_rate,
-              this.analysisService.downPaymentPercentage,
-              this.analysisService.loanTerm,
-              this.analysisService.interestRate
-            ), property ])
+            tupleArr.push([property.calcCashFlowInYear( 0, createDefaultExpenses(), createDefaultGrowthModel(), createDefaultMortgageModel() ), property ])
           })
 
           tupleArr.sort(((a, b) => b[0] - a[0]));

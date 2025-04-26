@@ -43,7 +43,7 @@ export class RentDisplayComponent {
         }else{
 
           // set rent to 1 so user can edit it themselves
-          this.property.rent = 1;
+          this.property.monthly_rent = 1;
           this.rentChange.emit(this.property);
         }
       }
@@ -58,7 +58,7 @@ export class RentDisplayComponent {
     this.propertySearchService.getRent(this.property).subscribe( rent => {
 
       this.rentLoading = false;
-      this.property.rent = rent;
+      this.property.monthly_rent = rent;
 
       this.rentChange.emit(this.property);
 

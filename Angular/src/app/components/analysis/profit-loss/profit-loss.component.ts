@@ -2,17 +2,22 @@ import { Component, Input, OnInit } from '@angular/core';
 import { PropertyModel } from 'src/app/models/property.model';
 import { CalculatorService } from 'src/app/services/calculator-service/calculator-service.service';
 import { AnalysisService } from 'src/app/services/analysis-service/analysis.service';
+import { ExpensesModel } from 'src/app/models/expenses.model';
+import { GrowthModel } from 'src/app/models/equityGrowth.model';
+import { MortgageModel } from 'src/app/models/mortgage.model';
 
 @Component({
-  selector: 'app-profit-loss',
+  selector: 'app-profit-loss [property] [expenses] [growth] [mortgage]',
   templateUrl: './profit-loss.component.html',
   styleUrl: './profit-loss.component.css',
   standalone: false
 })
 export class ProfitLossComponent implements OnInit {
 
-  @Input()
-  property: PropertyModel | null = null;
+  @Input() property!: PropertyModel;
+  @Input() expenses!: ExpensesModel;
+  @Input() growth!: GrowthModel;
+  @Input() mortgage!: MortgageModel;
 
   showPieChart: boolean = true;
   
@@ -95,56 +100,30 @@ export class ProfitLossComponent implements OnInit {
   }
   
   rentChangeFromAPI(updatedProperty: PropertyModel): void{
-    this.updateRent(updatedProperty.rent);
-    this.updatePieChart();
+    this.updateRent(updatedProperty.monthly_rent);
   }
 
   updateRent(event: number){
-    if(this.property != null){
-      this.property.rent = event;
-    }
-    this.analysisService.yr0_income.rent_dol = event*12;
+    this.property.monthly_rent = event;
     this.updatePieChart();
   }
 
   // Profit/Loss Calculation
   calculateNOI() {
-    return this.calcService.calculateNOI(
+    return this.property.calculateNOI(
       this.analysisService.year,
-      this.analysisService.yr0_income.rent_dol,
-      this.analysisService.rentGrowthRate,
-      this.analysisService.yr0_expenses.vacancy_rate,
-      this.analysisService.purchasePrice,
-      this.analysisService.yr0_expenses.maintenance_rate,
-      this.analysisService.yr0_expenses.management_fee_rate,
-      this.analysisService.appreciationRate,
-      this.analysisService.yr0_expenses.taxes_dol,
-      this.analysisService.yr0_expenses.insurance_dol,
-      this.analysisService.yr0_expenses.hoa_dol,
-      this.analysisService.yr0_expenses.utilities_dol,
-      this.analysisService.yr0_expenses.misc_expenses_dol
+      this.expenses,
+      this.growth
     );
   }
 
   calcCashFlow(){
 
-    return this.calcService.calcCashFlowInYear(
+    return this.property.calcCashFlowInYear(
       0,
-      this.analysisService.yr0_income.rent_dol,
-      this.analysisService.purchasePrice,
-      this.analysisService.rentGrowthRate,
-      this.analysisService.yr0_expenses.maintenance_rate,
-      this.analysisService.yr0_expenses.management_fee_rate,
-      this.analysisService.appreciationRate,
-      this.analysisService.yr0_expenses.taxes_dol,
-      this.analysisService.yr0_expenses.insurance_dol,
-      this.analysisService.yr0_expenses.hoa_dol,
-      this.analysisService.yr0_expenses.utilities_dol,
-      this.analysisService.yr0_expenses.misc_expenses_dol,
-      this.analysisService.yr0_expenses.vacancy_rate,
-      this.analysisService.downPaymentPercentage,
-      this.analysisService.loanTerm,
-      this.analysisService.interestRate
+      this.expenses,
+      this.growth,
+      this.mortgage
     )
   }
 
@@ -157,16 +136,6 @@ export class ProfitLossComponent implements OnInit {
 
     let year = this.analysisService.year;
 
-    let yr0_rent = this.calcService.calcRentInYear(
-      this.analysisService.year,
-      this.analysisService.yr0_income.rent_dol,
-      this.analysisService.rentGrowthRate,
-    )
-
-    let rentGrowthRate = this.analysisService.rentGrowthRate;
-    let appreciationRate = this.analysisService.appreciationRate;
-    let yr0_price = this.analysisService.purchasePrice;
-
     this.calcService.profitLossSubject.next('');
 
     this.pieChartData = {
@@ -174,16 +143,16 @@ export class ProfitLossComponent implements OnInit {
       datasets: [
         {
           data: [
-            this.calcService.calcVacancyExpenseInYear(year, yr0_rent, rentGrowthRate, this.analysisService.yr0_expenses.vacancy_rate),
-            this.calcService.calcMaintenanceExpense(year, yr0_rent, rentGrowthRate, this.analysisService.yr0_expenses.maintenance_rate),
-            this.calcService.calcManagementExpense(year, yr0_rent, rentGrowthRate, this.analysisService.yr0_expenses.management_fee_rate),
-            this.calcService.calcPropertyTaxesInYear(year, appreciationRate, yr0_price, this.analysisService.yr0_expenses.taxes_dol),
-            this.calcService.calcPropertyInsuranceInYear(year, appreciationRate, yr0_price, this.analysisService.yr0_expenses.insurance_dol),
-            this.calcService.calcHOAFeeInYear(year, appreciationRate, yr0_price, this.analysisService.yr0_expenses.hoa_dol),
-            this.calcService.calcUtilitiesInYear(year, appreciationRate, yr0_price, this.analysisService.yr0_expenses.utilities_dol),
-            this.calcService.calcMiscExpensesInYear(year, appreciationRate, yr0_price, this.analysisService.yr0_expenses.misc_expenses_dol),
-            this.calcService.calcCapexExpenseInYear(year, appreciationRate, yr0_price, this.analysisService.yr0_expenses.capex_rate),
-            this.calcService.calcMonthlyPayment(yr0_price, this.analysisService.downPaymentPercentage, this.analysisService.loanTerm, this.analysisService.interestRate)*12],
+            this.property.calcVacancyExpenseInYear(year, this.growth, this.expenses),
+            this.property.calcMaintenanceExpense(year, this.growth, this.expenses),
+            this.property.calcManagementExpense(year, this.growth, this.expenses),
+            this.property.calcPropertyTaxesInYear(year, this.growth),
+            this.property.calcPropertyInsuranceInYear(year, this.growth, this.expenses),
+            this.property.calcHOAFeeInYear(year, this.growth),
+            this.property.calcUtilitiesInYear(year, this.growth, this.expenses),
+            this.property.calcMiscExpensesInYear(year, this.growth, this.expenses),
+            this.property.calcCapexExpenseInYear(year, this.growth, this.expenses),
+            this.property.calcMonthlyPayment(this.mortgage)*12],
 
           backgroundColor: [
             '#d613d6', // Vacancy
@@ -206,52 +175,52 @@ export class ProfitLossComponent implements OnInit {
       datasets: [
         {
           label: 'Vacancy',
-          data: [this.calcService.calcVacancyExpenseInYear(year, yr0_rent, rentGrowthRate, this.analysisService.yr0_expenses.vacancy_rate)],
+          data: [this.property.calcVacancyExpenseInYear(year, this.growth, this.expenses),],
           backgroundColor: '#d613d6'
         },
         {
           label: 'Maintenance',
-          data: [this.calcService.calcMaintenanceExpense(year, yr0_rent, rentGrowthRate, this.analysisService.yr0_expenses.maintenance_rate)],
+          data: [this.property.calcMaintenanceExpense(year, this.growth, this.expenses),],
           backgroundColor: '#7513d6'
         },
         {
           label: 'Management',
-          data: [this.calcService.calcManagementExpense(year, yr0_rent, rentGrowthRate, this.analysisService.yr0_expenses.management_fee_rate),],
+          data: [this.property.calcManagementExpense(year, this.growth, this.expenses),],
           backgroundColor: '#1a13d6'
         },
         {
           label: 'Taxes',
-          data: [this.calcService.calcPropertyTaxesInYear(year, appreciationRate, yr0_price, this.analysisService.yr0_expenses.taxes_dol)],
+          data: [this.property.calcPropertyTaxesInYear(year, this.growth),],
           backgroundColor: '#139cd6'
         },
         {
           label: 'Insurance',
-          data: [this.calcService.calcPropertyInsuranceInYear(year, appreciationRate, yr0_price, this.analysisService.yr0_expenses.insurance_dol)],
+          data: [this.property.calcPropertyInsuranceInYear(year, this.growth, this.expenses),],
           backgroundColor: '#1b9e09'
         },
         {
           label: 'HOA Fees',
-          data: [this.calcService.calcHOAFeeInYear(year, appreciationRate, yr0_price, this.analysisService.yr0_expenses.hoa_dol)],
+          data: [this.property.calcHOAFeeInYear(year, this.growth),],
           backgroundColor: '#7bfa0c'
         },
         {
           label: 'Utilities',
-          data: [this.calcService.calcUtilitiesInYear(year, appreciationRate, yr0_price, this.analysisService.yr0_expenses.utilities_dol)],
+          data: [this.property.calcUtilitiesInYear(year, this.growth, this.expenses),],
           backgroundColor: '#faf20c'
         },
         {
           label: 'Miscellaneous',
-          data: [this.calcService.calcMiscExpensesInYear(year, appreciationRate, yr0_price, this.analysisService.yr0_expenses.misc_expenses_dol)],
+          data: [this.property.calcMiscExpensesInYear(year, this.growth, this.expenses),],
           backgroundColor: '#faaf0c'
         },
         {
           label: 'Capital Expenses',
-          data: [this.calcService.calcCapexExpenseInYear(year, appreciationRate, yr0_price, this.analysisService.yr0_expenses.capex_rate)],
+          data: [this.property.calcCapexExpenseInYear(year, this.growth, this.expenses),],
           backgroundColor: '#fa570c'
         },
         {
           label: 'Debt Service',
-          data: [this.calcService.calcMonthlyPayment(yr0_price, this.analysisService.downPaymentPercentage, this.analysisService.loanTerm, this.analysisService.interestRate)*12],
+          data: [this.property.calcMonthlyPayment(this.mortgage)*12],
           backgroundColor: '#d61313'
         }
       ]

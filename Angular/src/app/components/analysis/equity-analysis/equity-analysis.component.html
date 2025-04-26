@@ -20,9 +20,9 @@
                             <td>Appreciation Rate</td>
                             <td>
                                 <app-numerical-input 
-                                    [modelField]="analysisService.appreciationRate" 
+                                    [modelField]="growth.appreciationRate" 
                                     [numType]="'PERCENT'" 
-                                    (modelFieldChange)="analysisService.appreciationRate = $event; updateBarChart()">
+                                    (modelFieldChange)="growth.appreciationRate = $event; updateBarChart()">
                                 </app-numerical-input>
                             </td>
                         </tr>
@@ -32,9 +32,9 @@
                             <td>Expense Increase Rate</td>
                             <td>
                                 <app-numerical-input 
-                                    [modelField]="analysisService.expenseIncreaseRate" 
+                                    [modelField]="growth.expenseIncreaseRate" 
                                     [numType]="'PERCENT'" 
-                                    (modelFieldChange)="analysisService.expenseIncreaseRate = $event; updateBarChart()">
+                                    (modelFieldChange)="growth.expenseIncreaseRate = $event; updateBarChart()">
                                 </app-numerical-input>
                             </td>
                         </tr>
@@ -44,9 +44,9 @@
                             <td>Rent Growth Rate</td>
                             <td>
                                 <app-numerical-input 
-                                    [modelField]="analysisService.rentGrowthRate" 
+                                    [modelField]="growth.rentGrowthRate" 
                                     [numType]="'PERCENT'" 
-                                    (modelFieldChange)="analysisService.rentGrowthRate = $event; updateBarChart()">
+                                    (modelFieldChange)="growth.rentGrowthRate = $event; updateBarChart()">
                                 </app-numerical-input>
                             </td>
                         </tr>
@@ -56,9 +56,9 @@
                             <td>Closing Costs</td>
                             <td>
                                 <app-numerical-input 
-                                    [modelField]="analysisService.closingCostRate" 
+                                    [modelField]="growth.closingCostRate" 
                                     [numType]="'PERCENT'" 
-                                    (modelFieldChange)="analysisService.closingCostRate = $event; updateBarChart()">
+                                    (modelFieldChange)="growth.closingCostRate = $event; updateBarChart()">
                                 </app-numerical-input>
                             </td>
                         </tr>
@@ -68,9 +68,9 @@
                             <td>Cost to Sell</td>
                             <td>
                                 <app-numerical-input 
-                                    [modelField]="analysisService.costToSellRate" 
+                                    [modelField]="growth.costToSellRate" 
                                     [numType]="'PERCENT'" 
-                                    (modelFieldChange)="analysisService.costToSellRate = $event; updateBarChart()">
+                                    (modelFieldChange)="growth.costToSellRate = $event; updateBarChart()">
                                 </app-numerical-input>
                             </td>
                         </tr>

@@ -4,7 +4,7 @@
     <div class="flex-grow-1" style="overflow: hidden;">
         <mat-tab-group [preserveContent]="true">
 
-            <mat-tab *ngIf="property" label="Home Info"> 
+            <mat-tab label="Home Info"> 
                 <ng-template matTabContent>
                     <app-full-home-info [property]="property"></app-full-home-info>
                 </ng-template>
@@ -12,19 +12,19 @@
 
             <mat-tab label="Profit/Loss Statement"> 
                 <ng-template matTabContent>
-                    <app-profit-loss [property]="property"></app-profit-loss> 
+                    <app-profit-loss [property]="property" [mortgage]="mortgage" [growth]="growth" [expenses]="expenses"></app-profit-loss> 
                 </ng-template>
             </mat-tab>
             
             <mat-tab label="Mortgage Calculator">
                 <ng-template matTabContent>
-                    <app-mortgage-calc [property]="property"></app-mortgage-calc> 
+                    <app-mortgage-calc [property]="property" [mortgage]="mortgage"></app-mortgage-calc> 
                 </ng-template>
             </mat-tab>
             
             <mat-tab label="Equity Growth">
                 <ng-template matTabContent>
-                    <app-equity-analysis [property]="property"></app-equity-analysis>
+                    <app-equity-analysis [property]="property" [mortgage]="mortgage" [growth]="growth" [expenses]="expenses"></app-equity-analysis>
                 </ng-template>
             </mat-tab>
         </mat-tab-group>

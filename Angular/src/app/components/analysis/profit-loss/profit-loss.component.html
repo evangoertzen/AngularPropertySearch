@@ -18,23 +18,23 @@
                     <tr>
                         <td>Monthly Rent Income</td>
                         <td class="text-center" style="width: 200px;">
-                            <app-rent-display *ngIf="property && !property.rent" [property]="property" (rentChange)="rentChangeFromAPI($event)"></app-rent-display>
+                            <app-rent-display *ngIf="property && !property.monthly_rent" [property]="property" (rentChange)="rentChangeFromAPI($event)"></app-rent-display>
                             <app-numerical-input 
-                                *ngIf="!property || (property && property.rent)"
-                                [modelField]="analysisService.yr0_income.rent_dol/12" 
+                                *ngIf="!property || (property && property.monthly_rent)"
+                                [modelField]="property.monthly_rent"
                                 [numType]="'DOLLARS'" 
-                                (modelFieldChange)="updateRent($event); updatePieChart()">
+                                (modelFieldChange)="updateRent($event);">
                             </app-numerical-input>
                         </td>
                     </tr>
 
                     <!-- Annual Rent Income -->
-                    <tr *ngIf="!property || (property && property.rent)">
+                    <tr *ngIf="!property || (property && property.yearly_rent)">
                         <td>Annual Rent Income</td>
                         <td>
                             <app-numerical-input 
-                                *ngIf="!property || (property && property.rent)"
-                                [modelField]="analysisService.yr0_income.rent_dol" 
+                                *ngIf="!property || (property && property.yearly_rent)"
+                                [modelField]="property.yearly_rent" 
                                 [numType]="'DOLLARS'" 
                                 [disabled]="true">
                             </app-numerical-input>
@@ -47,9 +47,9 @@
                         <td>
                             
                             <app-numerical-input 
-                                [modelField]="analysisService.yr0_expenses.vacancy_rate" 
+                                [modelField]="expenses.vacancy_rate" 
                                 [numType]="'PERCENT'" 
-                                (modelFieldChange)="analysisService.yr0_expenses.vacancy_rate = $event; updatePieChart()">
+                                (modelFieldChange)="expenses.vacancy_rate = $event; updatePieChart()">
                             </app-numerical-input>
 
                         </td>
@@ -60,8 +60,8 @@
                         <td><strong>Total Operating Income</strong></td>
                         <td>
                             <app-numerical-input 
-                                [modelField]="calcService.calculateOperatingIncomeInYear(analysisService.year, analysisService.yr0_income.rent_dol, analysisService.rentGrowthRate, analysisService.yr0_expenses.vacancy_rate)" 
-                                [numType]="'DOLLARS'" 
+                                [modelField]="property.calculateOperatingIncomeInYear(analysisService.year, growth, expenses)"
+                                [numType]="'DOLLARS'"
                                 [disabled]="true">
                             </app-numerical-input>
                         </td>
@@ -100,7 +100,7 @@
                         </td>
                         <td>
                             <app-numerical-input 
-                                [modelField]="(calcService.calcMonthlyPayment(analysisService.purchasePrice, analysisService.downPaymentPercentage, analysisService.loanTerm, analysisService.interestRate)*12)" 
+                                [modelField]="(property.calcMonthlyPayment(mortgage)*12)" 
                                 [numType]="'DOLLARS'" 
                                 [disabled]="true">
                             </app-numerical-input>
@@ -112,9 +112,9 @@
                         <td>Capital Expenses</td>
                         <td>
                             <app-numerical-input 
-                                [modelField]="analysisService.yr0_expenses.capex_rate" 
+                                [modelField]="expenses.capex_rate" 
                                 [numType]="'PERCENT'" 
-                                (modelFieldChange)="analysisService.yr0_expenses.capex_rate = $event; updatePieChart()">
+                                (modelFieldChange)="expenses.capex_rate = $event; updatePieChart()">
                             </app-numerical-input>
                         
                         </td>
@@ -163,9 +163,9 @@
                                     <td>Maintenance Costs</td>
                                     <td>
                                         <app-numerical-input 
-                                            [modelField]="analysisService.yr0_expenses.maintenance_rate" 
+                                            [modelField]="expenses.maintenance_rate" 
                                             [numType]="'PERCENT'" 
-                                            (modelFieldChange)="analysisService.yr0_expenses.maintenance_rate = $event; updatePieChart()">
+                                            (modelFieldChange)="expenses.maintenance_rate = $event; updatePieChart()">
                                         </app-numerical-input>
                                     </td>
                                 </tr>
@@ -175,9 +175,9 @@
                                     <td>Management Fee</td>
                                     <td>
                                         <app-numerical-input 
-                                            [modelField]="analysisService.yr0_expenses.management_fee_rate" 
+                                            [modelField]="expenses.management_fee_rate" 
                                             [numType]="'PERCENT'" 
-                                            (modelFieldChange)="analysisService.yr0_expenses.management_fee_rate = $event; updatePieChart()">
+                                            (modelFieldChange)="expenses.management_fee_rate = $event; updatePieChart()">
                                         </app-numerical-input>
                                     </td>
                                 </tr>
@@ -187,9 +187,9 @@
                                     <td>Property Taxes</td>
                                     <td>
                                         <app-numerical-input 
-                                            [modelField]="analysisService.yr0_expenses.taxes_dol" 
+                                            [modelField]="property.tax" 
                                             [numType]="'DOLLARS'" 
-                                            (modelFieldChange)="analysisService.yr0_expenses.taxes_dol = $event; updatePieChart()">
+                                            (modelFieldChange)="property.tax = $event; updatePieChart()">
                                         </app-numerical-input>
                                     </td>
                                 </tr>
@@ -199,9 +199,9 @@
                                     <td>Insurance</td>
                                     <td>
                                         <app-numerical-input 
-                                            [modelField]="analysisService.yr0_expenses.insurance_dol" 
+                                            [modelField]="expenses.insurance_dol" 
                                             [numType]="'DOLLARS'" 
-                                            (modelFieldChange)="analysisService.yr0_expenses.insurance_dol = $event; updatePieChart()">
+                                            (modelFieldChange)="expenses.insurance_dol = $event; updatePieChart()">
                                         </app-numerical-input>
                                     </td>
                                 </tr>
@@ -211,9 +211,9 @@
                                     <td>HOA Fee</td>
                                     <td>
                                         <app-numerical-input 
-                                            [modelField]="analysisService.yr0_expenses.hoa_dol" 
+                                            [modelField]="expenses.hoa_dol" 
                                             [numType]="'DOLLARS'" 
-                                            (modelFieldChange)="analysisService.yr0_expenses.hoa_dol = $event; updatePieChart()">
+                                            (modelFieldChange)="expenses.hoa_dol = $event; updatePieChart()">
                                         </app-numerical-input>
                                     </td>
                                 </tr>
@@ -223,9 +223,9 @@
                                     <td>Utilities Cost</td>
                                     <td>
                                         <app-numerical-input 
-                                            [modelField]="analysisService.yr0_expenses.utilities_dol" 
+                                            [modelField]="expenses.utilities_dol" 
                                             [numType]="'DOLLARS'" 
-                                            (modelFieldChange)="analysisService.yr0_expenses.utilities_dol = $event; updatePieChart()">
+                                            (modelFieldChange)="expenses.utilities_dol = $event; updatePieChart()">
                                         </app-numerical-input>
                                     </td>
                                 </tr>
@@ -235,9 +235,9 @@
                                     <td>Miscellaneous Expenses</td>
                                     <td>
                                         <app-numerical-input 
-                                            [modelField]="analysisService.yr0_expenses.misc_expenses_dol" 
+                                            [modelField]="expenses.misc_expenses_dol" 
                                             [numType]="'DOLLARS'" 
-                                            (modelFieldChange)="analysisService.yr0_expenses.misc_expenses_dol = $event; updatePieChart()">
+                                            (modelFieldChange)="expenses.misc_expenses_dol = $event; updatePieChart()">
                                         </app-numerical-input>
                                     </td>
                                 </tr>

@@ -1,16 +1,23 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { GrowthModel } from 'src/app/models/equityGrowth.model';
+import { ExpensesModel } from 'src/app/models/expenses.model';
+import { MortgageModel } from 'src/app/models/mortgage.model';
 import { PropertyModel } from 'src/app/models/property.model';
 import { AnalysisService } from 'src/app/services/analysis-service/analysis.service';
 import { CalculatorService } from 'src/app/services/calculator-service/calculator-service.service';
 
 @Component({
-  selector: 'app-equity-analysis',
+  selector: 'app-equity-analysis [property] [expenses] [mortgage] [growth]',
   templateUrl: './equity-analysis.component.html',
   styleUrl: './equity-analysis.component.css',
   standalone: false
 })
 export class EquityAnalysisComponent implements OnInit {
-  @Input() property: PropertyModel | null = null;
+
+  @Input() property!: PropertyModel;
+  @Input() expenses!: ExpensesModel;
+  @Input() mortgage!: MortgageModel;
+  @Input() growth!: GrowthModel;
 
   public sellInYear = 30;
 
@@ -56,55 +63,31 @@ export class EquityAnalysisComponent implements OnInit {
   }
 
   calcTotalExpensesInYr(yr: number){
-    let operatingExpenses = this.calcService.calcTotalOperatingExpensesInYear(
+    let operatingExpenses = this.property.calcTotalOperatingExpensesInYear(
       this.analysisService.year,
-      this.analysisService.yr0_income.rent_dol,
-      this.analysisService.purchasePrice,
-      this.analysisService.rentGrowthRate,
-      this.analysisService.yr0_expenses.maintenance_rate,
-      this.analysisService.yr0_expenses.management_fee_rate,
-      this.analysisService.appreciationRate,
-      this.analysisService.yr0_expenses.taxes_dol,
-      this.analysisService.yr0_expenses.insurance_dol,
-      this.analysisService.yr0_expenses.hoa_dol,
-      this.analysisService.yr0_expenses.utilities_dol,
-      this.analysisService.yr0_expenses.misc_expenses_dol
+      this.expenses,
+      this.growth
     );
 
+    let mortgageExpense = 0;
     // include mortgage only if not paid off
-    if(yr<this.analysisService.loanTerm){
-      let mortgageExpense = this.calcService.calcMonthlyPayment(
-        this.analysisService.purchasePrice,
-        this.analysisService.downPaymentPercentage,
-        this.analysisService.loanTerm,
-        this.analysisService.interestRate)*12;
-
-      return operatingExpenses+mortgageExpense;
+    if(yr<this.mortgage.loanTerm){
+      mortgageExpense = this.property.calcMonthlyPayment(this.mortgage)*12;
     }
 
+    let capex = this.property.calcCapexExpenseInYear(this.analysisService.year, this.growth, this.expenses);
+
     // if not still paying mortgage, return only NOE
-    return operatingExpenses;
+    return operatingExpenses + mortgageExpense + capex;
   }
 
   // get cash generated in year from rent - vacancy - other expenses - mortgage
   calcCashProfitInYear(yr:number){
-    return this.calcService.calcCashFlowInYear(
+    return this.property.calcCashFlowInYear(
       yr,
-      this.analysisService.yr0_income.rent_dol,
-      this.analysisService.purchasePrice,
-      this.analysisService.rentGrowthRate,
-      this.analysisService.yr0_expenses.maintenance_rate,
-      this.analysisService.yr0_expenses.management_fee_rate,
-      this.analysisService.appreciationRate,
-      this.analysisService.yr0_expenses.taxes_dol,
-      this.analysisService.yr0_expenses.insurance_dol,
-      this.analysisService.yr0_expenses.hoa_dol,
-      this.analysisService.yr0_expenses.utilities_dol,
-      this.analysisService.yr0_expenses.misc_expenses_dol,
-      this.analysisService.yr0_expenses.vacancy_rate,
-      this.analysisService.downPaymentPercentage,
-      this.analysisService.loanTerm,
-      this.analysisService.interestRate
+      this.expenses,
+      this.growth,
+      this.mortgage
     )
   }
 
@@ -120,46 +103,30 @@ export class EquityAnalysisComponent implements OnInit {
 
   // get paid down debt in year
   calcPaidDownDebt(yr: number){
-    let ogLoanAmount = this.calcService.calcMortgageAmount(this.analysisService.purchasePrice, this.analysisService.downPaymentPercentage) ;
+    let ogLoanAmount = this.property.calcMortgageAmount(this.mortgage);
     
-    let loanLeft = this.calcService.calcRemainingLoanBalance(
-      this.analysisService.purchasePrice,
-      yr,
-      this.analysisService.downPaymentPercentage,
-      this.analysisService.loanTerm,
-      this.analysisService.interestRate
-    );
+    let loanLeft = this.property.calcRemainingLoanBalance( yr, this.mortgage );
 
     return ogLoanAmount - loanLeft;
   }
 
   calcDownPayment(){
-    return this.calcService.calcDownPayment(
-      this.analysisService.purchasePrice,
-      this.analysisService.downPaymentPercentage
-    )
+    return this.property.calcDownPayment( this.mortgage )
   }
 
   // get growth of property value
   calcPropValueGrowth(yr: number){
-    let curVal = this.calcService.calcHomeValueInYear(
-      yr,
-      this.analysisService.purchasePrice,
-      this.analysisService.appreciationRate,
-    )
+    let curVal = this.property.calcHomeValueInYear( yr, this.growth )
 
-    return curVal - this.analysisService.purchasePrice;
+    return curVal - this.property.purchase_price;
   }
 
   calcTotalEquity(yr: number){
-    return this.calcService.calcDownPayment(this.analysisService.purchasePrice, this.analysisService.downPaymentPercentage) 
-    + this.calcPaidDownDebt(yr) 
-    + this.calcPropValueGrowth(yr)
-    + this.calcCashEquityInYear(yr);
+    return this.property.calcDownPayment(this.mortgage)
   }
 
   calcInitialCost(){
-    return this.calcService.calcCashRequired(this.analysisService.purchasePrice, this.analysisService.downPaymentPercentage, this.analysisService.closingCostRate);
+    return this.property.calcCashRequired(0, this.growth, this.mortgage);
   }
 
   calcCreatedEquity(yr: number){
@@ -178,25 +145,11 @@ export class EquityAnalysisComponent implements OnInit {
   }
 
   calcIRR(yr: number){
-    return this.calcService.calcIRR(
+    return this.property.calcIRR(
       yr,
-      this.analysisService.yr0_income.rent_dol,
-      this.analysisService.purchasePrice,
-      this.analysisService.rentGrowthRate,
-      this.analysisService.yr0_expenses.maintenance_rate,
-      this.analysisService.yr0_expenses.management_fee_rate,
-      this.analysisService.appreciationRate,
-      this.analysisService.yr0_expenses.taxes_dol,
-      this.analysisService.yr0_expenses.insurance_dol,
-      this.analysisService.yr0_expenses.hoa_dol,
-      this.analysisService.yr0_expenses.utilities_dol,
-      this.analysisService.yr0_expenses.misc_expenses_dol,
-      this.analysisService.yr0_expenses.vacancy_rate,
-      this.analysisService.downPaymentPercentage,
-      this.analysisService.loanTerm,
-      this.analysisService.interestRate,
-      this.analysisService.closingCostRate,
-      this.analysisService.costToSellRate
+      this.expenses,
+      this.growth,
+      this.mortgage
     )
 
   }

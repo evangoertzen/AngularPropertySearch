@@ -14,9 +14,9 @@
                 <td>Purchase Price</td>
                 <td>
                     <app-numerical-input 
-                        [modelField]="analysisService.purchasePrice" 
+                        [modelField]="property.purchase_price" 
                         [numType]="'DOLLARS'" 
-                        (modelFieldChange)="analysisService.purchasePrice = $event; updatePieChart()">
+                        (modelFieldChange)="property.purchase_price= $event; updatePieChart()">
                     </app-numerical-input>
                 </td>
             </tr>
@@ -25,9 +25,9 @@
                 <td>Interest Rate </td>
                 <td>
                     <app-numerical-input 
-                        [modelField]="analysisService.interestRate" 
+                        [modelField]="mortgage.interestRate" 
                         [numType]="'PERCENT'" 
-                        (modelFieldChange)="analysisService.interestRate = $event; updatePieChart()">
+                        (modelFieldChange)="mortgage.interestRate= $event; updatePieChart()">
                     </app-numerical-input>
                 </td>
             </tr>
@@ -37,8 +37,8 @@
                 <td>Loan Term (years) </td>
                 <td>
                     <app-numerical-input 
-                        [modelField]="analysisService.loanTerm" 
-                        (modelFieldChange)="analysisService.loanTerm = $event; updatePieChart()">
+                        [modelField]="mortgage.loanTerm" 
+                        (modelFieldChange)="mortgage.loanTerm = $event; updatePieChart()">
                     </app-numerical-input>
                 </td>
             </tr>
@@ -48,9 +48,9 @@
                 <td>Down Payment</td>
                 <td>
                     <app-numerical-input 
-                        [modelField]="analysisService.downPaymentPercentage" 
+                        [modelField]="mortgage.downPaymentPercentage" 
                         [numType]="'PERCENT'" 
-                        (modelFieldChange)="analysisService.downPaymentPercentage = $event; updatePieChart()">
+                        (modelFieldChange)="mortgage.downPaymentPercentage = $event; updatePieChart()">
                     </app-numerical-input>
                 </td>
             </tr>
@@ -60,7 +60,7 @@
                 <td><strong>Down Payment</strong></td>
                 <td>
                     <app-numerical-input 
-                        [modelField]="calcService.calcDownPayment(analysisService.purchasePrice, analysisService.downPaymentPercentage)" 
+                        [modelField]="property.calcDownPayment(mortgage)" 
                         [numType]="'DOLLARS'" 
                         [disabled]="true">
                     </app-numerical-input>
@@ -72,7 +72,7 @@
                 <td><strong>Monthly Payment</strong></td>
                 <td>
                 <app-numerical-input 
-                    [modelField]="calcService.calcMonthlyPayment(analysisService.purchasePrice, analysisService.downPaymentPercentage, analysisService.loanTerm, analysisService.interestRate)" 
+                    [modelField]="property.calcMonthlyPayment(mortgage)" 
                     [numType]="'DOLLARS'" 
                     [disabled]="true">
                 </app-numerical-input>

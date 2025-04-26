@@ -1,13 +1,9 @@
-<div *ngIf="!property?.rent && !rentLoading">
+<div *ngIf="!property?.monthly_rent && !rentLoading">
     <app-common-button [text]="'Get Rent'" (onClickEmitter)="openRentDialog()"></app-common-button>
 </div>
 
 <div *ngIf="rentLoading" class="d-flex justify-content-center">
     <!-- Loading... -->
     <i class="pi pi-spin pi-cog" style="font-size: 1rem"></i>
-</div>
-
-<div *ngIf="property?.rent">
-    <p>Rent: ${{property.rent.toFixed(2)}}</p>
 </div>
 

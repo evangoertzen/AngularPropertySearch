@@ -3,7 +3,7 @@
         <app-home-type-and-status [homeType]="property.style" [saleStatus]="property.status"></app-home-type-and-status>
     </div>
 
-    <div *ngIf="property.rent"
+    <div *ngIf="property.monthly_rent"
         class="pl-2 pr-2 rounded-xl inline-block w-fit whitespace-nowrap"
         [ngClass]="{
             'red-class': cashFlow < 0,
