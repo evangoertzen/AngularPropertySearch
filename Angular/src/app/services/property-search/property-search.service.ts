@@ -5,6 +5,7 @@ import { PropertyModel } from '../../models/property.model'
 import { SearchFormModel } from 'src/app/models/searchForm.model';
 import * as L from 'leaflet';
 import { CalculatorService } from '../calculator-service/calculator-service.service';
+import { MessageService } from '../message-service/message-service.service';
 
 
 const propSearchURL = 'https://capstone-api-q4ndukmdiq-uc.a.run.app/getProperties'
@@ -60,7 +61,8 @@ export class PropertySearchService {
 
   constructor(
     private http: HttpClient,
-    private calcService: CalculatorService
+    private calcService: CalculatorService,
+    private messageService: MessageService
   ) { }
 
   private getPropertyJson(location: string, minPrice: number, maxPrice: number, minBeds: number, minBaths:number, listingType: string): Observable<PropertyModel[]>{
@@ -95,28 +97,30 @@ export class PropertySearchService {
     this.properties = [];
     this.unfilteredProperties= [];
     this.loadingProperties = true;
-    this.showErr = false;
     this.searchFinished = false;
 
     if(searchForm.location != null && searchForm.minPrice != null && searchForm.maxPrice != null && searchForm.listingType != null && searchForm.minBeds != null && searchForm.minBaths != null){
       this.getPropertyJson(searchForm.location, searchForm.minPrice, searchForm.maxPrice, searchForm.minBeds, searchForm.minBaths, searchForm.listingType).subscribe( propList => {
-  
-        this.properties = propList;
-        this.unfilteredProperties = this.properties;
-        console.log(this.properties);
+        
+        if(propList.length){
+          this.properties = propList;
+          this.unfilteredProperties = this.properties;
+          this.updateMap();
+        }else{
+          this.messageService.showError("No properties found.");
+        }
   
         this.loadingProperties = false;
         this.searchFinished = true;
 
-        this.updateMap();
   
       }, err => {
-        this.showErr = true;
         this.loadingProperties = false;
         this.searchFinished = true;
+        this.messageService.showError("Error getting properties.");
       })
     } else {
-      console.log("Can't load properties. Something not set.");
+      this.messageService.showError("Please fill out the search form.");
     }
   }
 

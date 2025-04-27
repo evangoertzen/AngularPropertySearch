@@ -11,6 +11,7 @@ import { MapService } from 'src/app/services/map-service/map.service';
 import { createDefaultExpenses } from 'src/app/models/expenses.model';
 import { createDefaultGrowthModel } from 'src/app/models/equityGrowth.model';
 import { createDefaultMortgageModel } from 'src/app/models/mortgage.model';
+import { MessageService } from 'src/app/services/message-service/message-service.service';
 
 @Component({
   selector: 'app-filter-and-sort',
@@ -28,9 +29,8 @@ export class FilterAndSortComponent {
   constructor(
     public searchService: PropertySearchService,
     private dialog: MatDialog,
-    private calcService: CalculatorService,
-    private analysisService: AnalysisService,
-    private mapService: MapService
+    private mapService: MapService,
+    private messageService: MessageService
   ){}
 
   setSortMethod(event: any){
@@ -85,7 +85,7 @@ export class FilterAndSortComponent {
     }
     
     if(tempProps.length === 0){
-      // send warning that nothing matches these filters
+      this.messageService.showError("No properties match the filter(s). Showing all properties.")
       this.searchService.resetPropertyList();
     }else{
       this.searchService.properties = tempProps;
