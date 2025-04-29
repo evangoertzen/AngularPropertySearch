@@ -105,10 +105,11 @@ export class PropertySearchService {
         if(propList.length){
           this.properties = propList;
           this.unfilteredProperties = this.properties;
-          this.updateMap();
         }else{
           this.messageService.showError("No properties found.");
         }
+        
+        this.updateMap();
   
         this.loadingProperties = false;
         this.searchFinished = true;
