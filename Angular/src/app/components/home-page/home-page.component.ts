@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PropertySearchService } from 'src/app/services/property-search/property-search.service';
 
 @Component({
@@ -7,10 +7,15 @@ import { PropertySearchService } from 'src/app/services/property-search/property
   styleUrl: './home-page.component.css',
   standalone: false
 })
-export class HomePageComponent {
+export class HomePageComponent implements OnInit {
 
   constructor(
     public searchService: PropertySearchService
   ){}
+
+  ngOnInit(){
+    // clear the filters on property list on init
+    this.searchService.resetPropertyList();
+  }
 
 }

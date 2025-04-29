@@ -26,6 +26,9 @@ export class FilterAndSortComponent {
   selectedTypes: Set<string> = new Set();
   selectedFilters: Set<string> = new Set();
 
+  builtYear = 2000;
+  pricePerSqrft = 100;
+
   constructor(
     public searchService: PropertySearchService,
     private dialog: MatDialog,
@@ -81,7 +84,17 @@ export class FilterAndSortComponent {
 
     // apply no hoa filter  
     if(this.selectedFilters.has('No-HOA')){
-      tempProps = tempProps.filter(p => p.yearly_hoa_fee == 0)
+      tempProps = tempProps.filter(p => p.yearly_hoa_fee == 0);
+    }
+
+    // apply year built filter  
+    if(this.selectedFilters.has('Year-built')){
+      tempProps = tempProps.filter(p => p.year_built > this.builtYear);
+    }
+
+    // apply price per sqrft filter
+    if(this.selectedFilters.has('Sqrft')){
+      tempProps = tempProps.filter(p => p.price_per_sqft < this.pricePerSqrft);
     }
     
     if(tempProps.length === 0){
@@ -152,4 +165,9 @@ export class FilterAndSortComponent {
     this.searchService.properties = tupleArr.map(([x, item]) => item);
     this.searchService.loadingProperties = false;
   }
+
+  formatLabel(value: number): string {
+    return '$' + `${value}`;
+  }
+
 }

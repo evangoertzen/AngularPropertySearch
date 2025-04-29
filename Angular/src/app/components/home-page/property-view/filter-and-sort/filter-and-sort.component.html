@@ -35,12 +35,28 @@
         <app-filter-toggle [filterName]="'Farm'" (toggled)="togglePropertyTypeFilter(searchService.propTypes.Farm, $event)"></app-filter-toggle>
         <app-filter-toggle [filterName]="'Mobile Homes'" (toggled)="togglePropertyTypeFilter(searchService.propTypes.Mobile, $event)"></app-filter-toggle>
       </div>
-  
-      <div class="small fw-bold">Home Info</div>
+    </div>
+    
+    <!-- Filter sliders column -->
+    <div style="min-width: 250px;">
+      <div class="fw-bold mb-2">Home Info</div>
+
+      <div class="small fw-bold">HOA</div>
       <div>
         <app-filter-toggle [filterName]="'No-HOA'" (toggled)="toggleFilter('No-HOA', $event)"></app-filter-toggle>
       </div>
+      
+      <div class="small fw-bold">Year</div>
+      <app-filter-toggle [filterName]="'Built after year'" (toggled)="toggleFilter('Year-built', $event)"></app-filter-toggle>
+      <mat-slider min="1950" max="2025" step="1" showTickMarks discrete >
+        <input matSliderThumb [(ngModel)]="builtYear" (input)="filter()">
+      </mat-slider>
+
+      <div class="small fw-bold">Price Per Sqare Foot</div>
+      <app-filter-toggle [filterName]="'Price Per Square Foot'" (toggled)="toggleFilter('Sqrft', $event)"></app-filter-toggle>
+      <mat-slider min="20" max="500" step="1" showTickMarks discrete [displayWith]="formatLabel">
+        <input matSliderThumb [(ngModel)]="pricePerSqrft" (input)="filter()">
+      </mat-slider>
+
     </div>
-  
-  </div>
-  
+</div>
