@@ -119,7 +119,7 @@ export class PropertyModel {
     set monthly_rent(val: number) { this._rent = val; }
 
     get yearly_rent(): number { return this._rent*12; }
-    set yearly_rent(val: number) { this._rent = val; }
+    set yearly_rent(val: number) { this._rent = val/12; }
 
     get property_url() { return this._property_url; }
     set property_url(val: string) { this._property_url = val; }
@@ -218,7 +218,7 @@ export class PropertyModel {
     set monthly_hoa_fee(val: number) { this._hoa_fee = val; }
 
     get yearly_hoa_fee() { return this._hoa_fee*12; }
-    set yearly_hoa_fee(val: number) { this._hoa_fee = val; }
+    set yearly_hoa_fee(val: number) { this._hoa_fee = val/12; }
 
     get nearby_schools() { return this._nearby_schools; }
     set nearby_schools(val: string) { this._nearby_schools = val; }
