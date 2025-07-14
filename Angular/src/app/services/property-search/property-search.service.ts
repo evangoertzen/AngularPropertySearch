@@ -69,7 +69,6 @@ export class PropertySearchService {
     return this.http.get<{ properties: PropertyModel[] }>(propSearchURL, {
       params : {
         location: location,
-        limit: 10000,
         minPrice: minPrice,
         maxPrice: maxPrice,
         minBeds: minBeds,

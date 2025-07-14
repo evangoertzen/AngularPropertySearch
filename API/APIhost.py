@@ -14,8 +14,8 @@ app.add_middleware(
 )
 
 @app.get("/getProperties")
-def get_properties(location: str, limit: int, minPrice: int, maxPrice: int, minBeds:int, minBaths:int, listingType: str):
-    return {"properties": ps.propSearch(location, limit, minPrice, maxPrice, minBeds, minBaths, listingType)}
+def get_properties(location: str, minPrice: int, maxPrice: int, minBeds:int, minBaths:int, listingType: str):
+    return {"properties": ps.propSearch(location, minPrice, maxPrice, minBeds, minBaths, listingType)}
 
 @app.get("/getRent")
 def get_rent(address: str, apiKey: str, propertyType: str, bedrooms: str, bathrooms: str, squareFootage: str):

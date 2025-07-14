@@ -27,6 +27,7 @@ importantFields = ['property_url', 'property_id', 'listing_id', 'mls', 'mls_id',
              'primary_photo']
 
 COUNTER_FILE = "counter.json"
+PROPERTY_COUNT_LIMIT = 500
 
 # Load the counter from file
 def load_counter():
@@ -64,7 +65,7 @@ def get_counter():
 def filter_df(properties, minPrice, maxPrice, minBeds, minBaths, status):
     return properties[(properties['list_price'] <= maxPrice) & (properties['list_price'] >= minPrice) & (properties['status']==status) & (properties['beds']>=minBeds) & (properties['full_baths'] + properties['half_baths'] >= minBaths)]
 
-def propSearch(location: str, limit: int, minPrice: int, maxPrice: int, minBeds: int, minBaths: int, listingType: str):
+def propSearch(location: str, minPrice: int, maxPrice: int, minBeds: int, minBaths: int, listingType: str):
 
     storage_dir = "PropertyData/"
     location = location.lower().replace(" ", "_")
@@ -98,7 +99,7 @@ def propSearch(location: str, limit: int, minPrice: int, maxPrice: int, minBeds:
         with open(file_path, "r") as file:
             properties = pd.read_json(file_path, orient="records")
             properties = filter_df(properties, minPrice, maxPrice, minBeds, minBaths, listingType)
-            return properties.to_dict(orient="records")
+            return properties.head(PROPERTY_COUNT_LIMIT).to_dict(orient="records")
         return {}
     
     else:
@@ -112,10 +113,7 @@ def propSearch(location: str, limit: int, minPrice: int, maxPrice: int, minBeds:
             # date_to="2023-05-28",
             # foreclosure=True
             # mls_only=True,  # only fetch MLS listings
-            limit=500
         )
-
-        properties = properties.head(limit)
 
         # filter out unnecessary fields 
         properties = properties[importantFields]
@@ -135,7 +133,8 @@ def propSearch(location: str, limit: int, minPrice: int, maxPrice: int, minBeds:
     
         properties = filter_df(properties, minPrice, maxPrice, minBeds, minBaths, listingType)
 
-        return properties.to_dict(orient="records")
+        # save all, but only return first 500
+        return properties.head(PROPERTY_COUNT_LIMIT).to_dict(orient="records")
 
 
 def calcRent(address: str, apiKey: str, propertyType: str, bedrooms: str, bathrooms: str, squareFootage: str):

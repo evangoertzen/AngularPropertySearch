@@ -47,7 +47,7 @@ pip install -U HomeHarvest
 
 To run host:
 ```
-uvicorn APIhost:app --host 0.0.0.0 --port 8000
+uvicorn APIhost:app --host 0.0.0.0 --port 8000 --reload
 ```
 
 Required to host/access from same PC for development:
