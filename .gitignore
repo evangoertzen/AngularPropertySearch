@@ -54,3 +54,6 @@ Angular/dist/
 #pycache dir
 API/__pycache__
 *.pyc
+
+#python virtual environment
+/venv310/
