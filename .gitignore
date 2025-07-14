@@ -56,4 +56,4 @@ API/__pycache__
 *.pyc
 
 #python virtual environment
-/venv310/
+API/venv310/
