@@ -63,7 +63,10 @@ def get_counter():
     return data["count"]
 
 def filter_df(properties, minPrice, maxPrice, minBeds, minBaths, status):
-    return properties[(properties['list_price'] <= maxPrice) & (properties['list_price'] >= minPrice) & (properties['status']==status) & (properties['beds']>=minBeds) & (properties['full_baths'] + properties['half_baths'] >= minBaths)]
+    if(status):
+        return properties[(properties['list_price'] <= maxPrice) & (properties['list_price'] >= minPrice) & (properties['status']==status) & (properties['beds']>=minBeds) & (properties['full_baths'] + properties['half_baths'] >= minBaths)]
+    else:
+        return properties[(properties['list_price'] <= maxPrice) & (properties['list_price'] >= minPrice) & (properties['beds']>=minBeds) & (properties['full_baths'] + properties['half_baths'] >= minBaths)]
 
 def propSearch(location: str, minPrice: int, maxPrice: int, minBeds: int, minBaths: int, listingType: str):
 

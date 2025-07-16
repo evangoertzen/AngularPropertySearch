@@ -8,6 +8,9 @@ import { CalculatorService } from '../calculator-service/calculator-service.serv
 import { MessageService } from '../message-service/message-service.service';
 
 
+// const propSearchURL = 'http://0.0.0.0:8000/getProperties'
+// const rentCalcURL = 'http://0.0.0.0:8000/getRent'
+
 const propSearchURL = 'https://capstone-api-q4ndukmdiq-uc.a.run.app/getProperties'
 const rentCalcURL = 'https://capstone-api-q4ndukmdiq-uc.a.run.app/getRent'
 
