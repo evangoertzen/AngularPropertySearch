@@ -1,5 +1,10 @@
-<div *ngIf="propertySearch.loadingProperties" class="d-flex justify-content-center align-items-center h-100">
+<div *ngIf="propertySearch.loadingProperties" class="d-flex flex-column justify-content-center align-items-center h-100">
+    <div>
         <i class="pi pi-spin pi-cog" style="font-size: 2rem"></i>
+    </div>    
+    <div class="pt-2">
+        <p>Retrieving properties... This may take up to 30 seconds.</p>
+    </div>
 </div>
 
 
