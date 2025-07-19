@@ -17,8 +17,6 @@ import { createDefaultGrowthModel, GrowthModel } from 'src/app/models/equityGrow
 })
 export class AnalysisComponent implements OnInit {
 
-  public mls_id: string | null = "";
-
   public property: PropertyModel;
   public expenses: ExpensesModel = createDefaultExpenses();
   public mortgage: MortgageModel = createDefaultMortgageModel();
@@ -36,12 +34,14 @@ export class AnalysisComponent implements OnInit {
     
     this.resetIncomeAndExpenses();
 
+    let property_id : string | null = "";
+
     this.route.queryParamMap.subscribe(params => {
-      this.mls_id = params.get('mls_id');
+      property_id = params.get('property_id');
     });
     
-    if(this.mls_id){
-      const propTemp = this.propertySearch.properties.find(property => property.mls_id === this.mls_id);
+    if(property_id){
+      const propTemp = this.propertySearch.properties.find(property => property.property_id == property_id);
 
       if(propTemp){
         this.property = propTemp;

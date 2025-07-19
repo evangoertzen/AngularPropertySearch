@@ -39,8 +39,8 @@ export class PropertyPanelComponent {
         return this.property.calcCashFlowInYear( 0, createDefaultExpenses(), createDefaultGrowthModel(), createDefaultMortgageModel() );
       }
 
-    goToAnalysis(mlsId: string) {
-        this.router.navigate(['analysis'], { queryParams: { mls_id: mlsId } });
+    goToAnalysis(property_id: string) {
+        this.router.navigate(['analysis'], { queryParams: { property_id: property_id } });
     }
 
 }
