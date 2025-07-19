@@ -116,9 +116,11 @@ export class MapComponent implements OnInit {
     });
 
     // float to markers
-    const bounds = L.latLngBounds(this.locations.map(loc => loc.coords));
-    this.propertySearch.mapBounds = bounds;
-    this.map.flyToBounds(bounds);
+    if(this.locations.length){
+      const bounds = L.latLngBounds(this.locations.map(loc => loc.coords));
+      this.propertySearch.mapBounds = bounds;
+      this.map.flyToBounds(bounds);
+    }
   }
 
   markerClicked(mls_id: string){
