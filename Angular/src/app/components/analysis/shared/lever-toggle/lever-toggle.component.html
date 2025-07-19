@@ -1,15 +1,15 @@
-<div class="toggle-container">
-    <input class="toggle-input" type="checkbox" [(ngModel)]="isChecked" (ngModelChange)="onCheckboxChange()">
-    <div class="toggle-handle-wrapper">
-        <div class="toggle-handle">
-            <div class="toggle-handle-knob"></div>
-            <div class="toggle-handle-bar-wrapper">
-            <div class="toggle-handle-bar"></div>
-            </div>
-        </div>
+<label class="toggle-container">
+  <input class="toggle-input" type="checkbox" [(ngModel)]="isChecked" (ngModelChange)="onCheckboxChange()">
+  <div class="toggle-handle-wrapper">
+    <div class="toggle-handle">
+      <div class="toggle-handle-knob"></div>
+      <div class="toggle-handle-bar-wrapper">
+        <div class="toggle-handle-bar"></div>
+      </div>
     </div>
-    <div class="toggle-base">
-        <div class="toggle-base-inside"></div>
-    </div>
-</div>
+  </div>
+  <div class="toggle-base">
+    <div class="toggle-base-inside"></div>
+  </div>
+</label>
 <p style="font-size: 12px;" class="pt-2">(click to toggle)</p>
