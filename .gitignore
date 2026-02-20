@@ -43,7 +43,7 @@ testem.log
 Thumbs.db
 
 #PropertyData directory
-API/PropertyData/
+# API/PropertyData/
 
 #counter file to limit requests
 API/counter.json

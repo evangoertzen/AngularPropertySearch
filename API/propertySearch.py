@@ -83,15 +83,15 @@ def propSearch(location: str, minPrice: int, maxPrice: int, minBeds: int, minBat
     four_hours_ago = time.time() - (4 * 3600)
     
     # delete all files over 4 hours old
-    for filename in os.listdir(storage_dir):
-        full_path = os.path.join(storage_dir, filename)
+    # for filename in os.listdir(storage_dir):
+    #     full_path = os.path.join(storage_dir, filename)
 
-        if os.path.isfile(full_path) and os.path.getmtime(full_path) < four_hours_ago:
-            try:
-                os.remove(full_path)
-                print(f"Removed: {full_path}")
-            except Exception as e:
-                print(f"Error removing {full_path}: {e}")
+    #     if os.path.isfile(full_path) and os.path.getmtime(full_path) < four_hours_ago:
+    #         try:
+    #             os.remove(full_path)
+    #             print(f"Removed: {full_path}")
+    #         except Exception as e:
+    #             print(f"Error removing {full_path}: {e}")
 
 
 
