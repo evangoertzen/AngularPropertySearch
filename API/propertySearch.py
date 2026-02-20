@@ -80,7 +80,7 @@ def propSearch(location: str, minPrice: int, maxPrice: int, minBeds: int, minBat
     if not os.path.exists(storage_dir):
         os.makedirs(storage_dir)
 
-    four_hours_ago = time.time() - (4 * 3600)
+    # four_hours_ago = time.time() - (4 * 3600)
     
     # delete all files over 4 hours old
     # for filename in os.listdir(storage_dir):
@@ -97,7 +97,7 @@ def propSearch(location: str, minPrice: int, maxPrice: int, minBeds: int, minBat
 
 
     #If file was saved in the last 4 hours, load it. Otherwise
-    if os.path.exists(file_path) and os.path.getmtime(file_path) > four_hours_ago:
+    if os.path.exists(file_path):
         
         with open(file_path, "r") as file:
             properties = pd.read_json(file_path, orient="records")
